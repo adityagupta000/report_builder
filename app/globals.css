@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 47.4% 11.2%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 20% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 210 20% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom styles for PDF generation */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact; /* Ensures background colors and images are printed */
+    print-color-adjust: exact;
+  }
+
+  /* Hide elements not needed in print */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure full page width for content */
+  .container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Adjust font sizes for print if necessary */
+  h1 {
+    font-size: 24pt !important;
+  }
+  h2 {
+    font-size: 20pt !important;
+  }
+  h3 {
+    font-size: 16pt !important;
+  }
+  p,
+  li,
+  span,
+  div {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Ensure backgrounds are printed */
+  .bg-gradient-to-r,
+  .bg-white,
+  .bg-gray-50,
+  .bg-blue-50,
+  .bg-green-50,
+  .bg-yellow-50,
+  .bg-red-50,
+  .bg-purple-50,
+  .bg-indigo-50,
+  .bg-orange-50,
+  .bg-teal-50,
+  .bg-violet-50 {
+    background-color: var(--tw-bg-opacity) !important;
+    background-image: none !important; /* Remove gradients for print */
+  }
+
+  /* Ensure borders are visible */
+  .border,
+  .border-2,
+  .border-b,
+  .border-t,
+  .border-l,
+  .border-r {
+    border-color: #ccc !important; /* Light grey border for visibility */
+  }
+
+  /* Page breaks for sections */
+  .page-break-before {
+    page-break-before: always;
+  }
+  .page-break-after {
+    page-break-after: always;
+  }
+  .page-break-inside-avoid {
+    page-break-inside: avoid;
+  }
+
+  /* Specific adjustments for cards and sections */
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+  }
+
+  /* Ensure images are printed */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
