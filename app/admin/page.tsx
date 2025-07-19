@@ -173,7 +173,7 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
         "Fast caffeine metabolism; higher intake may be tolerated.",
     },
   ],
-  // NEW: Default patient-specific results for dynamic diet fields
+
   patientDietAnalysisResults: [
     {
       fieldId: "carbohydrate_sensitivity",

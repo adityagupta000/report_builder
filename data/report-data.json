@@ -395,121 +395,91 @@
   },
   "metabolicCore": {
     "methylation": {
-      "genes": [
-        "MTHFR"
-      ],
+      "genes": ["MTHFR"],
       "genotype": "C/T",
       "impact": "Reduced folate metabolism",
       "advice": "Consider L-methylfolate supplementation."
     },
     "inflammation": {
-      "genes": [
-        "CRP"
-      ],
+      "genes": ["CRP"],
       "genotype": "G/A",
       "impact": "Increased inflammatory response",
       "advice": "Incorporate anti-inflammatory foods."
     },
     "oxidativeStress": {
-      "genes": [
-        "SOD2"
-      ],
+      "genes": ["SOD2"],
       "genotype": "T/C",
       "impact": "Reduced antioxidant defense",
       "advice": "Increase antioxidant-rich foods and supplements."
     },
     "detoxification": {
-      "genes": [
-        "GSTP1"
-      ],
+      "genes": ["GSTP1"],
       "genotype": "A/G",
       "impact": "Impaired detoxification capacity",
       "advice": "Support liver health with cruciferous vegetables."
     },
     "vitaminDMetabolism": {
-      "genes": [
-        "VDR"
-      ],
+      "genes": ["VDR"],
       "genotype": "C/C",
       "impact": "Reduced Vitamin D absorption",
       "advice": "Ensure adequate Vitamin D intake and sun exposure."
     },
     "lipidMetabolism": {
-      "genes": [
-        "APOE"
-      ],
+      "genes": ["APOE"],
       "genotype": "E3/E4",
       "impact": "Increased LDL cholesterol tendency",
       "advice": "Monitor lipid levels and follow a heart-healthy diet."
     },
     "insulinResistance": {
-      "genes": [
-        "TCF7L2"
-      ],
+      "genes": ["TCF7L2"],
       "genotype": "T/T",
       "impact": "Higher risk of insulin resistance",
       "advice": "Focus on low glycemic index foods and regular exercise."
     },
     "circadianRhythm": {
-      "genes": [
-        "CLOCK"
-      ],
+      "genes": ["CLOCK"],
       "genotype": "C/G",
       "impact": "Altered sleep-wake cycle",
       "advice": "Maintain consistent sleep schedule and optimize sleep environment."
     },
     "exerciseResponsiveness": {
-      "genes": [
-        "ACTN3"
-      ],
+      "genes": ["ACTN3"],
       "genotype": "R/X",
       "impact": "Enhanced power and strength response to training",
       "advice": "Incorporate strength and power training into routine."
     },
     "snackingTendency": {
-      "genes": [
-        "FTO"
-      ],
+      "genes": ["FTO"],
       "genotype": "A/A",
       "impact": "Increased tendency for snacking and higher BMI",
       "advice": "Practice mindful eating and portion control."
     },
     "oestrogenElimination": {
-      "genes": [
-        "COMT"
-      ],
+      "genes": ["COMT"],
       "genotype": "G/A",
       "impact": "Slower estrogen elimination",
       "advice": "Support liver detoxification pathways."
     },
     "powerVsEndurance": {
-      "genes": [
-        "ACE"
-      ],
+      "genes": ["ACE"],
       "genotype": "I/D",
       "impact": "Balanced power and endurance potential",
       "advice": "Vary training to include both power and endurance exercises."
     },
     "injuryRecovery": {
-      "genes": [
-        "COL1A1"
-      ],
+      "genes": ["COL1A1"],
       "genotype": "G/T",
       "impact": "Slower collagen repair, increased injury risk",
       "advice": "Focus on adequate protein and Vitamin C for tissue repair."
     },
     "fluidLossTendency": {
-      "genes": [
-        "AGT"
-      ],
+      "genes": ["AGT"],
       "genotype": "T/C",
       "impact": "Increased fluid and electrolyte loss during exercise",
       "advice": "Ensure proper hydration and electrolyte replenishment."
     },
     "vo2Max": {
-      "genes": [
-        "PPARGC1A"
-      ],
+      "genes": ["PPARGC1A"],
       "genotype": "G/G",
       "impact": "High VO2 Max potential",
       "advice": "Optimize cardiovascular training for peak performance."
@@ -521,7 +491,7 @@
       "description": "Good overall digestive function"
     },
     "glutenIntolerance": {
-      "level": "LOW INTOLERANCE",
+      "level": "LOW INTO",
       "description": "CONDITIONAL GLUTEN ELIMINATION NEEDED"
     },
     "celiacDiseaseTendency": {
@@ -605,10 +575,7 @@
     }
   ],
   "metabolicSummary": {
-    "strengths": [
-      "Efficient detoxification",
-      "Normal lipid metabolism"
-    ],
+    "strengths": ["Efficient detoxification", "Normal lipid metabolism"],
     "weaknesses": [
       "Increased oxidative stress",
       "Higher risk of insulin resistance"
@@ -616,10 +583,7 @@
   },
   "preventiveHealth": {
     "diagnosticTests": {
-      "halfYearly": [
-        "PLASMA SUGAR (FASTING & PP)",
-        "VITAMIN D"
-      ],
+      "halfYearly": ["PLASMA SUGAR (FASTING & PP)", "VITAMIN D"],
       "yearly": [
         "HbA1c",
         "LIPID PROFILE",
