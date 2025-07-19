@@ -1,13 +1,16 @@
-"use client"
-import type { ComprehensiveReportData, AllergyData } from "@/types/report-types"
-import React from "react"
+"use client";
+import type {
+  ComprehensiveReportData,
+  AllergyData,
+} from "@/types/report-types";
+import React from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 interface ComprehensiveReportViewerProps {
-  reportData: ComprehensiveReportData
+  reportData: ComprehensiveReportData;
 }
 
 const SectionTitle = ({ title, icon }: { title: string; icon: string }) => (
@@ -15,25 +18,35 @@ const SectionTitle = ({ title, icon }: { title: string; icon: string }) => (
     <span className="text-4xl">{icon}</span>
     {title}
   </h2>
-)
+);
 
 const SubSectionTitle = ({ title, icon }: { title: string; icon?: string }) => (
   <h3 className="text-2xl font-semibold text-gray-700 mb-4 mt-8 flex items-center gap-2">
     {icon && <span className="text-2xl">{icon}</span>}
     {title}
   </h3>
-)
+);
 
-const DataCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
+const DataCard = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
   <Card className="border-2 border-gray-200 bg-gray-50/50 shadow-sm">
     <CardHeader className="pb-2">
-      <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
+      <CardTitle className="text-lg font-semibold text-gray-800">
+        {title}
+      </CardTitle>
     </CardHeader>
     <CardContent className="text-sm text-gray-700">{children}</CardContent>
   </Card>
-)
+);
 
-export default function ComprehensiveReportViewer({ reportData }: ComprehensiveReportViewerProps) {
+export default function ComprehensiveReportViewer({
+  reportData,
+}: ComprehensiveReportViewerProps) {
   const {
     patientInfo,
     content,
@@ -53,45 +66,50 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
     preventiveHealth,
     familyGeneticImpact,
     summaries,
-  } = reportData
+  } = reportData;
 
   const getImpactColor = (impact: string) => {
-    if (impact.toLowerCase().includes("high") || impact.toLowerCase().includes("increased")) {
-      return "bg-red-100 text-red-800 border-red-300"
+    if (
+      impact.toLowerCase().includes("high") ||
+      impact.toLowerCase().includes("increased")
+    ) {
+      return "bg-red-100 text-red-800 border-red-300";
     }
-    if (impact.toLowerCase().includes("low") || impact.toLowerCase().includes("reduced")) {
-      return "bg-green-100 text-green-800 border-green-300"
+    if (
+      impact.toLowerCase().includes("low") ||
+      impact.toLowerCase().includes("reduced")
+    ) {
+      return "bg-green-100 text-green-800 border-green-300";
     }
     if (
       impact.toLowerCase().includes("normal") ||
       impact.toLowerCase().includes("average") ||
       impact.toLowerCase().includes("balanced")
     ) {
-      return "bg-blue-100 text-blue-800 border-blue-300"
+      return "bg-blue-100 text-blue-800 border-blue-300";
     }
-    return "bg-gray-100 text-gray-800 border-gray-300"
-  }
+    return "bg-gray-100 text-gray-800 border-gray-300";
+  };
 
   const getStatusColor = (status: "strength" | "improvement") => {
     return status === "strength"
       ? "bg-green-100 text-green-800 border-green-300"
-      : "bg-red-100 text-red-800 border-red-300"
-  }
+      : "bg-red-100 text-red-800 border-red-300";
+  };
 
   // Helper to group dynamic diet fields by category
-  const groupedDietFields = patientDietAnalysisResults.reduce(
-    (acc, result) => {
-      const fieldDef = dynamicDietFieldDefinitions.find((def) => def.id === result.fieldId)
-      if (fieldDef) {
-        if (!acc[fieldDef.category]) {
-          acc[fieldDef.category] = []
-        }
-        acc[fieldDef.category].push({ ...result, label: fieldDef.label })
+  const groupedDietFields = patientDietAnalysisResults.reduce((acc, result) => {
+    const fieldDef = dynamicDietFieldDefinitions.find(
+      (def) => def.id === result.fieldId
+    );
+    if (fieldDef) {
+      if (!acc[fieldDef.category]) {
+        acc[fieldDef.category] = [];
       }
-      return acc
-    },
-    {} as Record<string, (typeof patientDietAnalysisResults)[0] & { label: string }[]>,
-  )
+      acc[fieldDef.category].push({ ...result, label: fieldDef.label });
+    }
+    return acc;
+  }, {} as Record<string, (typeof patientDietAnalysisResults)[0] & { label: string }[]>);
 
   return (
     <div className="container mx-auto py-10 px-6 max-w-4xl bg-white shadow-lg min-h-screen">
@@ -100,24 +118,36 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
         className="text-center mb-12 py-8 rounded-lg"
         style={{ backgroundColor: settings.headerColor, color: "#fff" }}
       >
-        <h1 className="text-5xl font-extrabold mb-2" style={{ fontFamily: settings.fonts.primary }}>
+        <h1
+          className="text-5xl font-extrabold mb-2"
+          style={{ fontFamily: settings.fonts.primary }}
+        >
           {settings.title}
         </h1>
-        <p className="text-2xl font-light" style={{ fontFamily: settings.fonts.secondary }}>
+        <p
+          className="text-2xl font-light"
+          style={{ fontFamily: settings.fonts.secondary }}
+        >
           {settings.subtitle}
         </p>
-        <p className="text-lg mt-4" style={{ fontFamily: settings.fonts.secondary }}>
-          Patient: <span className="font-semibold">{patientInfo.name}</span> | Sample Code:{" "}
+        <p
+          className="text-lg mt-4"
+          style={{ fontFamily: settings.fonts.secondary }}
+        >
+          Patient: <span className="font-semibold">{patientInfo.name}</span> |
+          Sample Code:{" "}
           <span className="font-mono">{patientInfo.sampleCode}</span>
         </p>
         <p className="text-md" style={{ fontFamily: settings.fonts.secondary }}>
-          Report Date: {patientInfo.reportDate} | Generated by: {settings.companyName}
+          Report Date: {patientInfo.reportDate} | Generated by:{" "}
+          {settings.companyName}
         </p>
       </header>
 
       {/* Patient Information */}
       <SectionTitle title="Patient Information" icon="👤" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
+        {/* Basic Info */}
         <DataCard title="Name">
           <p>{patientInfo.name}</p>
         </DataCard>
@@ -136,27 +166,72 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
         <DataCard title="Report Generation Date">
           <p>{patientInfo.reportDate}</p>
         </DataCard>
+
+        {/* Section Heading */}
+        <Separator className="mt-12 col-span-full" />
+        <h3 className="text-center font-bold mb-3 text-gray-600 col-span-full">
+          Report Authentication & Analytics
+        </h3>
+
+        {/* Auth Info */}
         <DataCard title="Report Authentication & Analytics">
           <p>{patientInfo.reportAuth}</p>
         </DataCard>
         <DataCard title="Genomic Data Analytics">
           <p>{patientInfo.genomicAnalytics}</p>
         </DataCard>
+
+        {/* Primary Signature (Image Only) */}
+        <div className="flex flex-col items-center justify-center">
+          {/* <p className="text-sm text-gray-500 mb-2">Primary Signature</p> */}
+          {patientInfo.signature1 ? (
+            <img
+              src={patientInfo.signature1}
+              alt="Primary Signature"
+              className="max-h-32 object-contain"
+            />
+          ) : (
+            <p className="italic text-gray-500">No signature available</p>
+          )}
+        </div>
+
+        {/* Secondary Signature (Image Only) */}
+        <div className="flex flex-col items-center justify-center">
+          {/* <p className="text-sm text-gray-500 mb-2">Secondary Signature</p> */}
+          {patientInfo.signature2 ? (
+            <img
+              src={patientInfo.signature2}
+              alt="Secondary Signature"
+              className="max-h-32 object-contain"
+            />
+          ) : (
+            <p className="italic text-gray-500">No signature available</p>
+          )}
+        </div>
+
+        {/* Verifications */}
         <DataCard title="Checked & Verified By">
           <p>{patientInfo.checkedBy}</p>
         </DataCard>
         <DataCard title="Scientific Content Verified By">
           <p>{patientInfo.scientificContent}</p>
         </DataCard>
+
+        {/* Disclaimer - Full Width */}
+        <div className="col-span-full">
+          <DataCard title="Disclaimer">
+            <p className="text-justify whitespace-pre-wrap break-words mb-8">
+              {patientInfo.disclaimer}
+            </p>
+          </DataCard>
+        </div>
       </div>
+
       <Separator className="my-12" />
 
       {/* Report Content */}
       <SectionTitle title="Report Content" icon="📝" />
       <div className="space-y-8 mb-8">
-        <DataCard title="Disclaimer">
-          <p className="text-justify">{content.disclaimer}</p>
-        </DataCard>
         <DataCard title="Welcome Letter Introduction">
           <p className="text-justify">{content.introduction}</p>
         </DataCard>
@@ -184,7 +259,9 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       {/* Dynamic Diet Analysis */}
       <SectionTitle title="Diet Analysis" icon="🍎" />
       {Object.keys(groupedDietFields).length === 0 && (
-        <p className="text-center text-gray-500 italic">No diet analysis results available.</p>
+        <p className="text-center text-gray-500 italic">
+          No diet analysis results available.
+        </p>
       )}
       {Object.entries(groupedDietFields).map(([category, fields]) => (
         <React.Fragment key={category}>
@@ -213,7 +290,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Vitamins" icon="💊" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(nutritionData.vitamins).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Score:</strong> {data.score}/10
             </p>
@@ -233,7 +315,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Fatty Acids" icon="🐟" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(nutritionData.fattyAcids).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Score:</strong> {data.score}/10
             </p>
@@ -253,7 +340,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Essential Elements" icon="⚡" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(nutritionData.elements).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Score:</strong> {data.score}/10
             </p>
@@ -273,7 +365,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Complex Nutrients" icon="🌿" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(nutritionData.complexNutrients).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Score:</strong> {data.score}/10
             </p>
@@ -296,7 +393,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(sportsAndFitness.exerciseType).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Level:</strong> {data.level}
             </p>
@@ -310,7 +412,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Performance Factors" icon="⚡" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(sportsAndFitness.performance).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Level:</strong> {data.level}
             </p>
@@ -326,21 +433,39 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Lifestyle Conditions" icon="🩺" />
       <SubSectionTitle title="Heart & Vascular Health" icon="❤️" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        {Object.entries(lifestyleConditions.heartVascularHealth).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
-            <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
-            </p>
-          </DataCard>
-        ))}
+        {Object.entries(lifestyleConditions.heartVascularHealth).map(
+          ([key, data]) => (
+            <DataCard
+              key={key}
+              title={key
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            >
+              <p>
+                <strong>Status:</strong>{" "}
+                <Badge className={getStatusColor(data.status)}>
+                  {data.status}
+                </Badge>
+              </p>
+            </DataCard>
+          )
+        )}
       </div>
 
       <SubSectionTitle title="Diabesity (Diabetes & Obesity)" icon="🍬" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(lifestyleConditions.diabesity).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
+              <strong>Status:</strong>{" "}
+              <Badge className={getStatusColor(data.status)}>
+                {data.status}
+              </Badge>
             </p>
           </DataCard>
         ))}
@@ -349,9 +474,17 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Liver Health" icon="🧫" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(lifestyleConditions.liverHealth).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
+              <strong>Status:</strong>{" "}
+              <Badge className={getStatusColor(data.status)}>
+                {data.status}
+              </Badge>
             </p>
           </DataCard>
         ))}
@@ -360,9 +493,17 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Bone Health" icon="🦴" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(lifestyleConditions.boneHealth).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
+              <strong>Status:</strong>{" "}
+              <Badge className={getStatusColor(data.status)}>
+                {data.status}
+              </Badge>
             </p>
           </DataCard>
         ))}
@@ -371,9 +512,17 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SubSectionTitle title="Gut Health" icon="🦠" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(lifestyleConditions.gutHealth).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
+              <strong>Status:</strong>{" "}
+              <Badge className={getStatusColor(data.status)}>
+                {data.status}
+              </Badge>
             </p>
           </DataCard>
         ))}
@@ -381,13 +530,23 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
 
       <SubSectionTitle title="Hormone System" icon="🧪" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        {Object.entries(lifestyleConditions.hormoneSystem).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
-            <p>
-              <strong>Status:</strong> <Badge className={getStatusColor(data.status)}>{data.status}</Badge>
-            </p>
-          </DataCard>
-        ))}
+        {Object.entries(lifestyleConditions.hormoneSystem).map(
+          ([key, data]) => (
+            <DataCard
+              key={key}
+              title={key
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            >
+              <p>
+                <strong>Status:</strong>{" "}
+                <Badge className={getStatusColor(data.status)}>
+                  {data.status}
+                </Badge>
+              </p>
+            </DataCard>
+          )
+        )}
       </div>
       <Separator className="my-12" />
 
@@ -395,11 +554,18 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Metabolic Core" icon="🧬" />
       <div className="space-y-8 mb-8">
         {Object.entries(metabolicCore).map(([key, data]) => (
-          <Card key={key} className="border-2 border-purple-200 bg-purple-50/50 shadow-sm">
+          <Card
+            key={key}
+            className="border-2 border-purple-200 bg-purple-50/50 shadow-sm"
+          >
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-semibold text-purple-800 flex items-center justify-between">
-                {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                <Badge className={getImpactColor(data.impact)}>{data.impact}</Badge>
+                {key
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/^./, (str) => str.toUpperCase())}
+                <Badge className={getImpactColor(data.impact)}>
+                  {data.impact}
+                </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-gray-700 space-y-2">
@@ -407,7 +573,8 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
                 <strong>Genes:</strong> {data.genes.join(", ")}
               </p>
               <p>
-                <strong>Your Genotype:</strong> <span className="font-mono">{data.genotype}</span>
+                <strong>Your Genotype:</strong>{" "}
+                <span className="font-mono">{data.genotype}</span>
               </p>
               <p>
                 <strong>Advice:</strong> {data.advice}
@@ -422,7 +589,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Digestive Health" icon="🦠" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(digestiveHealth).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Level:</strong> {data.level}
             </p>
@@ -438,7 +610,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Genes & Addiction" icon="🔗" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(genesAndAddiction).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Tendency:</strong> {data.tendency}
             </p>
@@ -454,7 +631,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Sleep & Rest" icon="😴" />
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {Object.entries(sleepAndRest).map(([key, data]) => (
-          <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+          <DataCard
+            key={key}
+            title={key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())}
+          >
             <p>
               <strong>Impact:</strong> {data.impact}
             </p>
@@ -472,7 +654,12 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
         {Object.entries(allergiesAndSensitivity)
           .filter(([key]) => key !== "generalAdvice")
           .map(([key, data]) => (
-            <DataCard key={key} title={key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}>
+            <DataCard
+              key={key}
+              title={key
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            >
               <p>
                 <strong>Tendency:</strong> {(data as AllergyData).tendency}
               </p>
@@ -509,7 +696,8 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
         <ul className="list-disc list-inside">
           {preventiveHealth.nutritionalSupplements.map((supplement, index) => (
             <li key={index}>
-              {supplement.supplement} {supplement.needed ? "(Needed)" : "(Optional)"}
+              {supplement.supplement}{" "}
+              {supplement.needed ? "(Needed)" : "(Optional)"}
             </li>
           ))}
         </ul>
@@ -520,12 +708,19 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Family Genetic Impact" icon="👨‍👩‍👧‍👦" />
       <div className="space-y-8 mb-8">
         {familyGeneticImpact.length === 0 && (
-          <p className="text-center text-gray-500 italic">No family genetic impacts recorded.</p>
+          <p className="text-center text-gray-500 italic">
+            No family genetic impacts recorded.
+          </p>
         )}
         {familyGeneticImpact.map((impact, index) => (
-          <Card key={index} className="border-2 border-blue-200 bg-blue-50/50 shadow-sm">
+          <Card
+            key={index}
+            className="border-2 border-blue-200 bg-blue-50/50 shadow-sm"
+          >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-semibold text-blue-800">Genetic Impact #{index + 1}</CardTitle>
+              <CardTitle className="text-lg font-semibold text-blue-800">
+                Genetic Impact #{index + 1}
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-gray-700 space-y-2">
               <p>
@@ -535,7 +730,8 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
                 <strong>Normal/Common Alleles:</strong> {impact.normalAlleles}
               </p>
               <p>
-                <strong>Your Result:</strong> <span className="font-mono">{impact.yourResult}</span>
+                <strong>Your Result:</strong>{" "}
+                <span className="font-mono">{impact.yourResult}</span>
               </p>
               <p>
                 <strong>Health Impact:</strong> {impact.healthImpact}
@@ -550,19 +746,28 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       <SectionTitle title="Gene Test Results" icon="🔬" />
       <div className="space-y-8 mb-8">
         {geneTestResults.length === 0 && (
-          <p className="text-center text-gray-500 italic">No gene test results recorded.</p>
+          <p className="text-center text-gray-500 italic">
+            No gene test results recorded.
+          </p>
         )}
         {geneTestResults.map((result, index) => (
-          <Card key={index} className="border-2 border-indigo-200 bg-indigo-50/50 shadow-sm">
+          <Card
+            key={index}
+            className="border-2 border-indigo-200 bg-indigo-50/50 shadow-sm"
+          >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-semibold text-indigo-800">Gene: {result.geneName}</CardTitle>
+              <CardTitle className="text-lg font-semibold text-indigo-800">
+                Gene: {result.geneName}
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-gray-700 space-y-2">
               <p>
-                <strong>Variation:</strong> <span className="font-mono">{result.variation}</span>
+                <strong>Variation:</strong>{" "}
+                <span className="font-mono">{result.variation}</span>
               </p>
               <p>
-                <strong>Result:</strong> <span className="font-mono">{result.result}</span>
+                <strong>Result:</strong>{" "}
+                <span className="font-mono">{result.result}</span>
               </p>
             </CardContent>
           </Card>
@@ -584,10 +789,11 @@ export default function ComprehensiveReportViewer({ reportData }: ComprehensiveR
       {/* Report Footer */}
       <footer className="text-center mt-12 py-6 text-gray-600 text-sm border-t border-gray-200">
         <p>
-          &copy; {new Date().getFullYear()} {settings.companyName}. All rights reserved.
+          &copy; {new Date().getFullYear()} {settings.companyName}. All rights
+          reserved.
         </p>
         <p>Report Authentication: {patientInfo.reportAuth}</p>
       </footer>
     </div>
-  )
+  );
 }

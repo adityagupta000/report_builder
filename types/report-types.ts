@@ -1,292 +1,292 @@
 export interface PatientInfo {
-  name: string
-  gender: string
-  birthDate: string
-  sampleCode: string
-  sampleDate: string
-  reportDate: string
-  reportAuth: string
-  genomicAnalytics: string
-  checkedBy: string
-  scientificContent: string
+  name: string;
+  gender: string;
+  birthDate: string;
+  sampleCode: string;
+  sampleDate: string;
+  reportDate: string;
+  reportAuth: string;
+  genomicAnalytics: string;
+  checkedBy: string;
+  scientificContent: string;
+  disclaimer: string;
+  signature1: string;
+  signature2: string;
 }
 
 export interface ReportContent {
-  disclaimer: string
-  introduction: string
-  genomicsExplanation: string
-  genesHealthImpact: string
-  fundamentalsPRS: string
-  utilityDoctors: string
-  microarrayExplanation: string
-  microarrayData: string
+  introduction: string;
+  genomicsExplanation: string;
+  genesHealthImpact: string;
+  fundamentalsPRS: string;
+  utilityDoctors: string;
+  microarrayExplanation: string;
+  microarrayData: string;
 }
 
 export interface ReportSettings {
-  title: string
-  subtitle: string
-  companyName: string
-  headerColor: string
-  accentColor: string
+  title: string;
+  subtitle: string;
+  companyName: string;
+  headerColor: string;
+  accentColor: string;
   fonts: {
-    primary: string
-    secondary: string
-    mono: string
-  }
+    primary: string;
+    secondary: string;
+    mono: string;
+  };
 }
 
 // NEW: Interface for dynamically defined diet analysis fields
 export interface DynamicDietFieldDefinition {
-  _uuid: string // For DND library internal use
-  id: string // Unique identifier for the field (e.g., "carbohydrate_sensitivity")
-  label: string // Display name (e.g., "Carbohydrate Sensitivity")
-  category: string // Category (e.g., "Macronutrients", "Food Sensitivities")
-  min: number // Min score for the field
-  max: number // Max score for the field
-  highRecommendation: string // Recommendation for high score
-  normalRecommendation: string // Recommendation for normal score
-  lowRecommendation: string // Recommendation for low score
+  _uuid: string; // For DND library internal use
+  id: string; // Unique identifier for the field (e.g., "carbohydrate_sensitivity")
+  label: string; // Display name (e.g., "Carbohydrate Sensitivity")
+  category: string; // Category (e.g., "Macronutrients", "Food Sensitivities")
+  min: number; // Min score for the field
+  max: number; // Max score for the field
+  highRecommendation: string; // Recommendation for high score
+  normalRecommendation: string; // Recommendation for normal score
+  lowRecommendation: string; // Recommendation for low score
 }
 
 // NEW: Interface for a patient's specific result for a dynamic diet field
 export interface PatientDietAnalysisResult {
-  fieldId: string // References DynamicDietFieldDefinition.id
-  score: number
-  level: string // e.g., "HIGH", "NORMAL", "LOW", "SUITABLE"
-  recommendation: string // Patient-specific recommendation
+  fieldId: string; // References DynamicDietFieldDefinition.id
+  score: number;
+  level: string; // e.g., "HIGH", "NORMAL", "LOW", "SUITABLE"
+  recommendation: string; // Patient-specific recommendation
 }
 
 // OLD DietAnalysis interface is removed.
 // The data it contained will now be managed via DynamicDietFieldDefinition and PatientDietAnalysisResult.
 
 export interface NutrientData {
-  score: number
-  healthImpact: string
-  intakeLevel: string
-  source: string
+  score: number;
+  healthImpact: string;
+  intakeLevel: string;
+  source: string;
 }
 
 export interface NutritionData {
   vitamins: {
-    vitaminA: NutrientData
-    vitaminB12: NutrientData
-    vitaminB2: NutrientData
-    vitaminB6: NutrientData
-    vitaminB9: NutrientData
-    vitaminC: NutrientData
-    vitaminD: NutrientData
-    vitaminE: NutrientData
-  }
+    vitaminA: NutrientData;
+    vitaminB12: NutrientData;
+    vitaminB2: NutrientData;
+    vitaminB6: NutrientData;
+    vitaminB9: NutrientData;
+    vitaminC: NutrientData;
+    vitaminD: NutrientData;
+    vitaminE: NutrientData;
+  };
   fattyAcids: {
-    omegaFattyAcids: NutrientData
-  }
+    omegaFattyAcids: NutrientData;
+  };
   elements: {
-    calcium: NutrientData
-    iodine: NutrientData
-    iron: NutrientData
-    magnesium: NutrientData
-    phosphorus: NutrientData
-    selenium: NutrientData
-    zinc: NutrientData
-  }
+    calcium: NutrientData;
+    iodine: NutrientData;
+    iron: NutrientData;
+    magnesium: NutrientData;
+    phosphorus: NutrientData;
+    selenium: NutrientData;
+    zinc: NutrientData;
+  };
   complexNutrients: {
-    antiInflammatory: NutrientData
-    antioxidants: NutrientData
-  }
+    antiInflammatory: NutrientData;
+    antioxidants: NutrientData;
+  };
 }
 
 export interface ExerciseData {
-  level: string
-  description: string
+  level: string;
+  description: string;
 }
 
 export interface SportsAndFitness {
   exerciseType: {
-    endurancePotential: ExerciseData
-    powerPotential: ExerciseData
-    strengthProfile: ExerciseData
-    exerciseTime: ExerciseData
-  }
+    endurancePotential: ExerciseData;
+    powerPotential: ExerciseData;
+    strengthProfile: ExerciseData;
+    exerciseTime: ExerciseData;
+  };
   performance: {
-    enduranceCapacity: ExerciseData
-    fatigueResistance: ExerciseData
-    bloodFlow: ExerciseData
-    oxygenEfficiency: ExerciseData
-    waterLoss: ExerciseData
-    lactateClearing: ExerciseData
-    recoveryEfficiency: ExerciseData
-    bodyComposition: ExerciseData
-    injuryRisk: ExerciseData
-    achillesTendonInjury: ExerciseData
-    ligamentInjury: ExerciseData
-    rupture: ExerciseData
-    muscleCramps: ExerciseData
-  }
+    enduranceCapacity: ExerciseData;
+    fatigueResistance: ExerciseData;
+    bloodFlow: ExerciseData;
+    oxygenEfficiency: ExerciseData;
+    waterLoss: ExerciseData;
+    lactateClearing: ExerciseData;
+    recoveryEfficiency: ExerciseData;
+    bodyComposition: ExerciseData;
+    injuryRisk: ExerciseData;
+    achillesTendonInjury: ExerciseData;
+    ligamentInjury: ExerciseData;
+    rupture: ExerciseData;
+    muscleCramps: ExerciseData;
+  };
 }
 
 export interface HealthConditionStatus {
-  status: "strength" | "improvement"
+  status: "strength" | "improvement";
 }
 
 export interface LifestyleConditions {
   heartVascularHealth: {
-    hypertension: HealthConditionStatus
-    leftVentricularHypertrophy: HealthConditionStatus
-    atherosclerosis: HealthConditionStatus
-    familialHypercholesterolemia: HealthConditionStatus
-    cardiomyopathy: HealthConditionStatus
-    cholesterolImbalance: HealthConditionStatus
-    stroke: HealthConditionStatus
-  }
+    hypertension: HealthConditionStatus;
+    leftVentricularHypertrophy: HealthConditionStatus;
+    atherosclerosis: HealthConditionStatus;
+    familialHypercholesterolemia: HealthConditionStatus;
+    cardiomyopathy: HealthConditionStatus;
+    cholesterolImbalance: HealthConditionStatus;
+    stroke: HealthConditionStatus;
+  };
   diabesity: {
-    obesity: HealthConditionStatus
-    diabetesType2: HealthConditionStatus
-  }
+    obesity: HealthConditionStatus;
+    diabetesType2: HealthConditionStatus;
+  };
   liverHealth: {
-    nafld: HealthConditionStatus
-    liverCirrhosis: HealthConditionStatus
-  }
+    nafld: HealthConditionStatus;
+    liverCirrhosis: HealthConditionStatus;
+  };
   boneHealth: {
-    osteoporosis: HealthConditionStatus
-    osteoarthritis: HealthConditionStatus
-  }
+    osteoporosis: HealthConditionStatus;
+    osteoarthritis: HealthConditionStatus;
+  };
   gutHealth: {
-    irritableBowelSyndrome: HealthConditionStatus
-    celiacDisease: HealthConditionStatus
-  }
+    irritableBowelSyndrome: HealthConditionStatus;
+    celiacDisease: HealthConditionStatus;
+  };
   hormoneSystem: {
-    hypothyroidism: HealthConditionStatus
-  }
+    hypothyroidism: HealthConditionStatus;
+  };
 }
 
 export interface MetabolicGeneData {
-  genes: string[]
-  genotype: string
-  impact: string
-  advice: string
+  genes: string[];
+  genotype: string;
+  impact: string;
+  advice: string;
 }
 
 export interface MetabolicCore {
-  methylation: MetabolicGeneData
-  inflammation: MetabolicGeneData
-  oxidativeStress: MetabolicGeneData
-  detoxification: MetabolicGeneData
-  vitaminDMetabolism: MetabolicGeneData
-  lipidMetabolism: MetabolicGeneData
-  insulinResistance: MetabolicGeneData
-  circadianRhythm: MetabolicGeneData
-  exerciseResponsiveness: MetabolicGeneData
-  snackingTendency: MetabolicGeneData
-  oestrogenElimination: MetabolicGeneData
-  powerVsEndurance: MetabolicGeneData
-  injuryRecovery: MetabolicGeneData
-  fluidLossTendency: MetabolicGeneData
-  vo2Max: MetabolicGeneData
+  methylation: MetabolicGeneData;
+  inflammation: MetabolicGeneData;
+  oxidativeStress: MetabolicGeneData;
+  detoxification: MetabolicGeneData;
+  vitaminDMetabolism: MetabolicGeneData;
+  lipidMetabolism: MetabolicGeneData;
+  insulinResistance: MetabolicGeneData;
+  circadianRhythm: MetabolicGeneData;
+  exerciseResponsiveness: MetabolicGeneData;
+  snackingTendency: MetabolicGeneData;
+  oestrogenElimination: MetabolicGeneData;
+  powerVsEndurance: MetabolicGeneData;
+  injuryRecovery: MetabolicGeneData;
+  fluidLossTendency: MetabolicGeneData;
+  vo2Max: MetabolicGeneData;
 }
 
 export interface DigestiveHealthData {
-  level: string
-  description: string
+  level: string;
+  description: string;
 }
 
 export interface DigestiveHealth {
-  gutHealth: DigestiveHealthData
-  glutenIntolerance: DigestiveHealthData
-  celiacDiseaseTendency: DigestiveHealthData
-  impactOnBonesJoints: DigestiveHealthData
-  lactoseIntolerance: DigestiveHealthData
-  probioticsRequirement: DigestiveHealthData
+  gutHealth: DigestiveHealthData;
+  glutenIntolerance: DigestiveHealthData;
+  celiacDiseaseTendency: DigestiveHealthData;
+  impactOnBonesJoints: DigestiveHealthData;
+  lactoseIntolerance: DigestiveHealthData;
+  probioticsRequirement: DigestiveHealthData;
 }
 
 export interface AddictionData {
-  tendency: string
-  description: string
+  tendency: string;
+  description: string;
 }
 
 export interface GenesAndAddiction {
-  alcoholAddiction: AddictionData
-  smokingAddiction: AddictionData
-  snackingHabits: AddictionData
-  altruism: AddictionData
+  alcoholAddiction: AddictionData;
+  smokingAddiction: AddictionData;
+  snackingHabits: AddictionData;
+  altruism: AddictionData;
 }
 
 export interface SleepData {
-  impact: string
-  intervention: string
+  impact: string;
+  intervention: string;
 }
 
 export interface SleepAndRest {
-  sleepCycle: SleepData
-  sleepApnea: SleepData
-  sleepDepth: SleepData
-  stressSensitivity: SleepData
+  sleepCycle: SleepData;
+  sleepApnea: SleepData;
+  sleepDepth: SleepData;
+  stressSensitivity: SleepData;
 }
 
 export interface AllergyData {
-  tendency: string
+  tendency: string;
 }
 
 export interface AllergiesAndSensitivity {
-  dustAllergy: AllergyData
-  pesticideSensitivity: AllergyData
-  smokeSensitivity: AllergyData
-  automobileSmokeSensitivity: AllergyData
-  generalAdvice: string
+  dustAllergy: AllergyData;
+  pesticideSensitivity: AllergyData;
+  smokeSensitivity: AllergyData;
+  automobileSmokeSensitivity: AllergyData;
+  generalAdvice: string;
 }
 
 export interface GeneTestResult {
-  geneName: string
-  variation: string
-  result: string
+  geneName: string;
+  variation: string;
+  result: string;
 }
 
 export interface MetabolicSummary {
-  strengths: string[]
-  weaknesses: string[]
+  strengths: string[];
+  weaknesses: string[];
 }
 
 export interface PreventiveHealth {
   diagnosticTests: {
-    halfYearly: string[]
-    yearly: string[]
-  }
+    halfYearly: string[];
+    yearly: string[];
+  };
   nutritionalSupplements: Array<{
-    supplement: string
-    needed: boolean
-  }>
+    supplement: string;
+    needed: boolean;
+  }>;
 }
 
 export interface FamilyGeneticImpact {
-  gene: string
-  normalAlleles: string
-  yourResult: string
-  healthImpact: string
+  gene: string;
+  normalAlleles: string;
+  yourResult: string;
+  healthImpact: string;
 }
 
 export interface ReportSummaries {
-  nutrigenomicsSummary: string
-  exerciseGenomicsSummary: string
+  nutrigenomicsSummary: string;
+  exerciseGenomicsSummary: string;
 }
 
 export interface ComprehensiveReportData {
-  patientInfo: PatientInfo
-  content: ReportContent
-  settings: ReportSettings
-  // NEW: Dynamic diet field definitions
-  dynamicDietFieldDefinitions: DynamicDietFieldDefinition[]
-  // NEW: Patient-specific results for dynamic diet fields
-  patientDietAnalysisResults: PatientDietAnalysisResult[]
-  nutritionData: NutritionData
-  sportsAndFitness: SportsAndFitness
-  lifestyleConditions: LifestyleConditions
-  metabolicCore: MetabolicCore
-  digestiveHealth: DigestiveHealth
-  genesAndAddiction: GenesAndAddiction
-  sleepAndRest: SleepAndRest
-  allergiesAndSensitivity: AllergiesAndSensitivity
-  geneTestResults: GeneTestResult[]
-  metabolicSummary: MetabolicSummary
-  preventiveHealth: PreventiveHealth
-  familyGeneticImpact: FamilyGeneticImpact[]
-  summaries: ReportSummaries
+  patientInfo: PatientInfo;
+  content: ReportContent;
+  settings: ReportSettings;
+  dynamicDietFieldDefinitions: DynamicDietFieldDefinition[];
+  patientDietAnalysisResults: PatientDietAnalysisResult[];
+  nutritionData: NutritionData;
+  sportsAndFitness: SportsAndFitness;
+  lifestyleConditions: LifestyleConditions;
+  metabolicCore: MetabolicCore;
+  digestiveHealth: DigestiveHealth;
+  genesAndAddiction: GenesAndAddiction;
+  sleepAndRest: SleepAndRest;
+  allergiesAndSensitivity: AllergiesAndSensitivity;
+  geneTestResults: GeneTestResult[];
+  metabolicSummary: MetabolicSummary;
+  preventiveHealth: PreventiveHealth;
+  familyGeneticImpact: FamilyGeneticImpact[];
+  summaries: ReportSummaries;
 }

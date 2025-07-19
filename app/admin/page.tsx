@@ -68,10 +68,9 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
     genomicAnalytics: "Genomics Lab Inc.",
     checkedBy: "Dr. Alice Brown",
     scientificContent: "Dr. Robert White",
+    disclaimer:"This  for informational purposes only and should not be used as a substitute for professional medical advice.",
   },
   content: {
-    disclaimer:
-      "This report is for informational purposes only and should not be used as a substitute for professional medical advice.",
     introduction:
       "Welcome to your personalized nutrigenomics report. This document provides insights into how your genes influence your diet, nutrition, and overall health.",
     genomicsExplanation:
@@ -173,7 +172,7 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
         "Fast caffeine metabolism; higher intake may be tolerated.",
     },
   ],
-
+  // NEW: Default patient-specific results for dynamic diet fields
   patientDietAnalysisResults: [
     {
       fieldId: "carbohydrate_sensitivity",
@@ -1044,7 +1043,7 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-10">
+    <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-5">Admin Dashboard</h1>
 
       <div className="mb-5 flex gap-2 no-print">

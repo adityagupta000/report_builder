@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button" // Import Button
+import { Button } from "@/components/ui/button" 
 import { Save, RotateCcw } from "lucide-react" // Import icons
 import type { ReportContent } from "@/types/report-types"
 
