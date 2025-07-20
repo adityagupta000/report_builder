@@ -10,8 +10,8 @@ export interface PatientInfo {
   checkedBy: string;
   scientificContent: string;
   disclaimer: string;
-  signature1: string;
-  signature2: string;
+  signature1: string | null;
+  signature2: string | null;
 }
 
 export interface ReportContent {

@@ -184,7 +184,6 @@ export default function ComprehensiveReportViewer({
 
         {/* Primary Signature (Image Only) */}
         <div className="flex flex-col items-center justify-center">
-          {/* <p className="text-sm text-gray-500 mb-2">Primary Signature</p> */}
           {patientInfo.signature1 ? (
             <img
               src={patientInfo.signature1}
