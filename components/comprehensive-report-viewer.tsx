@@ -174,12 +174,13 @@ export default function ComprehensiveReportViewer({
         </h3>
 
         {/* Auth Info */}
-        <DataCard title="Report Authentication & Analytics">
-          <p>{patientInfo.reportAuth}</p>
-        </DataCard>
-        <DataCard title="Genomic Data Analytics">
-          <p>{patientInfo.genomicAnalytics}</p>
-        </DataCard>
+        <p className="text-sm text-center font-semibold text-gray-700 block">
+          Genomic Data Analytics - Checked & Verified By
+        </p>
+
+        <p className="text-sm text-center font-semibold text-gray-700 block">
+          Scientific Content - Checked & Verified By
+        </p>
 
         {/* Primary Signature (Image Only) */}
         <div className="flex flex-col items-center justify-center">
@@ -210,12 +211,9 @@ export default function ComprehensiveReportViewer({
         </div>
 
         {/* Verifications */}
-        <DataCard title="Checked & Verified By">
-          <p>{patientInfo.checkedBy}</p>
-        </DataCard>
-        <DataCard title="Scientific Content Verified By">
-          <p>{patientInfo.scientificContent}</p>
-        </DataCard>
+
+        <p className="text-center">{patientInfo.checkedBy}</p>
+        <p className="text-center">{patientInfo.scientificContent}</p>
 
         {/* Disclaimer - Full Width */}
         <div className="col-span-full">

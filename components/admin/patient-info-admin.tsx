@@ -237,7 +237,7 @@ export default function PatientInfoAdmin({
               >
                 Report Authentication & Analytics
               </Label>
-              <Input
+              {/* <Input
                 id="reportAuth"
                 value={patientInfo.reportAuth}
                 onChange={(e) =>
@@ -248,16 +248,16 @@ export default function PatientInfoAdmin({
               />
               <p className="text-xs text-gray-500">
                 Person/organization responsible for report authentication
-              </p>
+              </p> */}
             </div>
             <div className="space-y-2">
               <Label
                 htmlFor="genomicAnalytics"
-                className="text-sm font-semibold text-gray-700"
+                className="text-sm text-center font-semibold text-gray-700"
               >
                 Genomic Data Analytics
               </Label>
-              <Input
+              {/* <Input
                 id="genomicAnalytics"
                 value={patientInfo.genomicAnalytics}
                 onChange={(e) =>
@@ -268,7 +268,7 @@ export default function PatientInfoAdmin({
               />
               <p className="text-xs text-gray-500">
                 Laboratory or system used for genomic analysis
-              </p>
+              </p> */}
             </div>
           </div>
 
