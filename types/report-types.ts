@@ -1,3 +1,41 @@
+export interface GeneticParameter {
+  id: string;
+  title: string;
+  gene: string;
+  snp: string;
+  result: string;
+  impact: string;
+  imageUrl?: string;
+}
+
+export interface CategoryData {
+  id: string;
+  category: string;
+  imageUrl: string;
+  description?: string;
+  parameters: string[];
+  isActive: boolean;
+  order: number;
+}
+
+export interface ReportData {
+  categories: CategoryData[];
+  geneticParameters: GeneticParameter[];
+  metadata?: {
+    lastUpdated: string;
+    version: string;
+    totalCategories: number;
+    totalParameters: number;
+  };
+}
+
+export interface ApiResponse {
+  success: boolean;
+  data?: ReportData;
+  message?: string;
+  error?: string;
+}
+
 export interface PatientInfo {
   name: string;
   gender: string;
@@ -35,6 +73,14 @@ export interface ReportSettings {
     secondary: string;
     mono: string;
   };
+}
+
+export interface GeneticParameter {
+  title: string;
+  gene: string;
+  snp: string;
+  result: string;
+  impact: string;
 }
 
 // NEW: Interface for dynamically defined diet analysis fields
@@ -285,6 +331,7 @@ export interface ComprehensiveReportData {
   sleepAndRest: SleepAndRest;
   allergiesAndSensitivity: AllergiesAndSensitivity;
   geneTestResults: GeneTestResult[];
+  geneticParameters: GeneticParameter[];
   metabolicSummary: MetabolicSummary;
   preventiveHealth: PreventiveHealth;
   familyGeneticImpact: FamilyGeneticImpact[];

@@ -8,6 +8,8 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import GenomicsImage from "@/assets/genomics.png";
+import GenesImpactImage from "@/assets/genes-impact.jpg";
 
 interface ComprehensiveReportViewerProps {
   reportData: ComprehensiveReportData;
@@ -226,31 +228,121 @@ export default function ComprehensiveReportViewer({
 
       <Separator className="my-12" />
 
-      {/* Report Content */}
-      <SectionTitle title="Report Content" icon="📝" />
+      <h2 className="text-3xl text-center font-bold mb-3 bg-blue-600 text-white">
+        PREFACE
+      </h2>
+
       <div className="space-y-8 mb-8">
         <DataCard title="Welcome Letter Introduction">
-          <p className="text-justify">{content.introduction}</p>
+          <p className="text-justify whitespace-pre-line">
+            {content.introduction}
+          </p>
         </DataCard>
-        <DataCard title="What is Genomics?">
-          <p className="text-justify">{content.genomicsExplanation}</p>
-        </DataCard>
-        <DataCard title="Genes and Health Impact">
-          <p className="text-justify">{content.genesHealthImpact}</p>
-        </DataCard>
-        <DataCard title="Fundamentals and PRS">
-          <p className="text-justify">{content.fundamentalsPRS}</p>
-        </DataCard>
-        <DataCard title="Utility for Doctors and Dietitians">
-          <p className="text-justify">{content.utilityDoctors}</p>
-        </DataCard>
-        <DataCard title="Microarray Explanation">
-          <p className="text-justify">{content.microarrayExplanation}</p>
-        </DataCard>
-        <DataCard title="Your Microarray Data">
-          <p className="text-justify">{content.microarrayData}</p>
-        </DataCard>
+
+        <h2 className="text-3xl text-center font-bold mb-3 bg-blue-600 text-white">
+          WELCOME TO THE WORLD OF GENOMICS
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {/* --- What is Genomics: TEXT --- */}
+          <DataCard title="What is Genomics?">
+            <p className="text-justify whitespace-pre-line">
+              {content.genomicsExplanation}
+            </p>
+          </DataCard>
+
+          {/* --- What is Genomics: IMAGE --- */}
+          <img
+            src="/assets/genomics.png"
+            alt="What is Genomics Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {/* --- Genes & Health Impact: TEXT --- */}
+          <DataCard title="Genes and Health Impact">
+            <p className="text-justify whitespace-pre-line">
+              {content.genesHealthImpact}
+            </p>
+          </DataCard>
+
+          {/* --- Genes & Health Impact: IMAGE --- */}
+
+          <img
+            src="/assets/genes-impact.jpg"
+            alt="Genes and Health Impact Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
+
+        <Separator className="my-12" />
+        <h2 className="text-3xl text-center font-bold mb-3 bg-blue-600 text-white">
+          WHAT IS NUTRIGENOMICS
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <DataCard title="Fundamentals and PRS">
+            <p className="text-justify whitespace-pre-line">
+              {content.fundamentalsPRS}
+            </p>
+          </DataCard>
+
+          <img
+            src="/assets/genomics.png"
+            alt="Fundamentals and PRS Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <DataCard title="Utility for Doctors and Dietitians">
+            <p className="text-justify whitespace-pre-line">
+              {content.utilityDoctors}
+            </p>
+          </DataCard>
+
+          <img
+            src="/assets/genomics.png"
+            alt="Utility for Doctors and Dietitians Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
+
+        <Separator className="my-12" />
+
+        <h2 className="text-3xl text-center font-bold mb-3 bg-blue-600 text-white">
+          ABOUT MICROARRAY
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <DataCard title="Microarray Explanation">
+            <p className="text-justify whitespace-pre-line">
+              {content.microarrayExplanation}
+            </p>
+          </DataCard>
+
+          <img
+            src="/assets/genomics.png"
+            alt="Microarray Explanation Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <DataCard title="Your Microarray Data">
+            <p className="text-justify whitespace-pre-line">
+              {content.microarrayData}
+            </p>
+          </DataCard>
+          <img
+            src="/assets/genomics.png"
+            alt="Your Microarray Data Illustration"
+            className="w-full h-auto object-contain rounded"
+          />
+        </div>
       </div>
+
       <Separator className="my-12" />
 
       {/* Dynamic Diet Analysis */}

@@ -18,7 +18,7 @@ export default function ReportContentAdmin({ content, updateContent, onSave, onR
   return (
     <Card className="shadow-lg border-0 bg-white">
       <CardHeader className="bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-t-lg">
-        <CardTitle className="text-2xl">📝 Report Content</CardTitle>
+        <CardTitle className="text-2xl"> Report Content</CardTitle>
         <CardDescription className="text-green-100">Edit the main content sections of the report</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8 p-8">
@@ -34,7 +34,7 @@ export default function ReportContentAdmin({ content, updateContent, onSave, onR
           </Button>
         </div>
 
-        <div className="space-y-3">
+        {/* <div className="space-y-3">
           <Label htmlFor="disclaimer" className="text-lg font-semibold text-gray-800">
             ⚠️ Disclaimer
           </Label>
@@ -46,7 +46,7 @@ export default function ReportContentAdmin({ content, updateContent, onSave, onR
             rows={10}
             className="border-2 focus:border-green-500 text-sm leading-relaxed"
           />
-        </div>
+        </div> */}
         <div className="space-y-3">
           <Label htmlFor="introduction" className="text-lg font-semibold text-gray-800">
             🎯 Welcome Letter Introduction

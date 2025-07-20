@@ -1,10 +1,10 @@
-import { promises as fs } from "fs"
-import path from "path"
-import { NextResponse } from "next/server"
-import { v4 as uuidv4 } from "uuid" // Import uuid
-import type { ComprehensiveReportData } from "@/types/report-types"
+import { promises as fs } from "fs";
+import path from "path";
+import { NextResponse } from "next/server";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
+import type { ComprehensiveReportData } from "@/types/report-types";
 
-const dataFilePath = path.join(process.cwd(), "data", "report-data.json")
+const dataFilePath = path.join(process.cwd(), "data", "report-data.json");
 
 // Default data to initialize if the file doesn't exist
 const defaultReportData: ComprehensiveReportData = {
@@ -70,7 +70,8 @@ const defaultReportData: ComprehensiveReportData = {
       category: "Macronutrients",
       min: 1,
       max: 10,
-      highRecommendation: "Reduce saturated and trans fats; focus on healthy fats.",
+      highRecommendation:
+        "Reduce saturated and trans fats; focus on healthy fats.",
       normalRecommendation: "Maintain balanced fat intake.",
       lowRecommendation: "Ensure adequate healthy fat intake.",
     },
@@ -83,7 +84,8 @@ const defaultReportData: ComprehensiveReportData = {
       max: 10,
       highRecommendation: "Increased protein intake recommended.",
       normalRecommendation: "Ensure adequate protein intake.",
-      lowRecommendation: "Consider increasing protein intake for muscle maintenance.",
+      lowRecommendation:
+        "Consider increasing protein intake for muscle maintenance.",
     },
     {
       _uuid: uuidv4(),
@@ -103,7 +105,8 @@ const defaultReportData: ComprehensiveReportData = {
       category: "Food Sensitivities",
       min: 1,
       max: 10,
-      highRecommendation: "Limit alcohol consumption due to genetic sensitivity.",
+      highRecommendation:
+        "Limit alcohol consumption due to genetic sensitivity.",
       normalRecommendation: "Moderate alcohol intake is fine.",
       lowRecommendation: "Normal alcohol metabolism.",
     },
@@ -115,8 +118,10 @@ const defaultReportData: ComprehensiveReportData = {
       min: 1,
       max: 10,
       highRecommendation: "Limit caffeine intake due to slow metabolism.",
-      normalRecommendation: "Normal caffeine metabolism; moderate intake is fine.",
-      lowRecommendation: "Fast caffeine metabolism; higher intake may be tolerated.",
+      normalRecommendation:
+        "Normal caffeine metabolism; moderate intake is fine.",
+      lowRecommendation:
+        "Fast caffeine metabolism; higher intake may be tolerated.",
     },
   ],
   // NEW: Default patient-specific results for dynamic diet fields
@@ -160,29 +165,54 @@ const defaultReportData: ComprehensiveReportData = {
   ],
   nutritionData: {
     vitamins: {
-      vitaminA: { score: 3, healthImpact: "Skin & Vision", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
+      vitaminA: {
+        score: 3,
+        healthImpact: "Skin & Vision",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
       vitaminB12: {
         score: 6,
         healthImpact: "Nervous System & Bones",
         intakeLevel: "ENHANCED INTAKE (METHYLCOBALAMIN)",
         source: "DIET",
       },
-      vitaminB2: { score: 3, healthImpact: "Energy Metabolism", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
-      vitaminB6: { score: 6, healthImpact: "Tissue growth repair", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
+      vitaminB2: {
+        score: 3,
+        healthImpact: "Energy Metabolism",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
+      vitaminB6: {
+        score: 6,
+        healthImpact: "Tissue growth repair",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
       vitaminB9: {
         score: 3,
         healthImpact: "RBC development & Heart health",
         intakeLevel: "ENHANCED INTAKE (L METHYLFOLATE)",
         source: "DIET",
       },
-      vitaminC: { score: 3, healthImpact: "Skin & Immunity", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
+      vitaminC: {
+        score: 3,
+        healthImpact: "Skin & Immunity",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
       vitaminD: {
         score: 6,
         healthImpact: "Bones & Diabetes",
         intakeLevel: "ENHANCED INTAKE & SUN EXPOSURE",
         source: "DIET & SUN EXPOSURE",
       },
-      vitaminE: { score: 5, healthImpact: "Skin & Immune system", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
+      vitaminE: {
+        score: 5,
+        healthImpact: "Skin & Immune system",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
     },
     fattyAcids: {
       omegaFattyAcids: {
@@ -205,7 +235,12 @@ const defaultReportData: ComprehensiveReportData = {
         intakeLevel: "ENHANCED INTAKE",
         source: "DIET",
       },
-      iron: { score: 3, healthImpact: "Haemoglobin & Energy", intakeLevel: "RESTRICTED INTAKE", source: "DIET" },
+      iron: {
+        score: 3,
+        healthImpact: "Haemoglobin & Energy",
+        intakeLevel: "RESTRICTED INTAKE",
+        source: "DIET",
+      },
       magnesium: {
         score: 3,
         healthImpact: "Heart health & Immunity",
@@ -224,7 +259,12 @@ const defaultReportData: ComprehensiveReportData = {
         intakeLevel: "ENHANCED INTAKE",
         source: "DIET",
       },
-      zinc: { score: 3, healthImpact: "Fertility & Skin", intakeLevel: "ENHANCED INTAKE", source: "DIET" },
+      zinc: {
+        score: 3,
+        healthImpact: "Fertility & Skin",
+        intakeLevel: "ENHANCED INTAKE",
+        source: "DIET",
+      },
     },
     complexNutrients: {
       antiInflammatory: {
@@ -245,14 +285,27 @@ const defaultReportData: ComprehensiveReportData = {
     exerciseType: {
       endurancePotential: {
         level: "High Endurance Potential",
-        description: "Excellent genetic predisposition for endurance activities",
+        description:
+          "Excellent genetic predisposition for endurance activities",
       },
-      powerPotential: { level: "Average Power Potential", description: "Moderate power output capacity" },
-      strengthProfile: { level: "High Strength Profile", description: "Good potential for strength training" },
-      exerciseTime: { level: "Evening time is more beneficial than morning", description: "MORNING Vs. EVENING" },
+      powerPotential: {
+        level: "Average Power Potential",
+        description: "Moderate power output capacity",
+      },
+      strengthProfile: {
+        level: "High Strength Profile",
+        description: "Good potential for strength training",
+      },
+      exerciseTime: {
+        level: "Evening time is more beneficial than morning",
+        description: "MORNING Vs. EVENING",
+      },
     },
     performance: {
-      enduranceCapacity: { level: "High Endurance Potential", description: "Superior aerobic capacity" },
+      enduranceCapacity: {
+        level: "High Endurance Potential",
+        description: "Superior aerobic capacity",
+      },
       fatigueResistance: {
         level: "Normal fatigue resistance. Average endurance capacity",
         description: "Average endurance capacity",
@@ -275,7 +328,8 @@ const defaultReportData: ComprehensiveReportData = {
         description: "Beneficial for endurance",
       },
       recoveryEfficiency: {
-        level: "High recovery efficiency. Enhanced sports potential & reduced injury risk",
+        level:
+          "High recovery efficiency. Enhanced sports potential & reduced injury risk",
         description: "Enhanced sports potential",
       },
       bodyComposition: {
@@ -283,7 +337,8 @@ const defaultReportData: ComprehensiveReportData = {
         description: "Increased muscle tendency",
       },
       injuryRisk: {
-        level: "High injury tendency. Thorough injury management steps to be taken.",
+        level:
+          "High injury tendency. Thorough injury management steps to be taken.",
         description: "Thorough injury management needed",
       },
       achillesTendonInjury: {
@@ -291,7 +346,8 @@ const defaultReportData: ComprehensiveReportData = {
         description: "Ensure adequate warmup",
       },
       ligamentInjury: {
-        level: "Low ACL injury tendency. Ensure adequate warmup before exercises",
+        level:
+          "Low ACL injury tendency. Ensure adequate warmup before exercises",
         description: "Ensure adequate warmup",
       },
       rupture: {
@@ -299,7 +355,8 @@ const defaultReportData: ComprehensiveReportData = {
         description: "Ensure adequate warmup",
       },
       muscleCramps: {
-        level: "Low risk of muscle cramps. Ensure adequate warmup before exercises",
+        level:
+          "Low risk of muscle cramps. Ensure adequate warmup before exercises",
         description: "Ensure adequate warmup",
       },
     },
@@ -381,7 +438,8 @@ const defaultReportData: ComprehensiveReportData = {
       genes: ["CLOCK"],
       genotype: "C/G",
       impact: "Altered sleep-wake cycle",
-      advice: "Maintain consistent sleep schedule and optimize sleep environment.",
+      advice:
+        "Maintain consistent sleep schedule and optimize sleep environment.",
     },
     exerciseResponsiveness: {
       genes: ["ACTN3"],
@@ -427,21 +485,48 @@ const defaultReportData: ComprehensiveReportData = {
     },
   },
   digestiveHealth: {
-    gutHealth: { level: "NORMAL GUT HEALTH", description: "Good overall digestive function" },
-    glutenIntolerance: { level: "LOW INTOLERANCE", description: "CONDITIONAL GLUTEN ELIMINATION NEEDED" },
-    celiacDiseaseTendency: { level: "LOW TENDENCY", description: "Low genetic risk for celiac disease" },
+    gutHealth: {
+      level: "NORMAL GUT HEALTH",
+      description: "Good overall digestive function",
+    },
+    glutenIntolerance: {
+      level: "LOW INTOLERANCE",
+      description: "CONDITIONAL GLUTEN ELIMINATION NEEDED",
+    },
+    celiacDiseaseTendency: {
+      level: "LOW TENDENCY",
+      description: "Low genetic risk for celiac disease",
+    },
     impactOnBonesJoints: {
       level: "NO IMPACT ON BONE HEALTH",
       description: "Digestive health does not affect bone health",
     },
-    lactoseIntolerance: { level: "HIGH INTOLERANCE", description: "LACTOSE ELIMINATION NEEDED" },
-    probioticsRequirement: { level: "PROBIOTICS NEEDED", description: "FOOD & SUPPLEMENTS" },
+    lactoseIntolerance: {
+      level: "HIGH INTOLERANCE",
+      description: "LACTOSE ELIMINATION NEEDED",
+    },
+    probioticsRequirement: {
+      level: "PROBIOTICS NEEDED",
+      description: "FOOD & SUPPLEMENTS",
+    },
   },
   genesAndAddiction: {
-    alcoholAddiction: { tendency: "LOW", description: "Low genetic predisposition to alcohol dependency" },
-    smokingAddiction: { tendency: "NORMAL", description: "Average nicotine addiction susceptibility" },
-    snackingHabits: { tendency: "HIGH", description: "Genetic tendency toward frequent snacking" },
-    altruism: { tendency: "HIGH", description: "Strong genetic predisposition toward helping others" },
+    alcoholAddiction: {
+      tendency: "LOW",
+      description: "Low genetic predisposition to alcohol dependency",
+    },
+    smokingAddiction: {
+      tendency: "NORMAL",
+      description: "Average nicotine addiction susceptibility",
+    },
+    snackingHabits: {
+      tendency: "HIGH",
+      description: "Genetic tendency toward frequent snacking",
+    },
+    altruism: {
+      tendency: "HIGH",
+      description: "Strong genetic predisposition toward helping others",
+    },
   },
   sleepAndRest: {
     sleepCycle: {
@@ -452,7 +537,10 @@ const defaultReportData: ComprehensiveReportData = {
       impact: "INCREASED CHANCES OF SLEEP APNEA",
       intervention: "EXERCISE REGULARLY SEEK MEDICAL ADVICE IF ISSUE PERSISTS",
     },
-    sleepDepth: { impact: "LOW SLEEP DEPTH", intervention: "CONSUME CURD RICE IN DINNER FOR BETTER SLEEP" },
+    sleepDepth: {
+      impact: "LOW SLEEP DEPTH",
+      intervention: "CONSUME CURD RICE IN DINNER FOR BETTER SLEEP",
+    },
     stressSensitivity: {
       impact: "LOW STRESS SENSITIVITY",
       intervention: "EXERCISE REGULARLY FOR A BETTER SLEEP CYCLE",
@@ -480,12 +568,21 @@ const defaultReportData: ComprehensiveReportData = {
   ],
   metabolicSummary: {
     strengths: ["Efficient detoxification", "Normal lipid metabolism"],
-    weaknesses: ["Increased oxidative stress", "Higher risk of insulin resistance"],
+    weaknesses: [
+      "Increased oxidative stress",
+      "Higher risk of insulin resistance",
+    ],
   },
   preventiveHealth: {
     diagnosticTests: {
       halfYearly: ["PLASMA SUGAR (FASTING & PP)", "VITAMIN D"],
-      yearly: ["HbA1c", "LIPID PROFILE", "SERUM HOMOCYSTEINE", "VITAMIN B12", "LIVER PROFILE"],
+      yearly: [
+        "HbA1c",
+        "LIPID PROFILE",
+        "SERUM HOMOCYSTEINE",
+        "VITAMIN B12",
+        "LIVER PROFILE",
+      ],
     },
     nutritionalSupplements: [
       { supplement: "VITAMIN D", needed: true },
@@ -502,7 +599,8 @@ const defaultReportData: ComprehensiveReportData = {
       gene: "MnSOD",
       normalAlleles: "AA",
       yourResult: "AG",
-      healthImpact: "INCREASED TENDENCY OF OXIDATIVE STRESS NEED OF ANTI-OXIDANT SUPPLEMENTS",
+      healthImpact:
+        "INCREASED TENDENCY OF OXIDATIVE STRESS NEED OF ANTI-OXIDANT SUPPLEMENTS",
     },
     {
       gene: "FTO",
@@ -512,61 +610,119 @@ const defaultReportData: ComprehensiveReportData = {
         "INCREASED TENDENCY OF INSULIN RESISTANCE WEIGHT AND CALORIE MANAGEMENT IMPORTANT TO MANAGE AND REDUCE RISK OF INSULIN RESISTANCE",
     },
   ],
+  categories: [
+    {
+      id: "category_1",
+      category: "Lipid Metabolism",
+      imageUrl: "/table/content.png",
+      description:
+        "This category includes genes related to lipid metabolism and cardiovascular risk.",
+      parameters: [
+        "APOA11yy",
+        "APOB",
+        "LDLR",
+        "CETP",
+        "LIPC",
+        "LPL",
+        "SCARB1",
+        "ABCA1",
+        "PCSK9",
+        "ANGPTL3",
+        "ANGPTL4",
+        "PLTP",
+        "APOC3",
+        "APOE",
+        "SREBF2",
+        "HMGCR",
+        "LCAT",
+        "CYP7A1",
+        "PPARA",
+        "PPARG",
+        "NR1H3",
+      ],
+      isActive: true,
+      order: 1,
+    },
+  ],
+  geneticParameters: [],
+  metadata: {
+    lastUpdated: "2025-07-20T12:00:00.000Z",
+    version: "1.0.0",
+    totalCategories: 1,
+    totalParameters: 21,
+  },
+
   summaries: {
     nutrigenomicsSummary:
       "Based on the overall nutrigenomics analysis, provide expert summary for personalized diet and lifestyle plan...",
     exerciseGenomicsSummary:
       "Based on the overall genomics analysis, provide expert summary for personalized exercise plan...",
   },
-}
+};
 
 export async function GET() {
   try {
     // Ensure the data directory exists
-    const dataDir = path.dirname(dataFilePath)
-    await fs.mkdir(dataDir, { recursive: true })
+    const dataDir = path.dirname(dataFilePath);
+    await fs.mkdir(dataDir, { recursive: true });
 
-    let data: ComprehensiveReportData
+    let data: ComprehensiveReportData;
 
     try {
-      const fileContent = await fs.readFile(dataFilePath, "utf-8")
-      data = JSON.parse(fileContent)
+      const fileContent = await fs.readFile(dataFilePath, "utf-8");
+      data = JSON.parse(fileContent);
     } catch (readError: any) {
       if (readError.code === "ENOENT") {
         // File does not exist, initialize with default data
-        data = defaultReportData
-        await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), "utf-8")
+        data = defaultReportData;
+        await fs.writeFile(
+          dataFilePath,
+          JSON.stringify(data, null, 2),
+          "utf-8"
+        );
       } else {
         // Other read errors
-        console.error("Error reading report data file:", readError)
-        return NextResponse.json({ error: "Failed to read report data" }, { status: 500 })
+        console.error("Error reading report data file:", readError);
+        return NextResponse.json(
+          { error: "Failed to read report data" },
+          { status: 500 }
+        );
       }
     }
 
-    return NextResponse.json(data)
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Error in GET /api/report-data:", error)
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+    console.error("Error in GET /api/report-data:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const data: ComprehensiveReportData = await request.json()
+    const data: ComprehensiveReportData = await request.json();
 
     // Basic validation (can be expanded)
     if (!data || !data.patientInfo || !data.content) {
-      return NextResponse.json({ error: "Invalid report data provided" }, { status: 400 })
+      return NextResponse.json(
+        { error: "Invalid report data provided" },
+        { status: 400 }
+      );
     }
 
     // Ensure the data directory exists
-    const dataDir = path.dirname(dataFilePath)
-    await fs.mkdir(dataDir, { recursive: true })
+    const dataDir = path.dirname(dataFilePath);
+    await fs.mkdir(dataDir, { recursive: true });
 
-    await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), "utf-8")
-    return NextResponse.json({ message: "Report data saved successfully" })
+    await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), "utf-8");
+    return NextResponse.json({ message: "Report data saved successfully" });
   } catch (error) {
-    console.error("Error in POST /api/report-data:", error)
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+    console.error("Error in POST /api/report-data:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

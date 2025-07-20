@@ -29,9 +29,6 @@ interface PatientInfoAdminProps {
   onReset: () => void;
 }
 
-// const fileInput1Ref = useRef<HTMLInputElement>(null);
-// const fileInput2Ref = useRef<HTMLInputElement>(null);
-
 export default function PatientInfoAdmin({
   patientInfo,
   updatePatientInfo,

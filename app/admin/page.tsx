@@ -39,7 +39,6 @@ import type {
 import PatientInfoAdmin from "@/components/admin/patient-info-admin";
 import ContentAdmin from "@/components/admin/content-admin";
 import SettingsAdmin from "@/components/admin/settings-admin";
-// Renamed DietAnalysisAdmin to DynamicDietFieldAdmin
 import DynamicDietFieldAdmin from "@/components/admin/dynamic-diet-field-admin";
 import GeneResultsAdmin from "@/components/admin/gene-results-admin";
 import SummariesAdmin from "@/components/admin/summaries-admin";
@@ -55,6 +54,7 @@ import PreventiveHealthAdmin from "@/components/admin/preventive-health-admin";
 import FamilyGeneticImpactAdmin from "@/components/admin/family-genetic-impact-admin";
 import PDFGenerator from "@/components/admin/pdf-generator";
 import MetabolicCoreAdmin from "@/components/admin/metabolic-core-admin";
+import GeneticParametersAdmin from "@/components/admin/genetic-parameters-admin";
 
 const getDefaultReportData = (): ComprehensiveReportData => ({
   patientInfo: {
@@ -68,7 +68,8 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
     genomicAnalytics: "Genomics Lab Inc.",
     checkedBy: "Dr. Alice Brown",
     scientificContent: "Dr. Robert White",
-    disclaimer:"This  for informational purposes only and should not be used as a substitute for professional medical advice.",
+    disclaimer:
+      "This  for informational purposes only and should not be used as a substitute for professional medical advice.",
   },
   content: {
     introduction:
@@ -658,6 +659,47 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
         "INCREASED TENDENCY OF INSULIN RESISTANCE WEIGHT AND CALORIE MANAGEMENT IMPORTANT TO MANAGE AND REDUCE RISK OF INSULIN RESISTANCE",
     },
   ],
+  categories: [
+    {
+      id: "category_1",
+      category: "Lipid Metabolism",
+      imageUrl: "/table/content.png",
+      description:
+        "This category includes genes related to lipid metabolism and cardiovascular risk.",
+      parameters: [
+        "APOA1yy",
+        "APOB",
+        "LDLR",
+        "CETP",
+        "LIPC",
+        "LPL",
+        "SCARB1",
+        "ABCA1",
+        "PCSK9",
+        "ANGPTL3",
+        "ANGPTL4",
+        "PLTP",
+        "APOC3",
+        "APOE",
+        "SREBF2",
+        "HMGCR",
+        "LCAT",
+        "CYP7A1",
+        "PPARA",
+        "PPARG",
+        "NR1H3",
+      ],
+      isActive: true,
+      order: 1,
+    },
+  ],
+  geneticParameters: [],
+  metadata: {
+    lastUpdated: "2025-07-20T12:00:00.000Z",
+    version: "1.0.0",
+    totalCategories: 1,
+    totalParameters: 21,
+  },
   summaries: {
     nutrigenomicsSummary:
       "Based on the overall nutrigenomics analysis, provide expert summary for personalized diet and lifestyle plan...",
@@ -680,8 +722,9 @@ const AdminPage = () => {
           const data = await response.json();
           setReportData(data);
           toast({
-            title: "Data loaded from server!",
             description: "Report data has been loaded from the backend.",
+            variant: "success",
+            duration: 3000,
           });
         } else {
           toast({
@@ -689,6 +732,7 @@ const AdminPage = () => {
             description:
               "Could not load report data from the server. Using default data.",
             variant: "destructive",
+            duration: 3000,
           });
         }
       } catch (error) {
@@ -698,6 +742,7 @@ const AdminPage = () => {
           description:
             "An error occurred while fetching data from the server. Using default data.",
           variant: "destructive",
+          duration: 3000,
         });
       }
     };
@@ -726,6 +771,7 @@ const AdminPage = () => {
           description:
             errorData.error || "An error occurred while saving data.",
           variant: "destructive",
+          duration: 3000,
         });
       }
     } catch (error) {
@@ -734,6 +780,7 @@ const AdminPage = () => {
         title: "Error saving data",
         description: "An unexpected error occurred while saving data.",
         variant: "destructive",
+        duration: 3000,
       });
     }
   };
@@ -746,6 +793,7 @@ const AdminPage = () => {
     toast({
       title: `${section} reset!`,
       description: `The ${section} section has been reset to default values.`,
+      duration: 3000,
     });
   };
 
@@ -1043,12 +1091,17 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="max-w-7xl mx-auto py-10">
       <h1 className="text-3xl font-bold mb-5">Admin Dashboard</h1>
 
-      <div className="mb-5 flex gap-2 no-print">
-        <Button onClick={saveReportData}>Save Data</Button>
-        <Button onClick={() => setReportData(getDefaultReportData())}>
+      <div className="mb-5 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-start no-print">
+        <Button onClick={saveReportData} className="w-full sm:w-auto">
+          Save Data
+        </Button>
+        <Button
+          onClick={() => setReportData(getDefaultReportData())}
+          className="w-full sm:w-auto"
+        >
           Reset All
         </Button>
       </div>
@@ -1056,36 +1109,31 @@ const AdminPage = () => {
       <Tabs defaultValue="patient-info" className="w-[100%]">
         <div className="w-full overflow-x-auto scrollbar-hide">
           <TabsList className="flex gap-2 min-w-max bg-white shadow-sm px-4 py-2 rounded-md border border-gray-200">
-            <TabsTrigger value="patient-info">👤 Patient Info</TabsTrigger>
-            <TabsTrigger value="content">📄 Content</TabsTrigger>
-            <TabsTrigger value="settings">⚙️ Settings</TabsTrigger>
-            <TabsTrigger value="diet-fields">🥗 Diet Fields</TabsTrigger>
-            <TabsTrigger value="nutrition">🍎 Nutrition</TabsTrigger>
-            <TabsTrigger value="sports-fitness">
-              🏋️‍♂️ Sports & Fitness
+            <TabsTrigger value="patient-info">Patient Info</TabsTrigger>
+            <TabsTrigger value="content">Content</TabsTrigger>
+            <TabsTrigger value="genetic-parameters">
+              Table Of Content
             </TabsTrigger>
-            <TabsTrigger value="lifestyle-conditions">🩺 Lifestyle</TabsTrigger>
-            <TabsTrigger value="metabolic-core">🧬 Metabolic Core</TabsTrigger>
-            <TabsTrigger value="digestive-health">
-              🦠 Digestive Health
-            </TabsTrigger>
-            <TabsTrigger value="genes-addiction">
-              🧠 Genes & Addiction
-            </TabsTrigger>
-            <TabsTrigger value="sleep-rest">😴 Sleep & Rest</TabsTrigger>
-            <TabsTrigger value="allergies-sensitivity">
-              🌾 Allergies
-            </TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+            <TabsTrigger value="diet-fields">Diet Fields</TabsTrigger>
+            <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
+            <TabsTrigger value="sports-fitness">Sports & Fitness</TabsTrigger>
+            <TabsTrigger value="lifestyle-conditions">Lifestyle</TabsTrigger>
+            <TabsTrigger value="metabolic-core">Metabolic Core</TabsTrigger>
+            <TabsTrigger value="digestive-health">Digestive Health</TabsTrigger>
+            <TabsTrigger value="genes-addiction">Genes & Addiction</TabsTrigger>
+            <TabsTrigger value="sleep-rest">Sleep & Rest</TabsTrigger>
+            <TabsTrigger value="allergies-sensitivity">Allergies</TabsTrigger>
             <TabsTrigger value="preventive-health">
-              🛡️ Preventive Health
+              Preventive Health
             </TabsTrigger>
             <TabsTrigger value="family-genetic-impact">
-              👪 Family Impact
+              Family Impact
             </TabsTrigger>
-            <TabsTrigger value="genes">🧬 Gene Results</TabsTrigger>
-            <TabsTrigger value="summaries">📝 Summaries</TabsTrigger>
-            <TabsTrigger value="pdf-export">📤 PDF Export</TabsTrigger>
-            <TabsTrigger value="import-export">🔁 Import/Export</TabsTrigger>
+            <TabsTrigger value="genes">Gene Results</TabsTrigger>
+            <TabsTrigger value="summaries">Summaries</TabsTrigger>
+            <TabsTrigger value="pdf-export">PDF Export</TabsTrigger>
+            <TabsTrigger value="import-export">Import/Export</TabsTrigger>
           </TabsList>
         </div>
 
@@ -1105,6 +1153,18 @@ const AdminPage = () => {
             onReset={() => resetSection("content")}
           />
         </TabsContent>
+
+        <TabsContent value="genetic-parameters">
+          <GeneticParametersAdmin
+            geneticParameters={reportData.geneticParameters}
+            updateParameters={(updated) =>
+              setReportData((prev) => ({ ...prev, geneticParameters: updated }))
+            }
+            onSave={() => saveReportData()}
+            onReset={() => resetSection("geneticParameters")}
+          />
+        </TabsContent>
+
         <TabsContent value="settings">
           <SettingsAdmin
             settings={reportData.settings}
@@ -1113,6 +1173,7 @@ const AdminPage = () => {
             onReset={() => resetSection("settings")}
           />
         </TabsContent>
+
         <TabsContent value="diet-fields">
           {" "}
           {/* Changed tab content value */}
