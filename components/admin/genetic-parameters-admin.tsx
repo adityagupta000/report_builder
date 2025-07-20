@@ -517,93 +517,88 @@ export default function GeneticParametersAdmin(): JSX.Element {
                         </div>
 
                         {/* Parameters Columns */}
-                        {[0, 1, 2].map((colIndex) => (
-                          <div
-                            key={colIndex}
-                            className={`p-3 ${
-                              colIndex < 2 ? "border-r border-gray-300" : ""
-                            }`}
-                          >
-                            <div className="space-y-2">
+                        <div className="col-span-3 ">
+                          <table className="w-full table-fixed border border-gray-300">
+                            <tbody>
                               {Array.from({
                                 length: Math.ceil(
                                   category.parameters.length / 3
                                 ),
-                              }).map((_, rowIndex) => {
-                                const paramIndex =
-                                  colIndex *
-                                    Math.ceil(category.parameters.length / 3) +
-                                  rowIndex;
-                                const parameter =
-                                  category.parameters[paramIndex] || "";
+                              }).map((_, rowIndex) => (
+                                <tr key={rowIndex}>
+                                  {[0, 1, 2].map((colIndex) => {
+                                    const paramIndex =
+                                      colIndex *
+                                        Math.ceil(
+                                          category.parameters.length / 3
+                                        ) +
+                                      rowIndex;
+                                    const parameter =
+                                      category.parameters[paramIndex] || "";
 
-                                if (
-                                  paramIndex >= category.parameters.length &&
-                                  !isEditing
-                                )
-                                  return null;
-
-                                return (
-                                  <div
-                                    key={rowIndex}
-                                    className="min-h-[28px] flex items-center group"
-                                  >
-                                    {isEditing ? (
-                                      <div className="flex items-center space-x-1 w-full">
-                                        <Input 
-                                          value={parameter}
-                                          onChange={(e) =>
-                                            handleParameterChange(
-                                              actualIndex,
-                                              paramIndex,
-                                              e.target.value
-                                            )
-                                          }
-                                          placeholder="Parameter name"
-                                          className="text-sm h-7 flex-1"
-                                        />
-                                        {paramIndex <
-                                          category.parameters.length && (
-                                          <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            onClick={() =>
-                                              removeParameter(
-                                                actualIndex,
-                                                paramIndex
-                                              )
-                                            }
-                                            className="h-7 w-7 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                                          >
-                                            <X size={12} />
-                                          </Button>
+                                    return (
+                                      <td
+                                        key={colIndex}
+                                        className="border border-gray-300 p-1"
+                                      >
+                                        {isEditing ? (
+                                          <div className="flex items-center space-x-1 w-full">
+                                            <Input
+                                              value={parameter}
+                                              onChange={(e) =>
+                                                handleParameterChange(
+                                                  actualIndex,
+                                                  paramIndex,
+                                                  e.target.value
+                                                )
+                                              }
+                                              placeholder="Parameter name"
+                                              className="text-sm h-7 w-full"
+                                            />
+                                            {paramIndex <
+                                              category.parameters.length && (
+                                              <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() =>
+                                                  removeParameter(
+                                                    actualIndex,
+                                                    paramIndex
+                                                  )
+                                                }
+                                                className="h-7 w-7 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                              >
+                                                <X size={12} />
+                                              </Button>
+                                            )}
+                                          </div>
+                                        ) : (
+                                          parameter && (
+                                            <span className="text-sm text-gray-700">
+                                              {parameter}
+                                            </span>
+                                          )
                                         )}
-                                      </div>
-                                    ) : (
-                                      parameter && (
-                                        <span className="text-sm text-gray-700 leading-tight">
-                                          {parameter}
-                                        </span>
-                                      )
-                                    )}
-                                  </div>
-                                );
-                              })}
+                                      </td>
+                                    );
+                                  })}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
 
-                              {isEditing && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => addParameter(actualIndex)}
-                                  className="h-7 w-full text-xs text-gray-500 hover:text-gray-700"
-                                >
-                                  <Plus size={12} className="mr-1" />
-                                  Add Parameter
-                                </Button>
-                              )}
-                            </div>
-                          </div>
-                        ))}
+                          {isEditing && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => addParameter(actualIndex)}
+                              className="mt-2 w-full text-xs text-gray-500 hover:text-gray-700"
+                            >
+                              <Plus size={12} className="mr-1" />
+                              Add Parameter
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

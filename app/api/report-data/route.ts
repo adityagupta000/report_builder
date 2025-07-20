@@ -9,7 +9,7 @@ const dataFilePath = path.join(process.cwd(), "data", "report-data.json");
 // Default data to initialize if the file doesn't exist
 const defaultReportData: ComprehensiveReportData = {
   patientInfo: {
-    name: "John Doe",
+    name: "John",
     gender: "MALE",
     birthDate: "1990-01-01",
     sampleCode: "DNL1000000110",
@@ -19,10 +19,12 @@ const defaultReportData: ComprehensiveReportData = {
     genomicAnalytics: "Genomics Lab Inc.",
     checkedBy: "Dr. Alice Brown",
     scientificContent: "Dr. Robert White",
-  },
-  content: {
     disclaimer:
       "This report is for informational purposes only and should not be used as a substitute for professional medical advice.",
+    signature1: "",
+    signature2: "",
+  },
+  content: {
     introduction:
       "Welcome to your personalized nutrigenomics report. This document provides insights into how your genes influence your diet, nutrition, and overall health.",
     genomicsExplanation:

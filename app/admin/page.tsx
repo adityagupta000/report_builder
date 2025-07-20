@@ -763,6 +763,8 @@ const AdminPage = () => {
         toast({
           title: "Report data saved!",
           description: "Your progress has been saved to the backend.",
+          variant: "success",
+          duration: 3000,
         });
       } else {
         const errorData = await response.json();

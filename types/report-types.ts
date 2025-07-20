@@ -1,40 +1,49 @@
-export interface GeneticParameter {
-  id: string;
-  title: string;
-  gene: string;
-  snp: string;
-  result: string;
-  impact: string;
-  imageUrl?: string;
-}
+// export interface GeneticParameter {
+//   id: string;
+//   title: string;
+//   gene: string;
+//   snp: string;
+//   result: string;
+//   impact: string;
+//   imageUrl?: string;
+// }
 
-export interface CategoryData {
+// export interface GeneticCategory {
+//   id: string;
+//   category: string;
+//   parameters: string[];
+//   imageUrl?: string;
+//   description?: string;
+// }
+
+export interface GeneticCategory {
   id: string;
   category: string;
   imageUrl: string;
-  description?: string;
+  description: string;
   parameters: string[];
   isActive: boolean;
   order: number;
 }
 
-export interface ReportData {
-  categories: CategoryData[];
-  geneticParameters: GeneticParameter[];
-  metadata?: {
-    lastUpdated: string;
-    version: string;
-    totalCategories: number;
-    totalParameters: number;
-  };
-}
 
-export interface ApiResponse {
-  success: boolean;
-  data?: ReportData;
-  message?: string;
-  error?: string;
-}
+// export interface ReportData {
+//   categories: CategoryData[];
+//   geneticParameters: GeneticParameter[];
+//   metadata?: {
+//     lastUpdated: string;
+//     version: string;
+//     totalCategories: number;
+//     totalParameters: number;
+//   };
+// }
+
+// export interface ApiResponse {
+//   success: boolean;
+//   data?: ReportData;
+//   message?: string;
+//   error?: string;
+// }
 
 export interface PatientInfo {
   name: string;
@@ -332,6 +341,7 @@ export interface ComprehensiveReportData {
   allergiesAndSensitivity: AllergiesAndSensitivity;
   geneTestResults: GeneTestResult[];
   geneticParameters: GeneticParameter[];
+  geneticCategories?: GeneticCategory[];
   metabolicSummary: MetabolicSummary;
   preventiveHealth: PreventiveHealth;
   familyGeneticImpact: FamilyGeneticImpact[];
