@@ -92,29 +92,25 @@ export interface GeneticParameter {
   impact: string;
 }
 
-// NEW: Interface for dynamically defined diet analysis fields
 export interface DynamicDietFieldDefinition {
-  _uuid: string; // For DND library internal use
-  id: string; // Unique identifier for the field (e.g., "carbohydrate_sensitivity")
-  label: string; // Display name (e.g., "Carbohydrate Sensitivity")
-  category: string; // Category (e.g., "Macronutrients", "Food Sensitivities")
-  min: number; // Min score for the field
-  max: number; // Max score for the field
-  highRecommendation: string; // Recommendation for high score
-  normalRecommendation: string; // Recommendation for normal score
-  lowRecommendation: string; // Recommendation for low score
+  _uuid: string;
+  id: string;
+  label: string;
+  category: string;
+  min: number;
+  max: number;
+  highRecommendation: string;
+  normalRecommendation: string;
+  lowRecommendation: string;
 }
 
-// NEW: Interface for a patient's specific result for a dynamic diet field
 export interface PatientDietAnalysisResult {
-  fieldId: string; // References DynamicDietFieldDefinition.id
+  fieldId: string;
   score: number;
-  level: string; // e.g., "HIGH", "NORMAL", "LOW", "SUITABLE"
-  recommendation: string; // Patient-specific recommendation
+  level: string;
+  recommendation: string;
 }
 
-// OLD DietAnalysis interface is removed.
-// The data it contained will now be managed via DynamicDietFieldDefinition and PatientDietAnalysisResult.
 
 export interface NutrientData {
   score: number;
@@ -346,4 +342,5 @@ export interface ComprehensiveReportData {
   preventiveHealth: PreventiveHealth;
   familyGeneticImpact: FamilyGeneticImpact[];
   summaries: ReportSummaries;
+  dietFieldCategories: string[]; // NEW
 }

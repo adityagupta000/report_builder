@@ -1,19 +1,35 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Button } from "@/components/ui/button" // Import Button
-import { Save, RotateCcw } from "lucide-react" // Import icons
-import type { DietAnalysis, MacronutrientData } from "@/types/report-types"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button"; // Import Button
+import { Save, RotateCcw } from "lucide-react"; // Import icons
+import type { DietAnalysis, MacronutrientData } from "@/types/report-types";
 
 interface DietAnalysisAdminProps {
-  dietAnalysis: DietAnalysis
-  updateDietAnalysis: (section: keyof DietAnalysis, field: string, data: Partial<MacronutrientData>) => void
-  onSave: () => void // Added onSave
-  onReset: () => void // Added onReset
+  dietAnalysis: DietAnalysis;
+  updateDietAnalysis: (
+    section: keyof DietAnalysis,
+    field: string,
+    data: Partial<MacronutrientData>
+  ) => void;
+  onSave: () => void; // Added onSave
+  onReset: () => void; // Added onReset
 }
 
 export default function DietAnalysisAdmin({
@@ -26,7 +42,7 @@ export default function DietAnalysisAdmin({
     section: keyof DietAnalysis,
     field: string,
     data: MacronutrientData,
-    title: string,
+    title: string
   ) => (
     <Card key={field} className="border-2 border-blue-100 bg-blue-50/30">
       <CardHeader className="pb-3">
@@ -41,13 +57,22 @@ export default function DietAnalysisAdmin({
               min="1"
               max="10"
               value={data.score}
-              onChange={(e) => updateDietAnalysis(section, field, { score: Number.parseInt(e.target.value) || 1 })}
+              onChange={(e) =>
+                updateDietAnalysis(section, field, {
+                  score: Number.parseInt(e.target.value) || 1,
+                })
+              }
               className="border-2 focus:border-blue-500"
             />
           </div>
           <div className="space-y-2">
             <Label className="text-sm font-medium">Level</Label>
-            <Select value={data.level} onValueChange={(value) => updateDietAnalysis(section, field, { level: value })}>
+            <Select
+              value={data.level}
+              onValueChange={(value) =>
+                updateDietAnalysis(section, field, { level: value })
+              }
+            >
               <SelectTrigger className="border-2 focus:border-blue-500">
                 <SelectValue />
               </SelectTrigger>
@@ -55,10 +80,6 @@ export default function DietAnalysisAdmin({
                 <SelectItem value="HIGH">HIGH</SelectItem>
                 <SelectItem value="NORMAL">NORMAL</SelectItem>
                 <SelectItem value="LOW">LOW</SelectItem>
-                <SelectItem value="FREQUENT">FREQUENT</SelectItem>
-                <SelectItem value="LESS FREQUENT">LESS FREQUENT</SelectItem>
-                <SelectItem value="SUITABLE">SUITABLE</SelectItem>
-                <SelectItem value="LESS SUITABLE">LESS SUITABLE</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -67,14 +88,18 @@ export default function DietAnalysisAdmin({
           <Label className="text-sm font-medium">Recommendation</Label>
           <Textarea
             value={data.recommendation}
-            onChange={(e) => updateDietAnalysis(section, field, { recommendation: e.target.value })}
+            onChange={(e) =>
+              updateDietAnalysis(section, field, {
+                recommendation: e.target.value,
+              })
+            }
             rows={3}
             className="border-2 focus:border-blue-500 text-sm"
           />
         </div>
       </CardContent>
     </Card>
-  )
+  );
 
   return (
     <Card className="shadow-lg border-0 bg-white">
@@ -99,50 +124,54 @@ export default function DietAnalysisAdmin({
 
         {/* Macronutrients Section */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 border-b-2 border-amber-200 pb-2">🥗 Macronutrients</h3>
+          <h3 className="text-xl font-semibold text-gray-800 border-b-2 border-amber-200 pb-2">
+            🥗 Macronutrients
+          </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {renderMacronutrientField(
               "macronutrients",
               "carbohydrateSensitivity",
               dietAnalysis.macronutrients.carbohydrateSensitivity,
-              "Carbohydrate Sensitivity",
+              "Carbohydrate Sensitivity"
             )}
             {renderMacronutrientField(
               "macronutrients",
               "fatSensitivity",
               dietAnalysis.macronutrients.fatSensitivity,
-              "Fat Sensitivity",
+              "Fat Sensitivity"
             )}
             {renderMacronutrientField(
               "macronutrients",
               "proteinRequirement",
               dietAnalysis.macronutrients.proteinRequirement,
-              "Protein Requirement",
+              "Protein Requirement"
             )}
           </div>
         </div>
 
         {/* Meal Pattern Section */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 border-b-2 border-amber-200 pb-2">🍽️ Meal Pattern</h3>
+          <h3 className="text-xl font-semibold text-gray-800 border-b-2 border-amber-200 pb-2">
+            🍽️ Meal Pattern
+          </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {renderMacronutrientField(
               "mealPattern",
               "mealFrequency",
               dietAnalysis.mealPattern.mealFrequency,
-              "Meal Frequency",
+              "Meal Frequency"
             )}
             {renderMacronutrientField(
               "mealPattern",
               "mealReplacement",
               dietAnalysis.mealPattern.mealReplacement,
-              "Meal Replacement",
+              "Meal Replacement"
             )}
             {renderMacronutrientField(
               "mealPattern",
               "weightMaintenance",
               dietAnalysis.mealPattern.weightMaintenance,
-              "Weight Maintenance",
+              "Weight Maintenance"
             )}
           </div>
         </div>
@@ -157,31 +186,31 @@ export default function DietAnalysisAdmin({
               "foodSensitivities",
               "alcoholSensitivity",
               dietAnalysis.foodSensitivities.alcoholSensitivity,
-              "Alcohol Sensitivity",
+              "Alcohol Sensitivity"
             )}
             {renderMacronutrientField(
               "foodSensitivities",
               "caffeineSensitivity",
               dietAnalysis.foodSensitivities.caffeineSensitivity,
-              "Caffeine Sensitivity",
+              "Caffeine Sensitivity"
             )}
             {renderMacronutrientField(
               "foodSensitivities",
               "glutenSensitivity",
               dietAnalysis.foodSensitivities.glutenSensitivity,
-              "Gluten Sensitivity",
+              "Gluten Sensitivity"
             )}
             {renderMacronutrientField(
               "foodSensitivities",
               "lactoseSensitivity",
               dietAnalysis.foodSensitivities.lactoseSensitivity,
-              "Lactose Sensitivity",
+              "Lactose Sensitivity"
             )}
             {renderMacronutrientField(
               "foodSensitivities",
               "saltSensitivity",
               dietAnalysis.foodSensitivities.saltSensitivity,
-              "Salt Sensitivity",
+              "Salt Sensitivity"
             )}
           </div>
         </div>
@@ -196,23 +225,23 @@ export default function DietAnalysisAdmin({
               "tasteSensitivities",
               "spiceTolerance",
               dietAnalysis.tasteSensitivities.spiceTolerance,
-              "Spice Tolerance",
+              "Spice Tolerance"
             )}
             {renderMacronutrientField(
               "tasteSensitivities",
               "sweetTaste",
               dietAnalysis.tasteSensitivities.sweetTaste,
-              "Sweet Taste",
+              "Sweet Taste"
             )}
             {renderMacronutrientField(
               "tasteSensitivities",
               "tasteSensitivity",
               dietAnalysis.tasteSensitivities.tasteSensitivity,
-              "Taste Sensitivity",
+              "Taste Sensitivity"
             )}
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -106,40 +106,46 @@
   "patientDietAnalysisResults": [
     {
       "fieldId": "carbohydrate_sensitivity",
-      "score": 5,
-      "level": "NORMAL",
-      "recommendation": "Maintain balanced carbohydrate intake."
+      "score": 1,
+      "level": "LOW",
+      "recommendation": "Ensure adequate carbohydrate intake."
     },
     {
       "fieldId": "fat_sensitivity",
-      "score": 7,
-      "level": "HIGH",
-      "recommendation": "Reduce saturated and trans fats; focus on healthy fats."
+      "score": 2,
+      "level": "LOW",
+      "recommendation": "Ensure adequate healthy fat intake."
     },
     {
       "fieldId": "protein_requirement",
       "score": 3,
       "level": "LOW",
-      "recommendation": "Ensure adequate protein intake for muscle maintenance."
+      "recommendation": "Consider increasing protein intake for muscle maintenance."
     },
     {
       "fieldId": "meal_frequency",
-      "score": 6,
-      "level": "FREQUENT",
-      "recommendation": "Consider smaller, more frequent meals."
+      "score": 4,
+      "level": "NORMAL",
+      "recommendation": "Maintain regular meal frequency."
     },
     {
       "fieldId": "alcohol_sensitivity",
-      "score": 9,
-      "level": "HIGH",
-      "recommendation": "Limit alcohol consumption due to genetic sensitivity."
+      "score": 5,
+      "level": "NORMAL",
+      "recommendation": "Moderate alcohol intake is fine."
     },
     {
       "fieldId": "caffeine_sensitivity",
-      "score": 2,
-      "level": "LOW",
-      "recommendation": "Normal caffeine metabolism; moderate intake is fine."
+      "score": 9,
+      "level": "HIGH",
+      "recommendation": "Limit caffeine intake due to slow metabolism."
     }
+  ],
+  "dietFieldCategories": [
+    "Macronutrients",
+    "Meal Pattern",
+    "Food Sensitivities",
+    "Taste Sensitivities"
   ],
   "nutritionData": {
     "vitamins": {
@@ -741,7 +747,7 @@
   ],
   "geneticParameters": [],
   "metadata": {
-    "lastUpdated": "2025-07-20T17:58:21.663Z",
+    "lastUpdated": "2025-07-21T03:27:36.551Z",
     "version": "1.0.0",
     "totalCategories": 2,
     "totalParameters": 42

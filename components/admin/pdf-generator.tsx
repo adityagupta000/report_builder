@@ -41,6 +41,8 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
               toast({
                 title: "Print Dialog Opened",
                 description: "Please select 'Save as PDF' or your printer in the dialog.",
+                variant:"success",
+                duration:3000,
               })
             } else {
               // For download, the browser's print dialog usually offers "Save as PDF"
@@ -49,6 +51,7 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
               toast({
                 title: "Download Initiated",
                 description: "Please select 'Save as PDF' in the print dialog to download.",
+                duration:3000,
               })
             }
             setIsGenerating(false)
@@ -59,6 +62,7 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
             title: "Error",
             description: "Could not open print window. Please check pop-up blockers.",
             variant: "destructive",
+            duration:3000,
           })
           setIsGenerating(false)
         }
@@ -67,6 +71,7 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
           title: "Error",
           description: "Pop-up blocked or window could not be opened. Please allow pop-ups for this site.",
           variant: "destructive",
+          duration:3000,
         })
         setIsGenerating(false)
       }
@@ -76,7 +81,7 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
         title: "Error",
         description: "An unexpected error occurred during PDF generation.",
         variant: "destructive",
-      })
+        duration:3000,      })
       setIsGenerating(false)
     }
   }
@@ -86,6 +91,7 @@ export default function PDFGenerator({ reportData }: PDFGeneratorProps) {
     toast({
       title: "Preview Opened",
       description: "Your report preview is open in a new tab.",
+      duration:3000,
     })
   }
 

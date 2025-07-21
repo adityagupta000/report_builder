@@ -57,7 +57,7 @@ const defaultReportData: ComprehensiveReportData = {
     {
       _uuid: uuidv4(),
       id: "carbohydrate_sensitivity",
-      label: "Carbohydrate Sensitivity",
+      label: "Carbohydrate Sensitivitycc",
       category: "Macronutrients",
       min: 1,
       max: 10,

@@ -173,7 +173,7 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
         "Fast caffeine metabolism; higher intake may be tolerated.",
     },
   ],
-  // NEW: Default patient-specific results for dynamic diet fields
+
   patientDietAnalysisResults: [
     {
       fieldId: "carbohydrate_sensitivity",
@@ -212,6 +212,14 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
       recommendation: "Normal caffeine metabolism; moderate intake is fine.",
     },
   ],
+
+  dietFieldCategories: [
+    "Macronutrients",
+    "Meal Pattern",
+    "Food Sensitivities",
+    "Taste Sensitivities",
+  ],
+
   nutritionData: {
     vitamins: {
       vitaminA: {
@@ -1181,11 +1189,27 @@ const AdminPage = () => {
           {/* Changed tab content value */}
           <DynamicDietFieldAdmin
             dynamicDietFieldDefinitions={reportData.dynamicDietFieldDefinitions}
-            updateDynamicDietFieldDefinitions={
-              updateDynamicDietFieldDefinitions
+            patientDietAnalysisResults={reportData.patientDietAnalysisResults}
+            categories={reportData.dietFieldCategories}
+            onUpdateCategories={(newCats) =>
+              setReportData((prev) => ({
+                ...prev,
+                dietFieldCategories: newCats,
+              }))
             }
-            onSave={() => saveReportData()}
-            onReset={() => resetSection("dynamicDietFieldDefinitions")}
+            onUpdateFields={(fields) =>
+              setReportData((prev) => ({
+                ...prev,
+                dynamicDietFieldDefinitions: fields,
+              }))
+            }
+            onUpdateResults={(results) =>
+              setReportData((prev) => ({
+                ...prev,
+                patientDietAnalysisResults: results,
+              }))
+            }
+            onSave={saveReportData} 
           />
         </TabsContent>
         <TabsContent value="nutrition">
