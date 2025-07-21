@@ -50,18 +50,33 @@ const variantIcons = {
   ),
 };
 
+type CustomToastProps = {
+  hideClose?: boolean;
+} & React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
+  VariantProps<typeof toastVariants>;
+
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
-    VariantProps<typeof toastVariants>
->(({ className, variant, ...props }, ref) => {
+  CustomToastProps
+>(({ className, variant, hideClose, children, ...props }, ref) => {
   return (
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
-      duration={3000} // default auto-dismiss
+      duration={3000}
       {...props}
-    />
+    >
+      {children}
+      {/* Remove ToastClose when hideClose is true */}
+      {!hideClose && (
+        <button
+          className="absolute right-2 bottom-2 rounded-md p-1 text-foreground/50 transition-opacity hover:text-foreground focus:outline-none focus:ring-1"
+          onClick={() => ToastPrimitives.dismiss(props.id)}
+        >
+          <X className="h-4 w-4" />
+        </button>
+      )}
+    </ToastPrimitives.Root>
   );
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
@@ -80,23 +95,6 @@ const ToastAction = React.forwardRef<
   />
 ));
 ToastAction.displayName = ToastPrimitives.Action.displayName;
-
-const ToastClose = React.forwardRef<
-  React.ElementRef<typeof ToastPrimitives.Close>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Close
-    ref={ref}
-    className={cn(
-      "absolute right-2 bottom-2 rounded-md p-1 text-foreground/50 transition-opacity hover:text-foreground focus:outline-none focus:ring-1"
-    )}
-    toast-close=""
-    {...props}
-  >
-    <X className="h-4 w-4" />
-  </ToastPrimitives.Close>
-));
-ToastClose.displayName = ToastPrimitives.Close.displayName;
 
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
@@ -131,7 +129,6 @@ export {
   Toast,
   ToastTitle,
   ToastDescription,
-  ToastClose,
   ToastAction,
   type ToastProps,
   type ToastActionElement,

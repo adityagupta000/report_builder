@@ -26,7 +26,6 @@ export interface GeneticCategory {
   order: number;
 }
 
-
 // export interface ReportData {
 //   categories: CategoryData[];
 //   geneticParameters: GeneticParameter[];
@@ -104,13 +103,25 @@ export interface DynamicDietFieldDefinition {
   lowRecommendation: string;
 }
 
+// export interface PatientDietAnalysisResult {
+//   fieldId: string;
+//   score: number;
+//   level: string;
+//   recommendation: string;
+// }
+
 export interface PatientDietAnalysisResult {
   fieldId: string;
   score: number;
-  level: string;
+  level: "LOW" | "NORMAL" | "HIGH";
   recommendation: string;
+  recommendations: {
+    LOW: string;
+    NORMAL: string;
+    HIGH: string;
+  };
+  selectedLevel: "LOW" | "NORMAL" | "HIGH";
 }
-
 
 export interface NutrientData {
   score: number;

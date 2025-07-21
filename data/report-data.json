@@ -108,37 +108,73 @@
       "fieldId": "carbohydrate_sensitivity",
       "score": 1,
       "level": "LOW",
-      "recommendation": "Ensure adequate carbohydrate intake."
+      "recommendation": "Ensure adequate carbohydrate intake.",
+      "recommendations": {
+        "LOW": "Ensure adequate carbohydrate intake.",
+        "NORMAL": "Maintain balanced carbohydrate intake.",
+        "HIGH": "Reduce carbohydrate intake, focus on complex carbs."
+      },
+      "selectedLevel": "LOW"
     },
     {
       "fieldId": "fat_sensitivity",
       "score": 2,
       "level": "LOW",
-      "recommendation": "Ensure adequate healthy fat intake."
+      "recommendation": "Ensure adequate healthy fat intake.",
+      "recommendations": {
+        "LOW": "Ensure adequate healthy fat intake.",
+        "NORMAL": "Maintain balanced fat intake.",
+        "HIGH": "Reduce saturated and trans fats; focus on healthy fats."
+      },
+      "selectedLevel": "LOW"
     },
     {
       "fieldId": "protein_requirement",
       "score": 3,
       "level": "LOW",
-      "recommendation": "Consider increasing protein intake for muscle maintenance."
+      "recommendation": "Consider increasing protein intake for muscle maintenance.",
+      "recommendations": {
+        "LOW": "Consider increasing protein intake for muscle maintenance.",
+        "NORMAL": "Ensure adequate protein intake.",
+        "HIGH": "Increased protein intake recommended."
+      },
+      "selectedLevel": "LOW"
     },
     {
       "fieldId": "meal_frequency",
       "score": 4,
       "level": "NORMAL",
-      "recommendation": "Maintain regular meal frequency."
+      "recommendation": "Maintain regular meal frequency.",
+      "recommendations": {
+        "LOW": "Consider fewer, larger meals.",
+        "NORMAL": "Maintain regular meal frequency.",
+        "HIGH": "Consider smaller, more frequent meals."
+      },
+      "selectedLevel": "NORMAL"
     },
     {
       "fieldId": "alcohol_sensitivity",
       "score": 5,
       "level": "NORMAL",
-      "recommendation": "Moderate alcohol intake is fine."
+      "recommendation": "Moderate alcohol intake is fine.",
+      "recommendations": {
+        "LOW": "Normal alcohol metabolism.",
+        "NORMAL": "Moderate alcohol intake is fine.",
+        "HIGH": "Limit alcohol consumption due to genetic sensitivity."
+      },
+      "selectedLevel": "NORMAL"
     },
     {
       "fieldId": "caffeine_sensitivity",
-      "score": 9,
-      "level": "HIGH",
-      "recommendation": "Limit caffeine intake due to slow metabolism."
+      "score": 6,
+      "level": "NORMAL",
+      "recommendation": "Normal caffeine metabolism; moderate intake is fine.",
+      "recommendations": {
+        "LOW": "Fast caffeine metabolism; higher intake may be tolerated.",
+        "NORMAL": "Normal caffeine metabolism; moderate intake is fine.",
+        "HIGH": "Limit caffeine intake due to slow metabolism."
+      },
+      "selectedLevel": "NORMAL"
     }
   ],
   "dietFieldCategories": [

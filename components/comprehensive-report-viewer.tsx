@@ -445,9 +445,28 @@ export default function ComprehensiveReportViewer({
                   <p>
                     <strong>Level:</strong> {data.level}
                   </p>
-                  <p>
-                    <strong>Recommendation:</strong> {data.recommendation}
-                  </p>
+                  <div>
+                    <p className="font-semibold">Recommendation:</p>
+                    <ul className="mt-1 space-y-1">
+                      {data.recommendations ? (
+                        (["LOW", "NORMAL", "HIGH"] as const).map((level) => (
+                          <li key={level}>
+                            <span
+                              className={`${
+                                data.selectedLevel === level
+                                  ? "text-black"
+                                  : "text-gray-400"
+                              }`}
+                            >
+                              {level}: {data.recommendations[level]}
+                            </span>
+                          </li>
+                        ))
+                      ) : (
+                        <li className="text-black">{data.recommendation}</li>
+                      )}
+                    </ul>
+                  </div>
                 </div>
               </DataCard>
             ))}

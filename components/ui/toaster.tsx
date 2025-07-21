@@ -2,7 +2,6 @@
 
 import {
   Toast,
-  ToastClose,
   ToastDescription,
   ToastProvider,
   ToastTitle,
@@ -18,7 +17,7 @@ export function Toaster() {
     <ToastProvider swipeDirection="up">
       {toasts.map(
         ({ id, title, description, action, variant = "default", ...props }) => (
-          <Toast key={id} variant={variant} {...props}>
+          <Toast key={id} variant={variant} {...props} hideClose>
             <div className="flex items-start gap-3">
               {variant !== "default" && variantIcons[variant]}
               <div className="grid gap-1">
@@ -29,7 +28,6 @@ export function Toaster() {
               </div>
             </div>
             {action}
-            <ToastClose />
           </Toast>
         )
       )}

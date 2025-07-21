@@ -10,7 +10,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Save, RotateCcw, Trash2, GripVertical, X } from "lucide-react";
+import {
+  Plus,
+  Save,
+  RotateCcw,
+  Trash2,
+  GripVertical,
+  X,
+  File,
+} from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import {
   FieldInput,
@@ -47,6 +55,7 @@ export default function DynamicDietFieldAdmin({
   const [enteredScore, setEnteredScore] = useState<number>(5);
   const [fieldScores, setFieldScores] = useState<Record<string, number>>({});
   const [results, setResults] = useState<PatientDietAnalysisResult[]>([]);
+  const [showResultsModal, setShowResultsModal] = useState(false);
 
   const [localFields, setLocalFields] = useState<DynamicDietFieldDefinition[]>(
     dynamicDietFieldDefinitions
@@ -198,12 +207,22 @@ export default function DynamicDietFieldAdmin({
       if (score <= 3) level = "LOW";
       else if (score >= 7) level = "HIGH";
 
-      let recommendation = "";
-      if (level === "LOW") recommendation = field.lowRecommendation;
-      else if (level === "NORMAL") recommendation = field.normalRecommendation;
-      else recommendation = field.highRecommendation;
+      const recommendations = {
+        LOW: field.lowRecommendation,
+        NORMAL: field.normalRecommendation,
+        HIGH: field.highRecommendation,
+      };
 
-      newResults.push({ fieldId, score, level, recommendation });
+      const recommendation = recommendations[level];
+
+      newResults.push({
+        fieldId,
+        score,
+        level,
+        recommendation, // still storing the selected one
+        recommendations,
+        selectedLevel: level,
+      });
     });
 
     const updated = [...results, ...newResults];
@@ -216,7 +235,20 @@ export default function DynamicDietFieldAdmin({
       title: "Results Saved",
       description: `${newResults.length} results added successfully.`,
       variant: "success",
-      duration:3000,
+      duration: 3000,
+    });
+  };
+
+  const handleDeleteResult = (fieldId: string) => {
+    const updated = results.filter((r) => r.fieldId !== fieldId);
+    setResults(updated);
+    onUpdateResults(updated);
+
+    toast({
+      title: "Result Deleted",
+      description: `Analysis result for "${fieldId}" has been removed.`,
+      variant: "destructive",
+      duration: 3000,
     });
   };
 
@@ -302,6 +334,15 @@ export default function DynamicDietFieldAdmin({
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Analysis Result
+              </Button>
+
+              <Button
+                onClick={() => setShowResultsModal(true)}
+                size="sm"
+                className="w-full sm:w-auto"
+              >
+                <File className="h-4 w-4 mr-2" />
+                View Saved Results
               </Button>
 
               <Button onClick={onSave} size="sm" className="w-full sm:w-auto">
@@ -683,6 +724,74 @@ export default function DynamicDietFieldAdmin({
                 Add Field
               </Button>
             </div>
+          </div>
+        </div>
+      )}
+      {showResultsModal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl p-4 max-h-[80vh] overflow-y-auto relative scrollbar-hide">
+            <button
+              onClick={() => setShowResultsModal(false)}
+              className="absolute top-3 left-3 text-gray-500 hover:text-black"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Delete All Button */}
+            <div className="mb-4 flex justify-end">
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  if (
+                    confirm(
+                      "Are you sure you want to delete all analysis results?"
+                    )
+                  ) {
+                    setResults([]);
+                    onUpdateResults([]);
+                    toast({
+                      title: "All Results Deleted",
+                      description:
+                        "All diet analysis results have been cleared.",
+                      variant: "destructive",
+                    });
+                  }
+                }}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete All Results
+              </Button>
+            </div>
+
+            {results.length === 0 ? (
+              <p className="text-gray-500 italic">No analysis results yet.</p>
+            ) : (
+              <div className="space-y-3">
+                {results.map((res) => (
+                  <div
+                    key={res.fieldId}
+                    className="flex justify-between items-center border p-3 rounded-md bg-gray-50"
+                  >
+                    <div>
+                      <p className="font-medium">{res.fieldId}</p>
+                      <p className="text-sm text-gray-600">
+                        Score: {res.score}, Level: {res.level}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        Recommendation: {res.recommendation}
+                      </p>
+                    </div>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDeleteResult(res.fieldId)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
