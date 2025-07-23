@@ -315,7 +315,7 @@ export default function GeneticParametersAdmin(): JSX.Element {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4">
+    <div className="w-full max-w-7xl mx-auto ">
       <Card className="mb-6">
         <CardHeader>
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">

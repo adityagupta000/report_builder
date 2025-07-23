@@ -177,39 +177,76 @@ const getDefaultReportData = (): ComprehensiveReportData => ({
   patientDietAnalysisResults: [
     {
       fieldId: "carbohydrate_sensitivity",
-      score: 5,
-      level: "NORMAL",
-      recommendation: "Maintain balanced carbohydrate intake.",
+      score: 1,
+      level: "LOW",
+      recommendation: "Ensure adequate carbohydrate intake.",
+      recommendations: {
+        LOW: "Ensure adequate carbohydrate intake.",
+        NORMAL: "Maintain balanced carbohydrate intake.",
+        HIGH: "Reduce carbohydrate intake, focus on complex carbs.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "fat_sensitivity",
-      score: 7,
-      level: "HIGH",
-      recommendation: "Reduce saturated and trans fats; focus on healthy fats.",
+      score: 2,
+      level: "LOW",
+      recommendation: "Ensure adequate healthy fat intake.",
+      recommendations: {
+        LOW: "Ensure adequate healthy fat intake.",
+        NORMAL: "Maintain balanced fat intake.",
+        HIGH: "Reduce saturated and trans fats; focus on healthy fats.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "protein_requirement",
       score: 3,
       level: "LOW",
-      recommendation: "Ensure adequate protein intake for muscle maintenance.",
+      recommendation:
+        "Consider increasing protein intake for muscle maintenance.",
+      recommendations: {
+        LOW: "Consider increasing protein intake for muscle maintenance.",
+        NORMAL: "Ensure adequate protein intake.",
+        HIGH: "Increased protein intake recommended.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "meal_frequency",
-      score: 6,
-      level: "FREQUENT",
-      recommendation: "Consider smaller, more frequent meals.",
+      score: 4,
+      level: "NORMAL",
+      recommendation: "Maintain regular meal frequency.",
+      recommendations: {
+        LOW: "Consider fewer, larger meals.",
+        NORMAL: "Maintain regular meal frequency.",
+        HIGH: "Consider smaller, more frequent meals.",
+      },
+      selectedLevel: "NORMAL",
     },
     {
       fieldId: "alcohol_sensitivity",
-      score: 9,
-      level: "HIGH",
-      recommendation: "Limit alcohol consumption due to genetic sensitivity.",
+      score: 5,
+      level: "NORMAL",
+      recommendation: "Moderate alcohol intake is fine.",
+      recommendations: {
+        LOW: "Normal alcohol metabolism.",
+        NORMAL: "Moderate alcohol intake is fine.",
+        HIGH: "Limit alcohol consumption due to genetic sensitivity.",
+      },
+      selectedLevel: "NORMAL",
     },
     {
       fieldId: "caffeine_sensitivity",
-      score: 2,
-      level: "LOW",
+      score: 6,
+      level: "NORMAL",
       recommendation: "Normal caffeine metabolism; moderate intake is fine.",
+      recommendations: {
+        LOW: "Fast caffeine metabolism; higher intake may be tolerated.",
+        NORMAL: "Normal caffeine metabolism; moderate intake is fine.",
+        HIGH: "Limit caffeine intake due to slow metabolism.",
+      },
+      selectedLevel: "NORMAL",
     },
   ],
 
@@ -866,26 +903,37 @@ const AdminPage = () => {
   };
 
   const updateNutritionData = (
-    category: keyof NutritionData,
-    nutrient: string,
-    field: keyof NutrientData,
-    value: string | number
+    section: keyof NutritionData,
+    field: string,
+    data: Partial<NutrientData> | Record<string, NutrientData>
   ) => {
-    setReportData((prev) => ({
-      ...prev,
-      nutritionData: {
-        ...prev.nutritionData,
-        [category]: {
-          ...prev.nutritionData[category],
-          [nutrient]: {
-            ...prev.nutritionData[category][
-              nutrient as keyof (typeof prev.nutritionData)[typeof category]
-            ],
-            [field]: value,
+    setReportData((prev) => {
+      const currentSection = prev.nutritionData?.[section] || {};
+
+      let updatedSection;
+
+      if (field === "") {
+        // For delete/rename: replace entire section
+        updatedSection = data as Record<string, NutrientData>;
+      } else {
+        const prevField = currentSection[field] || {};
+        updatedSection = {
+          ...currentSection,
+          [field]: {
+            ...prevField,
+            ...data,
           },
+        };
+      }
+
+      return {
+        ...prev,
+        nutritionData: {
+          ...prev.nutritionData,
+          [section]: updatedSection,
         },
-      },
-    }));
+      };
+    });
   };
 
   const updateSportsAndFitness = (
@@ -1116,7 +1164,7 @@ const AdminPage = () => {
         </Button>
       </div>
 
-      <Tabs defaultValue="patient-info" className="w-[100%]">
+      <Tabs defaultValue="patient-info" className="w-full">
         <div className="w-full overflow-x-auto scrollbar-hide">
           <TabsList className="flex gap-2 min-w-max bg-white shadow-sm px-4 py-2 rounded-md border border-gray-200">
             <TabsTrigger value="patient-info">Patient Info</TabsTrigger>
@@ -1147,7 +1195,7 @@ const AdminPage = () => {
           </TabsList>
         </div>
 
-        <TabsContent value="patient-info">
+        <TabsContent className="w-full" value="patient-info">
           <PatientInfoAdmin
             patientInfo={reportData.patientInfo}
             updatePatientInfo={updatePatientInfo}
@@ -1209,7 +1257,7 @@ const AdminPage = () => {
                 patientDietAnalysisResults: results,
               }))
             }
-            onSave={saveReportData} 
+            onSave={saveReportData}
           />
         </TabsContent>
         <TabsContent value="nutrition">

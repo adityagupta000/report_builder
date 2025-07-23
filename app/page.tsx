@@ -22,7 +22,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center w-full justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       {/* Quick Actions */}
-      <div className="grid md:grid-cols-4 gap-6 mb-12 mt-12">
+      <div className="w-full grid md:grid-cols-4 gap-6 mb-12 mt-12">
         <Link href="/admin">
           <Card className="hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white cursor-pointer transform hover:scale-105">
             <CardContent className="p-6 text-center">
@@ -63,7 +63,7 @@ export default function HomePage() {
       </div>
 
       {/* Report Sections */}
-      <Card className="shadow-lg border-0 bg-white mb-12">
+      <Card className="w-full shadow-lg border-0 bg-white mb-12">
         <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-lg">
           <CardTitle className="text-2xl">
             📊 Report Sections Included

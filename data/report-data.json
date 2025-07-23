@@ -11,8 +11,8 @@
     "checkedBy": "Dr. Alice Brown",
     "scientificContent": "Dr. Robert White",
     "disclaimer": "This  for informational purposes only and should not be used as a substitute for professional medical advice.",
-    "signature1": "blob:http://localhost:3000/a721cfeb-4aea-44e0-be00-9a546627873d",
-    "signature2": "blob:http://localhost:3000/a13ca530-e23e-472e-8b44-62e12b148bdc"
+    "signature1": "blob:http://localhost:3000/f254546b-b372-4e30-836a-21d6e3bcc67c",
+    "signature2": "blob:http://localhost:3000/543c96a3-1750-4751-8625-a78938855823"
   },
   "content": {
     "introduction": "To,\n\nThe Principal\n\nStella Maris Convent High School\n\nLucknow, Uttar Pradesh\n\nSubject:  Application for two days of Sick leave due to Viral fever.\n\nRespected Sir/Madam,\n\nWith due respect, I would like to notify you that I have been suffering from viral fever since last night. As per the advice of the physician, I have been advised to take complete bed rest for at least two days.\n\nSo Sir/Madam, I request you to grant me leave for two days, that is, from(Date/Month/Year) to(Date/Month/Year). I will be highly obliged for your kindness.\n\n \n\nThanking You\n\nYours faithfully\n\nRupali Pandey",
@@ -36,17 +36,6 @@
     }
   },
   "dynamicDietFieldDefinitions": [
-    {
-      "_uuid": "e672b676-c2d6-4c8d-92d4-21eab6b2d3bc",
-      "id": "carbohydrate_sensitivity",
-      "label": "Carbohydrate Sensitivity",
-      "category": "Macronutrients",
-      "min": 1,
-      "max": 10,
-      "highRecommendation": "Reduce carbohydrate intake, focus on complex carbs.",
-      "normalRecommendation": "Maintain balanced carbohydrate intake.",
-      "lowRecommendation": "Ensure adequate carbohydrate intake."
-    },
     {
       "_uuid": "ccdff657-2451-487a-a228-659a859aee65",
       "id": "fat_sensitivity",
@@ -101,6 +90,17 @@
       "highRecommendation": "Limit caffeine intake due to slow metabolism.",
       "normalRecommendation": "Normal caffeine metabolism; moderate intake is fine.",
       "lowRecommendation": "Fast caffeine metabolism; higher intake may be tolerated."
+    },
+    {
+      "_uuid": "e672b676-c2d6-4c8d-92d4-21eab6b2d3bc",
+      "id": "carbohydrate_sensitivity",
+      "label": "Carbohydrate Sensitivity",
+      "category": "Macronutrients",
+      "min": 1,
+      "max": 10,
+      "highRecommendation": "Reduce carbohydrate intake, focus on complex carbs.",
+      "normalRecommendation": "Maintain balanced carbohydrate intake.",
+      "lowRecommendation": "Ensure adequate carbohydrate intake."
     }
   ],
   "patientDietAnalysisResults": [
@@ -185,12 +185,6 @@
   ],
   "nutritionData": {
     "vitamins": {
-      "vitaminA": {
-        "score": 3,
-        "healthImpact": "Skin & Vision",
-        "intakeLevel": "ENHANCED INTAKE",
-        "source": "DIET"
-      },
       "vitaminB12": {
         "score": 6,
         "healthImpact": "Nervous System & Bones",
@@ -198,7 +192,7 @@
         "source": "DIET"
       },
       "vitaminB2": {
-        "score": 3,
+        "score": 9,
         "healthImpact": "Energy Metabolism",
         "intakeLevel": "ENHANCED INTAKE",
         "source": "DIET"
@@ -232,6 +226,18 @@
         "healthImpact": "Skin & Immune system",
         "intakeLevel": "ENHANCED INTAKE",
         "source": "DIET"
+      },
+      "vitaminA": {
+        "score": 3,
+        "healthImpact": "Skin & Vision",
+        "intakeLevel": "ENHANCED INTAKE",
+        "source": "DIET"
+      },
+      "cocoa": {
+        "score": 7,
+        "healthImpact": "momooooooooooooooo",
+        "intakeLevel": "NORMAL INTAKE",
+        "source": "ENHANCED INTAKE (VEG/FISH OIL) & DIET"
       }
     },
     "fattyAcids": {
@@ -439,121 +445,91 @@
   },
   "metabolicCore": {
     "methylation": {
-      "genes": [
-        "MTHFR"
-      ],
+      "genes": ["MTHFR"],
       "genotype": "C/T",
       "impact": "Reduced folate metabolism",
       "advice": "Consider L-methylfolate supplementation."
     },
     "inflammation": {
-      "genes": [
-        "CRP"
-      ],
+      "genes": ["CRP"],
       "genotype": "G/A",
       "impact": "Increased inflammatory response",
       "advice": "Incorporate anti-inflammatory foods."
     },
     "oxidativeStress": {
-      "genes": [
-        "SOD2"
-      ],
+      "genes": ["SOD2"],
       "genotype": "T/C",
       "impact": "Reduced antioxidant defense",
       "advice": "Increase antioxidant-rich foods and supplements."
     },
     "detoxification": {
-      "genes": [
-        "GSTP1"
-      ],
+      "genes": ["GSTP1"],
       "genotype": "A/G",
       "impact": "Impaired detoxification capacity",
       "advice": "Support liver health with cruciferous vegetables."
     },
     "vitaminDMetabolism": {
-      "genes": [
-        "VDR"
-      ],
+      "genes": ["VDR"],
       "genotype": "C/C",
       "impact": "Reduced Vitamin D absorption",
       "advice": "Ensure adequate Vitamin D intake and sun exposure."
     },
     "lipidMetabolism": {
-      "genes": [
-        "APOE"
-      ],
+      "genes": ["APOE"],
       "genotype": "E3/E4",
       "impact": "Increased LDL cholesterol tendency",
       "advice": "Monitor lipid levels and follow a heart-healthy diet."
     },
     "insulinResistance": {
-      "genes": [
-        "TCF7L2"
-      ],
+      "genes": ["TCF7L2"],
       "genotype": "T/T",
       "impact": "Higher risk of insulin resistance",
       "advice": "Focus on low glycemic index foods and regular exercise."
     },
     "circadianRhythm": {
-      "genes": [
-        "CLOCK"
-      ],
+      "genes": ["CLOCK"],
       "genotype": "C/G",
       "impact": "Altered sleep-wake cycle",
       "advice": "Maintain consistent sleep schedule and optimize sleep environment."
     },
     "exerciseResponsiveness": {
-      "genes": [
-        "ACTN3"
-      ],
+      "genes": ["ACTN3"],
       "genotype": "R/X",
       "impact": "Enhanced power and strength response to training",
       "advice": "Incorporate strength and power training into routine."
     },
     "snackingTendency": {
-      "genes": [
-        "FTO"
-      ],
+      "genes": ["FTO"],
       "genotype": "A/A",
       "impact": "Increased tendency for snacking and higher BMI",
       "advice": "Practice mindful eating and portion control."
     },
     "oestrogenElimination": {
-      "genes": [
-        "COMT"
-      ],
+      "genes": ["COMT"],
       "genotype": "G/A",
       "impact": "Slower estrogen elimination",
       "advice": "Support liver detoxification pathways."
     },
     "powerVsEndurance": {
-      "genes": [
-        "ACE"
-      ],
+      "genes": ["ACE"],
       "genotype": "I/D",
       "impact": "Balanced power and endurance potential",
       "advice": "Vary training to include both power and endurance exercises."
     },
     "injuryRecovery": {
-      "genes": [
-        "COL1A1"
-      ],
+      "genes": ["COL1A1"],
       "genotype": "G/T",
       "impact": "Slower collagen repair, increased injury risk",
       "advice": "Focus on adequate protein and Vitamin C for tissue repair."
     },
     "fluidLossTendency": {
-      "genes": [
-        "AGT"
-      ],
+      "genes": ["AGT"],
       "genotype": "T/C",
       "impact": "Increased fluid and electrolyte loss during exercise",
       "advice": "Ensure proper hydration and electrolyte replenishment."
     },
     "vo2Max": {
-      "genes": [
-        "PPARGC1A"
-      ],
+      "genes": ["PPARGC1A"],
       "genotype": "G/G",
       "impact": "High VO2 Max potential",
       "advice": "Optimize cardiovascular training for peak performance."
@@ -649,10 +625,7 @@
     }
   ],
   "metabolicSummary": {
-    "strengths": [
-      "Efficient detoxification",
-      "Normal lipid metabolism"
-    ],
+    "strengths": ["Efficient detoxification", "Normal lipid metabolism"],
     "weaknesses": [
       "Increased oxidative stress",
       "Higher risk of insulin resistance"
@@ -660,10 +633,7 @@
   },
   "preventiveHealth": {
     "diagnosticTests": {
-      "halfYearly": [
-        "PLASMA SUGAR (FASTING & PP)",
-        "VITAMIN D"
-      ],
+      "halfYearly": ["PLASMA SUGAR (FASTING & PP)", "VITAMIN D"],
       "yearly": [
         "HbA1c",
         "LIPID PROFILE",

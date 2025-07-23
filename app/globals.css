@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* White */
-    --foreground: 222.2 84% 4.9%; /* Near-black */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -52,18 +52,18 @@
 
 /* Hide scrollbar (for all browsers) */
 .scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 /* ------------------ 🧾 PRINT STYLES ------------------ */
 @media print {
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     background: white !important;
@@ -74,10 +74,16 @@
     display: none !important;
   }
 
-  .container {
-    max-width: none !important;
+  .container,
+  .card,
+  .print-full-width {
     width: 100% !important;
+    max-width: none !important;
     padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+    background-color: #fff !important;
   }
 
   h1 {
@@ -97,18 +103,16 @@
     line-height: 1.4 !important;
   }
 
-  /* Force light inputs in PDF */
-  .Textarea,
-  .FieldInput,
+  /* Light inputs for print */
   input,
   textarea,
   select {
-    background-color: #ffffff !important;
-    color: #000000 !important;
+    background-color: #fff !important;
+    color: #000 !important;
     border: 1px solid #ccc !important;
   }
 
-  /* Remove gradient backgrounds */
+  /* Remove gradients */
   .bg-gradient-to-r,
   .bg-gradient-to-br,
   .bg-white,
@@ -145,12 +149,6 @@
 
   .page-break-inside-avoid {
     page-break-inside: avoid;
-  }
-
-  .card {
-    box-shadow: none !important;
-    border: 1px solid #eee !important;
-    background-color: #fff !important;
   }
 
   img {

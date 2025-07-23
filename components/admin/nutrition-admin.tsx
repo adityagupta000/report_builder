@@ -27,8 +27,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Save, RotateCcw, Plus, Trash2, Edit3 } from "lucide-react";
-import { useState } from "react";
+import { Save, Plus, Trash2, Edit3 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface NutrientData {
   score: number;
@@ -52,14 +53,12 @@ interface NutritionAdminProps {
     data: Partial<NutrientData>
   ) => void;
   onSave?: () => void;
-  onReset?: () => void;
 }
 
 export default function NutritionAdmin({
   nutritionData: propNutritionData,
   updateNutritionData: propUpdateNutritionData,
   onSave: propOnSave,
-  onReset: propOnReset,
 }: NutritionAdminProps) {
   // Default data structure
   const defaultNutrientData: NutrientData = {
@@ -69,151 +68,59 @@ export default function NutritionAdmin({
     source: "DIET",
   };
 
-  const initialNutritionData: NutritionData = {
-    vitamins: {
-      vitaminA: {
-        score: 6,
-        healthImpact: "Vision & Immune",
-        intakeLevel: "ENHANCED INTAKE",
-        source: "DIET",
-      },
-      vitaminB12: {
-        score: 8,
-        healthImpact: "Energy & Nerves",
-        intakeLevel: "ENHANCED INTAKE (METHYLCOBALAMIN)",
-        source: "SUPPLEMENTS",
-      },
-      vitaminC: {
-        score: 4,
-        healthImpact: "Immune & Collagen",
-        intakeLevel: "NORMAL INTAKE",
-        source: "DIET",
-      },
-      vitaminD: {
-        score: 9,
-        healthImpact: "Bones & Immune",
-        intakeLevel: "ENHANCED INTAKE & SUN EXPOSURE",
-        source: "DIET & SUN EXPOSURE",
-      },
-      folate: {
-        score: 7,
-        healthImpact: "DNA & Blood",
-        intakeLevel: "ENHANCED INTAKE (L METHYLFOLATE)",
-        source: "DIET & SUPPLEMENTS",
-      },
-    },
-    fattyAcids: {
-      omega3: {
-        score: 8,
-        healthImpact: "Heart & Brain",
-        intakeLevel: "ENHANCED INTAKE",
-        source: "ENHANCED INTAKE (VEG/FISH OIL) & DIET",
-      },
-      omega6: {
-        score: 3,
-        healthImpact: "Inflammation",
-        intakeLevel: "RESTRICTED INTAKE",
-        source: "DIET",
-      },
-    },
-    elements: {
-      iron: {
-        score: 6,
-        healthImpact: "Blood & Energy",
-        intakeLevel: "ENHANCED INTAKE (VEG SOURCES)",
-        source: "DIET",
-      },
-      zinc: {
-        score: 5,
-        healthImpact: "Immune & Healing",
-        intakeLevel: "NORMAL INTAKE",
-        source: "DIET",
-      },
-      magnesium: {
-        score: 7,
-        healthImpact: "Muscle & Nerve",
-        intakeLevel: "ENHANCED INTAKE",
-        source: "DIET & SUPPLEMENTS",
-      },
-    },
-    complexNutrients: {
-      antioxidants: {
-        score: 5,
-        healthImpact: "Cell Protection",
-        intakeLevel: "ENHANCED INTAKE",
-        source: "DIET",
-      },
-      polyphenols: {
-        score: 4,
-        healthImpact: "Anti-inflammatory",
-        intakeLevel: "ENHANCED INTAKE",
-        source: "DIET",
-      },
-    },
-  };
-
   // State management
-  const [nutritionData, setNutritionData] = useState<NutritionData>(
-    propNutritionData || initialNutritionData
-  );
+
+  const nutritionData = propNutritionData;
   const [activeSection, setActiveSection] =
     useState<keyof NutritionData>("vitamins");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [newNutrientName, setNewNutrientName] = useState("");
   const [isEditMode, setIsEditMode] = useState<string | null>(null);
   const [editingName, setEditingName] = useState("");
+  const updateNutritionData = propUpdateNutritionData;
+  const { toast } = useToast();
+
+  // New nutrient form state
+  const [newNutrient, setNewNutrient] = useState({
+    name: "",
+    score: 5,
+    healthImpact: "",
+    intakeLevel: "NORMAL INTAKE",
+    source: "DIET",
+  });
 
   // CRUD Operations
-  const updateNutritionData = (
+
+  const addNutrient = (
     section: keyof NutritionData,
-    field: string,
-    data: Partial<NutrientData>
+    nutrientData: typeof newNutrient
   ) => {
-    setNutritionData((prev) => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: {
-          ...prev[section][field],
-          ...data,
-        },
-      },
-    }));
-
-    // Call prop function if provided
-    if (propUpdateNutritionData) {
-      propUpdateNutritionData(section, field, data);
-    }
-  };
-
-  const addNutrient = (section: keyof NutritionData, name: string) => {
-    if (
-      !name.trim() ||
-      nutritionData[section][name.toLowerCase().replace(/\s+/g, "")]
-    ) {
+    if (!nutritionData || !nutrientData.name.trim()) {
       return false;
     }
 
-    const fieldName = name.toLowerCase().replace(/\s+/g, "");
-    setNutritionData((prev) => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [fieldName]: { ...defaultNutrientData },
-      },
-    }));
+    const fieldName = nutrientData.name.toLowerCase().replace(/\s+/g, "");
+
+    if (nutritionData[section][fieldName]) {
+      return false;
+    }
+
+    if (propUpdateNutritionData) {
+      propUpdateNutritionData?.(section, fieldName, {
+        score: nutrientData.score,
+        healthImpact: nutrientData.healthImpact,
+        intakeLevel: nutrientData.intakeLevel,
+        source: nutrientData.source,
+      });
+    }
+
     return true;
   };
 
   const deleteNutrient = (section: keyof NutritionData, field: string) => {
-    setNutritionData((prev) => {
-      const newSection = { ...prev[section] };
-      delete newSection[field];
-      return {
-        ...prev,
-        [section]: newSection,
-      };
-    });
+    const updatedSection = { ...nutritionData?.[section] };
+    delete updatedSection[field];
+
+    propUpdateNutritionData?.(section, "", updatedSection);
   };
 
   const renameNutrient = (
@@ -221,54 +128,71 @@ export default function NutritionAdmin({
     oldField: string,
     newName: string
   ) => {
-    if (
-      !newName.trim() ||
-      newName.toLowerCase().replace(/\s+/g, "") === oldField
-    ) {
+    if (!nutritionData || !newName.trim()) {
       return false;
     }
 
-    const newFieldName = newName.toLowerCase().replace(/\s+/g, "");
-    if (nutritionData[section][newFieldName] && newFieldName !== oldField) {
-      return false; // Name already exists
-    }
+    const newField = newName.toLowerCase().replace(/\s+/g, "");
 
-    setNutritionData((prev) => {
-      const newSection = { ...prev[section] };
-      const data = newSection[oldField];
-      delete newSection[oldField];
-      newSection[newFieldName] = data;
+    if (newField === oldField) return true;
+    if (nutritionData[section][newField]) return false;
 
-      return {
-        ...prev,
-        [section]: newSection,
-      };
-    });
+    const updatedSection = { ...nutritionData[section] };
+    updatedSection[newField] = updatedSection[oldField];
+    delete updatedSection[oldField];
+
+    propUpdateNutritionData?.(section, "", updatedSection);
     return true;
   };
 
-  const onSave = () => {
-    console.log("Saving nutrition data:", nutritionData);
-    if (propOnSave) {
-      propOnSave();
-    } else {
-      alert("Nutrition data saved successfully!");
-    }
-  };
+  const onSave = async () => {
+    try {
+      const res = await fetch("/api/nutrition", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nutritionData),
+      });
 
-  const onReset = () => {
-    setNutritionData(initialNutritionData);
-    if (propOnReset) {
-      propOnReset();
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+
+      toast({
+        title: "Success",
+        description: "Nutrition data saved successfully!",
+        variant: "success",
+        duration: 3000,
+      });
+      if (propOnSave) propOnSave();
+    } catch (err) {
+      console.error("Save failed:", err);
+      toast({
+        title: "Save Failed",
+        description: "Could not save data. Check console for details.",
+        variant: "destructive",
+        duration: 3000,
+      });
     }
   };
 
   const handleAddNutrient = () => {
-    if (addNutrient(activeSection, newNutrientName)) {
-      setNewNutrientName("");
+    if (addNutrient(activeSection, newNutrient)) {
+      setNewNutrient({
+        name: "",
+        score: 5,
+        healthImpact: "",
+        intakeLevel: "NORMAL INTAKE",
+        source: "DIET",
+      });
       setIsAddDialogOpen(false);
     } else {
-      alert("Invalid name or nutrient already exists!");
+      toast({
+        title: "Add Failed",
+        description: "Invalid name or nutrient already exists!",
+        variant: "destructive",
+        duration: 3000,
+      });
     }
   };
 
@@ -277,9 +201,32 @@ export default function NutritionAdmin({
       setIsEditMode(null);
       setEditingName("");
     } else {
-      alert("Invalid name or nutrient already exists!");
+      toast({
+        title: "Rename Failed",
+        description: "Invalid name or nutrient already exists!",
+        variant: "destructive",
+        duration: 3000,
+      });
     }
   };
+
+  const resetAddForm = () => {
+    setNewNutrient({
+      name: "",
+      score: 5,
+      healthImpact: "",
+      intakeLevel: "NORMAL INTAKE",
+      source: "DIET",
+    });
+  };
+
+  if (!nutritionData) {
+    return (
+      <div className="p-8 text-center text-gray-500">
+        Loading nutrition data...
+      </div>
+    );
+  }
 
   const renderNutrientField = (
     section: keyof NutritionData,
@@ -327,7 +274,6 @@ export default function NutritionAdmin({
               </Button>
             </div>
           )}
-
           <div className="flex items-center gap-2">
             <Badge
               variant="outline"
@@ -366,7 +312,7 @@ export default function NutritionAdmin({
                   1,
                   Math.min(10, Number.parseInt(e.target.value) || 1)
                 );
-                updateNutritionData(section, field, { score });
+                propUpdateNutritionData?.(section, field, { score });
               }}
               className="border-2 focus:border-green-500"
             />
@@ -376,7 +322,7 @@ export default function NutritionAdmin({
             <Input
               value={data.healthImpact}
               onChange={(e) =>
-                updateNutritionData(section, field, {
+                propUpdateNutritionData?.(section, field, {
                   healthImpact: e.target.value,
                 })
               }
@@ -385,13 +331,12 @@ export default function NutritionAdmin({
             />
           </div>
         </div>
-
         <div className="space-y-2">
           <Label className="text-sm font-medium">Intake Level</Label>
           <Select
             value={data.intakeLevel}
             onValueChange={(value) =>
-              updateNutritionData(section, field, { intakeLevel: value })
+              propUpdateNutritionData?.(section, field, { intakeLevel: value })
             }
           >
             <SelectTrigger className="border-2 focus:border-green-500">
@@ -418,13 +363,12 @@ export default function NutritionAdmin({
             </SelectContent>
           </Select>
         </div>
-
         <div className="space-y-2">
           <Label className="text-sm font-medium">Source</Label>
           <Select
             value={data.source}
             onValueChange={(value) =>
-              updateNutritionData(section, field, { source: value })
+              propUpdateNutritionData?.(section, field, { source: value })
             }
           >
             <SelectTrigger className="border-2 focus:border-green-500">
@@ -509,7 +453,6 @@ export default function NutritionAdmin({
               )
             )}
           </div>
-
           <div className="flex gap-2 flex-wrap">
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
@@ -522,7 +465,7 @@ export default function NutritionAdmin({
                   Add New
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>
                     Add New{" "}
@@ -530,22 +473,124 @@ export default function NutritionAdmin({
                     Item
                   </DialogTitle>
                   <DialogDescription>
-                    Enter the name for the new nutrient in the {activeSection}{" "}
-                    section.
+                    Enter the details for the new nutrient in the{" "}
+                    {activeSection} section.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="space-y-4 py-4">
+                <div className="space-y-6 py-4">
                   <div className="space-y-2">
-                    <Label htmlFor="nutrientName">Nutrient Name</Label>
+                    <Label htmlFor="nutrientName">Nutrient Name *</Label>
                     <Input
                       id="nutrientName"
-                      value={newNutrientName}
-                      onChange={(e) => setNewNutrientName(e.target.value)}
-                      placeholder="e.g., Vitamin E, Selenium, etc."
-                      onKeyPress={(e) =>
-                        e.key === "Enter" && handleAddNutrient()
+                      value={newNutrient.name}
+                      onChange={(e) =>
+                        setNewNutrient({ ...newNutrient, name: e.target.value })
                       }
+                      placeholder="e.g., Vitamin E, Selenium, etc."
+                      className="border-2 focus:border-green-500"
                     />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="nutrientScore">Score (1-10)</Label>
+                      <Input
+                        id="nutrientScore"
+                        type="number"
+                        min="1"
+                        max="10"
+                        value={newNutrient.score}
+                        onChange={(e) =>
+                          setNewNutrient({
+                            ...newNutrient,
+                            score: Math.max(
+                              1,
+                              Math.min(10, Number.parseInt(e.target.value) || 1)
+                            ),
+                          })
+                        }
+                        className="border-2 focus:border-green-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="nutrientImpact">Health Impact</Label>
+                      <Input
+                        id="nutrientImpact"
+                        value={newNutrient.healthImpact}
+                        onChange={(e) =>
+                          setNewNutrient({
+                            ...newNutrient,
+                            healthImpact: e.target.value,
+                          })
+                        }
+                        placeholder="e.g., Skin & Vision"
+                        className="border-2 focus:border-green-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="nutrientIntake">Intake Level</Label>
+                    <Select
+                      value={newNutrient.intakeLevel}
+                      onValueChange={(value) =>
+                        setNewNutrient({ ...newNutrient, intakeLevel: value })
+                      }
+                    >
+                      <SelectTrigger className="border-2 focus:border-green-500">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="ENHANCED INTAKE">
+                          ENHANCED INTAKE
+                        </SelectItem>
+                        <SelectItem value="NORMAL INTAKE">
+                          NORMAL INTAKE
+                        </SelectItem>
+                        <SelectItem value="RESTRICTED INTAKE">
+                          RESTRICTED INTAKE
+                        </SelectItem>
+                        <SelectItem value="ENHANCED INTAKE (METHYLCOBALAMIN)">
+                          ENHANCED INTAKE (METHYLCOBALAMIN)
+                        </SelectItem>
+                        <SelectItem value="ENHANCED INTAKE (L METHYLFOLATE)">
+                          ENHANCED INTAKE (L METHYLFOLATE)
+                        </SelectItem>
+                        <SelectItem value="ENHANCED INTAKE & SUN EXPOSURE">
+                          ENHANCED INTAKE & SUN EXPOSURE
+                        </SelectItem>
+                        <SelectItem value="ENHANCED INTAKE (VEG SOURCES)">
+                          ENHANCED INTAKE (VEG SOURCES)
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="nutrientSource">Source</Label>
+                    <Select
+                      value={newNutrient.source}
+                      onValueChange={(value) =>
+                        setNewNutrient({ ...newNutrient, source: value })
+                      }
+                    >
+                      <SelectTrigger className="border-2 focus:border-green-500">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="DIET">DIET</SelectItem>
+                        <SelectItem value="SUPPLEMENTS">SUPPLEMENTS</SelectItem>
+                        <SelectItem value="DIET & SUPPLEMENTS">
+                          DIET & SUPPLEMENTS
+                        </SelectItem>
+                        <SelectItem value="DIET & SUN EXPOSURE">
+                          DIET & SUN EXPOSURE
+                        </SelectItem>
+                        <SelectItem value="ENHANCED INTAKE (VEG/FISH OIL) & DIET">
+                          ENHANCED INTAKE (VEG/FISH OIL) & DIET
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <DialogFooter>
@@ -553,25 +598,20 @@ export default function NutritionAdmin({
                     variant="outline"
                     onClick={() => {
                       setIsAddDialogOpen(false);
-                      setNewNutrientName("");
+                      resetAddForm();
                     }}
                   >
                     Cancel
                   </Button>
                   <Button
                     onClick={handleAddNutrient}
-                    disabled={!newNutrientName.trim()}
+                    disabled={!newNutrient.name.trim()}
                   >
                     Add Nutrient
                   </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-
-            <Button onClick={onReset} variant="outline" size="sm">
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Reset
-            </Button>
             <Button onClick={onSave} size="sm">
               <Save className="h-4 w-4 mr-2" />
               Save Changes
@@ -584,7 +624,6 @@ export default function NutritionAdmin({
           <h3 className="text-xl font-semibold text-gray-800 border-b-2 border-green-200 pb-2">
             {getSectionTitle(activeSection)}
           </h3>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Object.entries(nutritionData[activeSection]).map(([key, item]) =>
               renderNutrientField(
@@ -597,7 +636,6 @@ export default function NutritionAdmin({
               )
             )}
           </div>
-
           {Object.keys(nutritionData[activeSection]).length === 0 && (
             <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
               <div className="text-gray-500 text-lg mb-2">
@@ -608,102 +646,6 @@ export default function NutritionAdmin({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Section Guidelines */}
-        <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6">
-          <h4 className="font-semibold text-green-800 mb-2">
-            📋 {getSectionTitle(activeSection)} Guidelines:
-          </h4>
-          <div className="text-sm text-green-700 space-y-2">
-            {activeSection === "vitamins" && (
-              <ul className="list-disc list-inside space-y-1">
-                <li>
-                  Score 1-3: Low requirement, normal dietary intake sufficient
-                </li>
-                <li>
-                  Score 4-6: Moderate requirement, enhanced dietary intake
-                  recommended
-                </li>
-                <li>
-                  Score 7-10: High requirement, supplementation may be needed
-                </li>
-                <li>Consider bioavailable forms for better absorption</li>
-              </ul>
-            )}
-            {activeSection === "elements" && (
-              <ul className="list-disc list-inside space-y-1">
-                <li>
-                  Essential minerals required for various metabolic processes
-                </li>
-                <li>
-                  Balance is key - both deficiency and excess can be harmful
-                </li>
-                <li>Consider interactions between different minerals</li>
-                <li>Monitor through regular blood tests</li>
-              </ul>
-            )}
-            {activeSection === "fattyAcids" && (
-              <ul className="list-disc list-inside space-y-1">
-                <li>
-                  Omega-3 fatty acids are essential for heart and brain health
-                </li>
-                <li>Consider EPA:DHA ratio for optimal benefits</li>
-                <li>
-                  Vegetarian sources include flaxseed, chia seeds, walnuts
-                </li>
-                <li>Fish oil supplements for non-vegetarians</li>
-              </ul>
-            )}
-            {activeSection === "complexNutrients" && (
-              <ul className="list-disc list-inside space-y-1">
-                <li>Antioxidants help protect against cellular damage</li>
-                <li>Anti-inflammatory compounds reduce chronic inflammation</li>
-                <li>Best obtained from colorful fruits and vegetables</li>
-                <li>Synergistic effects when consumed together</li>
-              </ul>
-            )}
-          </div>
-        </div>
-
-        {/* Summary Statistics */}
-        <div className="grid md:grid-cols-4 gap-4">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-red-600">
-              {
-                Object.values(nutritionData[activeSection]).filter(
-                  (item: any) => item.score >= 7
-                ).length
-              }
-            </div>
-            <div className="text-sm text-red-700">High Priority</div>
-          </div>
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-600">
-              {
-                Object.values(nutritionData[activeSection]).filter(
-                  (item: any) => item.score >= 4 && item.score < 7
-                ).length
-              }
-            </div>
-            <div className="text-sm text-yellow-700">Moderate Priority</div>
-          </div>
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {
-                Object.values(nutritionData[activeSection]).filter(
-                  (item: any) => item.score < 4
-                ).length
-              }
-            </div>
-            <div className="text-sm text-green-700">Low Priority</div>
-          </div>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600">
-              {Object.keys(nutritionData[activeSection]).length}
-            </div>
-            <div className="text-sm text-blue-700">Total Items</div>
-          </div>
         </div>
       </CardContent>
     </Card>

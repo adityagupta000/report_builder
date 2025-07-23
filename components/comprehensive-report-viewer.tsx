@@ -375,7 +375,6 @@ export default function ComprehensiveReportViewer({
 
       <Separator className="my-8 sm:my-12" />
 
-      {/* Categories Section */}
       {reportData?.categories?.map((category) => {
         const columns: string[][] = [[], [], []];
         category.parameters.forEach((param, index) => {
@@ -434,7 +433,7 @@ export default function ComprehensiveReportViewer({
       )}
       {Object.entries(groupedDietFields).map(([category, fields]) => (
         <React.Fragment key={category}>
-          <SubSectionTitle title={category} icon="🍽️" />
+          <SubSectionTitle title={category} icon="" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8">
             {fields.map((data, index) => (
               <DataCard key={index} title={data.label}>

@@ -289,7 +289,7 @@ export default function DynamicDietFieldAdmin({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div>
       <Card className="shadow-lg border-0 bg-white">
         <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-t-lg">
           <CardTitle className="text-xl sm:text-2xl">
@@ -381,12 +381,10 @@ export default function DynamicDietFieldAdmin({
                 ))}
               </div>
 
-              {/* Add Category Button */}
               <Button
                 onClick={handleAddCategory}
-                variant="outline"
                 size="sm"
-                className="w-full sm:w-auto bg-transparent"
+                className="w-full sm:w-auto"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Category
