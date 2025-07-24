@@ -941,21 +941,79 @@ const AdminPage = () => {
     field: string,
     data: Partial<ExerciseData>
   ) => {
-    setReportData((prev) => ({
-      ...prev,
-      sportsAndFitness: {
-        ...prev.sportsAndFitness,
-        [section]: {
-          ...prev.sportsAndFitness[section],
-          [field]: {
-            ...prev.sportsAndFitness[section][
-              field as keyof (typeof prev.sportsAndFitness)[typeof section]
+    setReportData((prev) => {
+      const current = prev.sportsAndFitness;
+
+      // 1. If category doesn't exist, create it with default group
+      if (!current[section]) {
+        return {
+          ...prev,
+          sportsAndFitness: {
+            ...current,
+            [section]: [
+              {
+                title: "New Group",
+                fields:
+                  field === "__init__"
+                    ? {} // Just initialize structure
+                    : {
+                        [field]: {
+                          label: field,
+                          level: data.level || "",
+                          description: data.description || "",
+                        },
+                      },
+              },
             ],
-            ...data,
           },
+        };
+      }
+
+      // 2. Handle "__init__" call when adding new category
+      if (field === "__init__") {
+        return prev; // No actual data update needed
+      }
+
+      // 3. Normal update: look through groups and update field
+      const updatedGroups = current[section].map((group, i) => {
+        if (group.fields[field]) {
+          return {
+            ...group,
+            fields: {
+              ...group.fields,
+              [field]: {
+                ...group.fields[field],
+                ...data,
+              },
+            },
+          };
+        }
+
+        // If field does not exist, add it to the first group (by convention)
+        if (i === 0) {
+          return {
+            ...group,
+            fields: {
+              ...group.fields,
+              [field]: {
+                label: field,
+                ...data,
+              },
+            },
+          };
+        }
+
+        return group;
+      });
+
+      return {
+        ...prev,
+        sportsAndFitness: {
+          ...current,
+          [section]: updatedGroups,
         },
-      },
-    }));
+      };
+    });
   };
 
   const updateLifestyleCondition = (

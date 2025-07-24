@@ -164,28 +164,47 @@ export interface ExerciseData {
   description: string;
 }
 
+// export interface SportsAndFitness {
+//   exerciseType: {
+//     endurancePotential: ExerciseData;
+//     powerPotential: ExerciseData;
+//     strengthProfile: ExerciseData;
+//     exerciseTime: ExerciseData;
+//   };
+//   performance: {
+//     enduranceCapacity: ExerciseData;
+//     fatigueResistance: ExerciseData;
+//     bloodFlow: ExerciseData;
+//     oxygenEfficiency: ExerciseData;
+//     waterLoss: ExerciseData;
+//     lactateClearing: ExerciseData;
+//     recoveryEfficiency: ExerciseData;
+//     bodyComposition: ExerciseData;
+//     injuryRisk: ExerciseData;
+//     achillesTendonInjury: ExerciseData;
+//     ligamentInjury: ExerciseData;
+//     rupture: ExerciseData;
+//     muscleCramps: ExerciseData;
+//   };
+// }
+
+export interface ExerciseData {
+  level: string;
+  description: string;
+}
+
+export interface ExerciseField extends ExerciseData {
+  label: string; // used for display like "BLOOD FLOW"
+}
+
+export interface GroupedExerciseCategory {
+  title: string; // Section heading like "ENDURANCE EXERCISE"
+  fields: Record<string, ExerciseField>; // e.g., bloodFlow, enduranceCapacity
+}
+
 export interface SportsAndFitness {
-  exerciseType: {
-    endurancePotential: ExerciseData;
-    powerPotential: ExerciseData;
-    strengthProfile: ExerciseData;
-    exerciseTime: ExerciseData;
-  };
-  performance: {
-    enduranceCapacity: ExerciseData;
-    fatigueResistance: ExerciseData;
-    bloodFlow: ExerciseData;
-    oxygenEfficiency: ExerciseData;
-    waterLoss: ExerciseData;
-    lactateClearing: ExerciseData;
-    recoveryEfficiency: ExerciseData;
-    bodyComposition: ExerciseData;
-    injuryRisk: ExerciseData;
-    achillesTendonInjury: ExerciseData;
-    ligamentInjury: ExerciseData;
-    rupture: ExerciseData;
-    muscleCramps: ExerciseData;
-  };
+  exerciseType: GroupedExerciseCategory[]; // Grouped list of sections
+  performance: GroupedExerciseCategory[];
 }
 
 export interface HealthConditionStatus {

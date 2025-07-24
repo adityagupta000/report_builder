@@ -308,78 +308,127 @@
     }
   },
   "sportsAndFitness": {
-    "exerciseType": {
-      "endurancePotential": {
-        "level": "High Endurance Potential",
-        "description": "Excellent genetic predisposition for endurance activities"
-      },
-      "powerPotential": {
-        "level": "Average Power Potential",
-        "description": "Moderate power output capacity"
-      },
-      "strengthProfile": {
-        "level": "High Strength Profile",
-        "description": "Good potential for strength training"
-      },
-      "exerciseTime": {
-        "level": "Evening time is more beneficial than morning",
-        "description": "MORNING Vs. EVENING"
+    "exerciseType": [
+      {
+        "title": "EXERCISE TYPE",
+        "fields": {
+          "endurancePotential": {
+            "label": "ENDURANCE POTENTIAL",
+            "level": "low",
+            "description": "Excellent genetic predisposition for endurance activities"
+          },
+          "powerPotential": {
+            "label": "POWER POTENTIAL",
+            "level": "average",
+            "description": "Moderate power output"
+          },
+          "strengthProfile": {
+            "label": "STRENGTH PROFILE",
+            "level": "normal",
+            "description": "Good potential for strength training"
+          },
+          "exerciseTime": {
+            "label": "EXERCISE TIME",
+            "level": "normal",
+            "description": "MORNING Vs. EVENING"
+          }
+        }
       }
-    },
-    "performance": {
-      "enduranceCapacity": {
-        "level": "High Endurance Potential",
-        "description": "Superior aerobic capacity"
+    ],
+    "performance": [
+      {
+        "title": "ENDURANCE EXERCISE",
+        "fields": {
+          "enduranceCapacity": {
+            "label": "ENDURANCE CAPACITY",
+            "level": "High Endurance Potential",
+            "description": "Superior aerobic capacity"
+          },
+          "fatigueResistance": {
+            "label": "FATIGUE RESISTANCE",
+            "level": "Normal fatigue resistance. Average endurance capacity",
+            "description": "Average endurance capacity"
+          },
+          "bloodFlow": {
+            "label": "BLOOD FLOW",
+            "level": "Reduced vascular efficiency, affects endurance sports.",
+            "description": "Affects endurance sports"
+          },
+          "oxygenEfficiency": {
+            "label": "OXYGEN / VO2 MAX",
+            "level": "Normal VO2 Max. Need practice to excel in endurance sports",
+            "description": "Need practice to excel"
+          },
+          "waterLoss": {
+            "label": "WATER LOSS",
+            "level": "Increased water and electrolyte loss tendency. Focus on Hydration and electrolyte management during sports/events",
+            "description": "Focus on hydration"
+          }
+        }
       },
-      "fatigueResistance": {
-        "level": "Normal fatigue resistance. Average endurance capacity",
-        "description": "Average endurance capacity"
+      {
+        "title": "RECOVERY",
+        "fields": {
+          "lactateClearing": {
+            "label": "LACTATE CLEARANCE",
+            "level": "High lactate clearance. Beneficial for Endurance sports.",
+            "description": "Beneficial for endurance"
+          },
+          "recoveryEfficiency": {
+            "label": "RECOVERY EFFICIENCY",
+            "level": "High recovery efficiency. Enhanced sports potential & reduced injury risk",
+            "description": "Enhanced sports potential"
+          }
+        }
       },
-      "bloodFlow": {
-        "level": "Reduced vascular efficiency, affects endurance sports.",
-        "description": "Affects endurance sports"
-      },
-      "oxygenEfficiency": {
-        "level": "Normal VO2 Max. Need practice to excel in endurance sports",
-        "description": "Need practice to excel"
-      },
-      "waterLoss": {
-        "level": "Increased water and electrolyte loss tendency. Focus on Hydration and electrolyte management during sports/events",
-        "description": "Focus on hydration"
-      },
-      "lactateClearing": {
-        "level": "High lactate clearance. Beneficial for Endurance sports.",
-        "description": "Beneficial for endurance"
-      },
-      "recoveryEfficiency": {
-        "level": "High recovery efficiency. Enhanced sports potential & reduced injury risk",
-        "description": "Enhanced sports potential"
-      },
-      "bodyComposition": {
-        "level": "Low fat accumulation. Increased muscle tendency.",
-        "description": "Increased muscle tendency"
-      },
-      "injuryRisk": {
-        "level": "High injury tendency. Thorough injury management steps to be taken.",
-        "description": "Thorough injury management needed"
-      },
-      "achillesTendonInjury": {
-        "level": "Low injury tendency. Ensure adequate warmup before exercises",
-        "description": "Ensure adequate warmup"
-      },
-      "ligamentInjury": {
-        "level": "Low ACL injury tendency. Ensure adequate warmup before exercises",
-        "description": "Ensure adequate warmup"
-      },
-      "rupture": {
-        "level": "Low rupture tendency. Ensure adequate warmup before exercises",
-        "description": "Ensure adequate warmup"
-      },
-      "muscleCramps": {
-        "level": "Low risk of muscle cramps. Ensure adequate warmup before exercises",
-        "description": "Ensure adequate warmup"
+      {
+        "title": "INJURY MANAGEMENT",
+        "fields": {
+          "bodyComposition": {
+            "label": "BODY COMPOSITION",
+            "level": "Low fat accumulation. Increased muscle tendency.",
+            "description": "Increased muscle tendency"
+          },
+          "injuryRisk": {
+            "label": "INJURY RISK",
+            "level": "High injury tendency. Thorough injury management steps to be taken.",
+            "description": "Thorough injury management needed"
+          },
+          "achillesTendonInjury": {
+            "label": "ACHILLES TENDON INJURY",
+            "level": "Low injury tendency. Ensure adequate warmup before exercises",
+            "description": "Ensure adequate warmup"
+          },
+          "ligamentInjury": {
+            "label": "ANTERIOR CRUCIATE LIGAMENT (ACL)",
+            "level": "Low ACL injury tendency. Ensure adequate warmup before exercises",
+            "description": "Ensure adequate warmup"
+          },
+          "rupture": {
+            "label": "RUPTURE",
+            "level": "Low rupture tendency. Ensure adequate warmup before exercises",
+            "description": "Ensure adequate warmup"
+          },
+          "muscleCramps": {
+            "label": "MUSCLE CRAMPS",
+            "level": "Low risk of muscle cramps. Ensure adequate warmup before exercises",
+            "description": "Ensure adequate warmup"
+          }
+        }
       }
-    }
+    ],
+    "hello": [
+      {
+        "title": "New Group",
+        "fields": {
+          "momo": {
+            "label": "momo",
+            "level": "average",
+            "description": "cococo"
+          }
+        }
+      }
+    ]
   },
   "lifestyleConditions": {
     "heartVascularHealth": {
