@@ -939,12 +939,12 @@ const AdminPage = () => {
   const updateSportsAndFitness = (
     section: keyof SportsAndFitness,
     field: string,
-    data: Partial<ExerciseData>
+    data: Partial<ExerciseData> & { fieldsOverride?: any }
   ) => {
     setReportData((prev) => {
       const current = prev.sportsAndFitness;
 
-      // 1. If category doesn't exist, create it with default group
+      // ✅ 1. Add new category
       if (!current[section]) {
         return {
           ...prev,
@@ -955,7 +955,7 @@ const AdminPage = () => {
                 title: "New Group",
                 fields:
                   field === "__init__"
-                    ? {} // Just initialize structure
+                    ? {}
                     : {
                         [field]: {
                           label: field,
@@ -969,12 +969,28 @@ const AdminPage = () => {
         };
       }
 
-      // 2. Handle "__init__" call when adding new category
-      if (field === "__init__") {
-        return prev; // No actual data update needed
+      // ✅ 2. DELETE CATEGORY
+      if (field === "__delete_category__") {
+        const updated = { ...current };
+        delete updated[section];
+        return {
+          ...prev,
+          sportsAndFitness: updated,
+        };
       }
 
-      // 3. Normal update: look through groups and update field
+      // ✅ 3. DELETE FIELD
+      if (field === "__delete_field__" && data.fieldsOverride) {
+        return {
+          ...prev,
+          sportsAndFitness: {
+            ...current,
+            [section]: data.fieldsOverride,
+          },
+        };
+      }
+
+      // ✅ 4. Normal field update
       const updatedGroups = current[section].map((group, i) => {
         if (group.fields[field]) {
           return {
@@ -989,7 +1005,6 @@ const AdminPage = () => {
           };
         }
 
-        // If field does not exist, add it to the first group (by convention)
         if (i === 0) {
           return {
             ...group,
