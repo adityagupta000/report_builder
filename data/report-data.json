@@ -11,8 +11,8 @@
     "checkedBy": "Dr. Alice Brown",
     "scientificContent": "Dr. Robert White",
     "disclaimer": "This  for informational purposes only and should not be used as a substitute for professional medical advice.",
-    "signature1": "blob:http://localhost:3000/f7cea3e9-5a4f-4491-8be9-5078556e6c29",
-    "signature2": "blob:http://localhost:3000/1d615628-7bf2-4912-a2a4-625a961624d5"
+    "signature1": "blob:http://localhost:3000/19f2a44a-9c06-4104-8ecb-b4ae7232dd36",
+    "signature2": "blob:http://localhost:3000/6a9ca220-b184-46c6-818e-380b92a5e43d"
   },
   "content": {
     "introduction": "To,\n\nThe Principal\n\nStella Maris Convent High School\n\nLucknow, Uttar Pradesh\n\nSubject:  Application for two days of Sick leave due to Viral fever.\n\nRespected Sir/Madam,\n\nWith due respect, I would like to notify you that I have been suffering from viral fever since last night. As per the advice of the physician, I have been advised to take complete bed rest for at least two days.\n\nSo Sir/Madam, I request you to grant me leave for two days, that is, from(Date/Month/Year) to(Date/Month/Year). I will be highly obliged for your kindness.\n\n \n\nThanking You\n\nYours faithfully\n\nRupali Pandey",
@@ -361,7 +361,7 @@
           },
           "waterLoss": {
             "label": "WATER LOSS",
-            "level": "1753518819726-phone",
+            "level": "1753525940699-phone",
             "description": "Focus on hydration"
           }
         }
@@ -374,8 +374,21 @@
       "enhanced": "/sports/1753510717693-enhanced.png",
       "normal": "/sports/1753510741984-normal.png",
       "free": "/sports/1753510788065-free.png",
-      "filo": "/sports/1753518819726-phone.png"
-    }
+      "filo": "/sports/1753518819726-phone.png",
+      "phone": "/sports/1753525940699-phone.png"
+    },
+    "MOBILE": [
+      {
+        "title": "New Group",
+        "fields": {
+          "momo": {
+            "label": "MOMO",
+            "level": "1753525940699-phone",
+            "description": "MICRO"
+          }
+        }
+      }
+    ]
   },
   "lifestyleConditions": {
     "heartVascularHealth": {

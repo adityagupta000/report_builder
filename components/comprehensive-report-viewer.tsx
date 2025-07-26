@@ -620,64 +620,71 @@ export default function ComprehensiveReportViewer({
 
       <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" />
       <div className="space-y-8 mb-8">
-        {Object.entries(sportsAndFitness).map(([sectionKey, groups]) => (
-          <div key={sectionKey}>
-            {/* <h2 className="text-2xl font-bold text-green-700 mb-4">
-              {sectionKey
-                .replace(/([A-Z])/g, " $1")
-                .replace(/^./, (s) => s.toUpperCase())}
-            </h2> */}
+        {Object.entries(sportsAndFitness)
+          .filter(([sectionKey]) => sectionKey !== "customImages")
+          .map(([sectionKey, groups]) => (
+            <div key={sectionKey} className="mb-10">
+              {Array.isArray(groups) &&
+                groups.map((group, groupIndex) => (
+                  <div key={groupIndex} className="overflow-x-auto">
+                    <table className="w-full text-sm border-separate [border-spacing:0.5rem]">
+                      <tbody>
+                        {Object.entries(group.fields).map(
+                          ([fieldKey, fieldData], index, allFields) => {
+                            const selectedImageKey = fieldData.level
+                              ?.split("-")
+                              .pop()
+                              ?.toLowerCase();
 
-            {Array.isArray(groups) &&
-              groups.map((group, groupIndex) => (
-                <div key={groupIndex} className="space-y-4 mb-6">
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    {group.title}
-                  </h3>
+                            const imageUrl =
+                              reportData.sportsAndFitness.customImages?.[
+                                selectedImageKey ?? ""
+                              ] ||
+                              defaultImageMap[selectedImageKey ?? ""] ||
+                              "/sports/default.png";
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    {Object.entries(group.fields).map(
-                      ([fieldKey, fieldData]) => {
-                        const selectedImageKey = fieldData.level?.toLowerCase();
-                        const imageUrl =
-                          defaultImageMap[selectedImageKey] ||
-                          "/sports/default.png";
+                            return (
+                              <tr
+                                key={fieldKey}
+                                className="border-b border-gray-200 align-top"
+                              >
+                                {index === 0 && (
+                                  <td
+                                    rowSpan={Object.keys(group.fields).length}
+                                    className="text-left font-semibold text-gray-700 pr-4 w-1/5 uppercase align-top"
+                                  >
+                                    {sectionKey.replace(/([A-Z])/g, " $1")}
+                                  </td>
+                                )}
 
-                        return (
-                          <div
-                            key={fieldKey}
-                            className="bg-white border border-green-200 p-4 rounded-lg shadow-sm"
-                          >
-                            <h4 className="text-lg font-semibold text-green-800 mb-2">
-                              {fieldKey
-                                .replace(/([A-Z])/g, " $1")
-                                .replace(/^./, (str) => str.toUpperCase())}
-                            </h4>
+                                {/* Trait Label */}
+                                <td className="text-left font-medium text-gray-800 w-1/4">
+                                  {fieldData.label}
+                                </td>
 
-                            {imageUrl && (
-                              <img
-                                src={imageUrl}
-                                alt={fieldData.level}
-                                className="w-24 h-auto mb-2"
-                              />
-                            )}
+                                {/* Icon/Image */}
+                                <td className="text-center w-1/6">
+                                  <img
+                                    src={imageUrl}
+                                    alt={selectedImageKey}
+                                    className="w-16 h-auto mx-auto"
+                                  />
+                                </td>
 
-                            <p className="text-sm">
-                              <strong>Level:</strong> {fieldData.level}
-                            </p>
-                            <p className="text-sm">
-                              <strong>Description:</strong>{" "}
-                              {fieldData.description}
-                            </p>
-                          </div>
-                        );
-                      }
-                    )}
+                                {/* Description */}
+                                <td className="text-left text-gray-600 text-sm w-1/2">
+                                  {fieldData.description}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )}
+                      </tbody>
+                    </table>
                   </div>
-                </div>
-              ))}
-          </div>
-        ))}
+                ))}
+            </div>
+          ))}
       </div>
 
       <Separator className="my-8 sm:my-12" />

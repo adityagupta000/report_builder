@@ -373,33 +373,35 @@ export default function SportsFitnessAdmin({
               <div className="flex flex-wrap gap-2">
                 {(
                   Object.keys(sportsAndFitness) as Array<keyof SportsAndFitness>
-                ).map((section) => (
-                  <div key={section} className="relative">
-                    <Button
-                      variant={
-                        activeSection === section ? "default" : "outline"
-                      }
-                      size="sm"
-                      onClick={() => setActiveSection(section)}
-                      className="flex items-center gap-2 pr-8 text-xs sm:text-sm"
-                    >
-                      <span>{getSectionIcon(section)}</span>
-                      <span className="capitalize hidden sm:inline">
-                        {section.replace(/([A-Z])/g, " $1")}
-                      </span>
-                      <span className="capitalize sm:hidden">
-                        {section.slice(0, 8)}...
-                      </span>
-                    </Button>
-                    <button
-                      onClick={() => deleteCategory(section)}
-                      className="absolute -right-1 -top-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-                      title="Delete Category"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
+                )
+                  .filter((section) => section !== "customImages")
+                  .map((section) => (
+                    <div key={section} className="relative">
+                      <Button
+                        variant={
+                          activeSection === section ? "default" : "outline"
+                        }
+                        size="sm"
+                        onClick={() => setActiveSection(section)}
+                        className="flex items-center gap-2 pr-8 text-xs sm:text-sm"
+                      >
+                        <span>{getSectionIcon(section)}</span>
+                        <span className="capitalize hidden sm:inline">
+                          {section.replace(/([A-Z])/g, " $1")}
+                        </span>
+                        <span className="capitalize sm:hidden">
+                          {section.slice(0, 8)}...
+                        </span>
+                      </Button>
+                      <button
+                        onClick={() => deleteCategory(section)}
+                        className="absolute -right-1 -top-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                        title="Delete Category"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-2">
