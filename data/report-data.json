@@ -11,8 +11,8 @@
     "checkedBy": "Dr. Alice Brown",
     "scientificContent": "Dr. Robert White",
     "disclaimer": "This  for informational purposes only and should not be used as a substitute for professional medical advice.",
-    "signature1": "blob:http://localhost:3000/f254546b-b372-4e30-836a-21d6e3bcc67c",
-    "signature2": "blob:http://localhost:3000/543c96a3-1750-4751-8625-a78938855823"
+    "signature1": "blob:http://localhost:3000/f7cea3e9-5a4f-4491-8be9-5078556e6c29",
+    "signature2": "blob:http://localhost:3000/1d615628-7bf2-4912-a2a4-625a961624d5"
   },
   "content": {
     "introduction": "To,\n\nThe Principal\n\nStella Maris Convent High School\n\nLucknow, Uttar Pradesh\n\nSubject:  Application for two days of Sick leave due to Viral fever.\n\nRespected Sir/Madam,\n\nWith due respect, I would like to notify you that I have been suffering from viral fever since last night. As per the advice of the physician, I have been advised to take complete bed rest for at least two days.\n\nSo Sir/Madam, I request you to grant me leave for two days, that is, from(Date/Month/Year) to(Date/Month/Year). I will be highly obliged for your kindness.\n\n \n\nThanking You\n\nYours faithfully\n\nRupali Pandey",
@@ -314,28 +314,23 @@
         "fields": {
           "endurancePotential": {
             "label": "ENDURANCE POTENTIAL",
-            "level": "low",
+            "level": "1753510596643-low",
             "description": "Excellent genetic predisposition for endurance activities"
           },
           "powerPotential": {
             "label": "POWER POTENTIAL",
-            "level": "average",
+            "level": "1753510665706-average",
             "description": "Moderate power output"
           },
           "strengthProfile": {
             "label": "STRENGTH PROFILE",
-            "level": "normal",
+            "level": "1753510625611-high",
             "description": "Good potential for strength training"
           },
           "exerciseTime": {
             "label": "EXERCISE TIME",
-            "level": "normal",
+            "level": "1753510717693-enhanced",
             "description": "MORNING Vs. EVENING"
-          },
-          "kokoko": {
-            "label": "kokoko",
-            "level": "average",
-            "description": "jjjjjjjjjjjjjjj"
           }
         }
       }
@@ -346,94 +341,41 @@
         "fields": {
           "enduranceCapacity": {
             "label": "ENDURANCE CAPACITY",
-            "level": "mommo",
+            "level": "1753510625611-high",
             "description": "Superior aerobic capacity"
           },
           "fatigueResistance": {
             "label": "FATIGUE RESISTANCE",
-            "level": "Normal fatigue resistance. Average endurance capacity",
+            "level": "1753510665706-average",
             "description": "Average endurance capacity"
           },
           "bloodFlow": {
             "label": "BLOOD FLOW",
-            "level": "Reduced vascular efficiency, affects endurance sports.",
+            "level": "1753510665706-average",
             "description": "Affects endurance sports"
           },
           "oxygenEfficiency": {
             "label": "OXYGEN / VO2 MAX",
-            "level": "Normal VO2 Max. Need practice to excel in endurance sports",
+            "level": "1753510788065-free",
             "description": "Need practice to excel"
           },
           "waterLoss": {
             "label": "WATER LOSS",
-            "level": "Increased water and electrolyte loss tendency. Focus on Hydration and electrolyte management during sports/events",
+            "level": "1753518819726-phone",
             "description": "Focus on hydration"
-          }
-        }
-      },
-      {
-        "title": "RECOVERY",
-        "fields": {
-          "lactateClearing": {
-            "label": "LACTATE CLEARANCE",
-            "level": "High lactate clearance. Beneficial for Endurance sports.",
-            "description": "Beneficial for endurance"
-          },
-          "recoveryEfficiency": {
-            "label": "RECOVERY EFFICIENCY",
-            "level": "High recovery efficiency. Enhanced sports potential & reduced injury risk",
-            "description": "Enhanced sports potential"
-          }
-        }
-      },
-      {
-        "title": "INJURY MANAGEMENT",
-        "fields": {
-          "bodyComposition": {
-            "label": "BODY COMPOSITION",
-            "level": "Low fat accumulation. Increased muscle tendency.",
-            "description": "Increased muscle tendency"
-          },
-          "injuryRisk": {
-            "label": "INJURY RISK",
-            "level": "High injury tendency. Thorough injury management steps to be taken.",
-            "description": "Thorough injury management needed"
-          },
-          "achillesTendonInjury": {
-            "label": "ACHILLES TENDON INJURY",
-            "level": "Low injury tendency. Ensure adequate warmup before exercises",
-            "description": "Ensure adequate warmup"
-          },
-          "ligamentInjury": {
-            "label": "ANTERIOR CRUCIATE LIGAMENT (ACL)",
-            "level": "Low ACL injury tendency. Ensure adequate warmup before exercises",
-            "description": "Ensure adequate warmup"
-          },
-          "rupture": {
-            "label": "RUPTURE",
-            "level": "Low rupture tendency. Ensure adequate warmup before exercises",
-            "description": "Ensure adequate warmup"
-          },
-          "muscleCramps": {
-            "label": "MUSCLE CRAMPS",
-            "level": "Low risk of muscle cramps. Ensure adequate warmup before exercises",
-            "description": "Ensure adequate warmup"
           }
         }
       }
     ],
-    "koko": [
-      {
-        "title": "New Group",
-        "fields": {
-          "bb": {
-            "label": "bb",
-            "level": "",
-            "description": ""
-          }
-        }
-      }
-    ]
+    "customImages": {
+      "low": "/sports/1753510596643-low.png",
+      "high": "/sports/1753510625611-high.png",
+      "average": "/sports/1753510665706-average.png",
+      "enhanced": "/sports/1753510717693-enhanced.png",
+      "normal": "/sports/1753510741984-normal.png",
+      "free": "/sports/1753510788065-free.png",
+      "filo": "/sports/1753518819726-phone.png"
+    }
   },
   "lifestyleConditions": {
     "heartVascularHealth": {
@@ -804,49 +746,21 @@
         "CYP7A1",
         "PPARA",
         "PPARG",
-        "NR1H3"
+        "NR1H3",
+        "aa",
+        "d",
+        "cc"
       ],
       "isActive": true,
       "order": 1
-    },
-    {
-      "id": "category_1753025366403",
-      "category": "DIET",
-      "imageUrl": "/table/1753025387098-Sinchan.jpg",
-      "description": "ALL GOOD",
-      "parameters": [
-        "A",
-        "G",
-        "H",
-        "J",
-        "K",
-        "V",
-        "U",
-        "B",
-        "H",
-        "K",
-        "L",
-        "F",
-        "C",
-        "I",
-        "U",
-        "F",
-        "G",
-        "B",
-        "H",
-        "J",
-        "F"
-      ],
-      "isActive": true,
-      "order": 2
     }
   ],
   "geneticParameters": [],
   "metadata": {
-    "lastUpdated": "2025-07-21T03:27:36.551Z",
+    "lastUpdated": "2025-07-26T09:28:36.451Z",
     "version": "1.0.0",
-    "totalCategories": 2,
-    "totalParameters": 42
+    "totalCategories": 1,
+    "totalParameters": 24
   },
   "summaries": {
     "nutrigenomicsSummary": "Based on the overall nutrigenomics analysis, provide expert summary for personalized diet and lifestyle plan...",

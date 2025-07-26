@@ -865,7 +865,6 @@ const AdminPage = () => {
     }));
   };
 
-  // NEW: Update function for dynamicDietFieldDefinitions
   const updateDynamicDietFieldDefinitions = (
     definitions: DynamicDietFieldDefinition[]
   ) => {
@@ -937,12 +936,29 @@ const AdminPage = () => {
   };
 
   const updateSportsAndFitness = (
-    section: keyof SportsAndFitness,
+    section: keyof SportsAndFitness | "customImages",
     field: string,
-    data: Partial<ExerciseData> & { fieldsOverride?: any }
+    data:
+      | (Partial<ExerciseData> & { fieldsOverride?: any })
+      | { label: string; url: string }
   ) => {
     setReportData((prev) => {
       const current = prev.sportsAndFitness;
+
+      // ✅ 0. Handle saving custom image to state
+      if (section === "customImages") {
+        const { label, url } = data as { label: string; url: string };
+        return {
+          ...prev,
+          sportsAndFitness: {
+            ...current,
+            customImages: {
+              ...(current.customImages || {}),
+              [label]: url,
+            },
+          },
+        };
+      }
 
       // ✅ 1. Add new category
       if (!current[section]) {
@@ -959,8 +975,8 @@ const AdminPage = () => {
                     : {
                         [field]: {
                           label: field,
-                          level: data.level || "",
-                          description: data.description || "",
+                          level: (data as ExerciseData).level || "",
+                          description: (data as ExerciseData).description || "",
                         },
                       },
               },
@@ -969,7 +985,7 @@ const AdminPage = () => {
         };
       }
 
-      // ✅ 2. DELETE CATEGORY
+      // ✅ 2. Delete category
       if (field === "__delete_category__") {
         const updated = { ...current };
         delete updated[section];
@@ -979,8 +995,8 @@ const AdminPage = () => {
         };
       }
 
-      // ✅ 3. DELETE FIELD
-      if (field === "__delete_field__" && data.fieldsOverride) {
+      // ✅ 3. Delete field (requires passing `fieldsOverride`)
+      if (field === "__delete_field__" && "fieldsOverride" in data) {
         return {
           ...prev,
           sportsAndFitness: {
@@ -990,7 +1006,7 @@ const AdminPage = () => {
         };
       }
 
-      // ✅ 4. Normal field update
+      // ✅ 4. Normal update or add field to first group
       const updatedGroups = current[section].map((group, i) => {
         if (group.fields[field]) {
           return {
@@ -999,7 +1015,7 @@ const AdminPage = () => {
               ...group.fields,
               [field]: {
                 ...group.fields[field],
-                ...data,
+                ...(data as ExerciseData),
               },
             },
           };
@@ -1012,7 +1028,7 @@ const AdminPage = () => {
               ...group.fields,
               [field]: {
                 label: field,
-                ...data,
+                ...(data as ExerciseData),
               },
             },
           };

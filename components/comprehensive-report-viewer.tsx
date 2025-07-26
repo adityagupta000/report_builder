@@ -8,6 +8,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
+const defaultImageMap: Record<string, string> = {
+  high: "/sports/high.png",
+  low: "/sports/low.png",
+  average: "/sports/average.png",
+  normal: "/sports/normal.png",
+  enhanced: "/sports/enhanced.png",
+  default: "/sports/default.png",
+};
+
 interface ComprehensiveReportViewerProps {
   reportData: ComprehensiveReportData;
 }
@@ -374,6 +383,11 @@ export default function ComprehensiveReportViewer({
       </div>
 
       <Separator className="my-8 sm:my-12" />
+      <div className="text-center mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 bg-blue-600 text-white py-3 px-4 rounded">
+          TABLE OF CONTENT
+        </h2>
+      </div>
 
       {reportData?.categories?.map((category) => {
         const columns: string[][] = [[], [], []];
@@ -422,7 +436,13 @@ export default function ComprehensiveReportViewer({
         );
       })}
 
-      <Separator className="my-8 sm:my-12" />
+      {/* <Separator className="my-8 sm:my-12" /> */}
+
+      <div className="text-center mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 bg-blue-600 text-white py-3 px-4 rounded">
+          DIET
+        </h2>
+      </div>
 
       {/* Dynamic Diet Analysis */}
       <SectionTitle title="Diet Analysis" icon="🍎" />
@@ -474,6 +494,11 @@ export default function ComprehensiveReportViewer({
       ))}
 
       <Separator className="my-8 sm:my-12" />
+      <div className="text-center mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 bg-blue-600 text-white py-3 px-4 rounded">
+          NUTRITION
+        </h2>
+      </div>
 
       {/* Nutrition Data */}
       <SectionTitle title="Nutrition Analysis" icon="💊" />
@@ -587,49 +612,71 @@ export default function ComprehensiveReportViewer({
       </div>
 
       <Separator className="my-8 sm:my-12" />
-
-      {/* Sports & Fitness */}
-      <SectionTitle title="Sports & Fitness" icon="🏃‍♂️" />
-
-      <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8">
-        {Object.entries(sportsAndFitness.exerciseType).map(([key, data]) => (
-          <DataCard
-            key={key}
-            title={key
-              .replace(/([A-Z])/g, " $1")
-              .replace(/^./, (str) => str.toUpperCase())}
-          >
-            <div className="space-y-1">
-              <p>
-                <strong>Level:</strong> {data.level}
-              </p>
-              <p>
-                <strong>Description:</strong> {data.description}
-              </p>
-            </div>
-          </DataCard>
-        ))}
+      <div className="text-center mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 bg-blue-600 text-white py-3 px-4 rounded">
+          SPORTS AND FITNESS
+        </h2>
       </div>
 
-      <SubSectionTitle title="Performance Factors" icon="⚡" />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8">
-        {Object.entries(sportsAndFitness.performance).map(([key, data]) => (
-          <DataCard
-            key={key}
-            title={key
-              .replace(/([A-Z])/g, " $1")
-              .replace(/^./, (str) => str.toUpperCase())}
-          >
-            <div className="space-y-1">
-              <p>
-                <strong>Level:</strong> {data.level}
-              </p>
-              <p>
-                <strong>Description:</strong> {data.description}
-              </p>
-            </div>
-          </DataCard>
+      <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" />
+      <div className="space-y-8 mb-8">
+        {Object.entries(sportsAndFitness).map(([sectionKey, groups]) => (
+          <div key={sectionKey}>
+            {/* <h2 className="text-2xl font-bold text-green-700 mb-4">
+              {sectionKey
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (s) => s.toUpperCase())}
+            </h2> */}
+
+            {Array.isArray(groups) &&
+              groups.map((group, groupIndex) => (
+                <div key={groupIndex} className="space-y-4 mb-6">
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {group.title}
+                  </h3>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    {Object.entries(group.fields).map(
+                      ([fieldKey, fieldData]) => {
+                        const selectedImageKey = fieldData.level?.toLowerCase();
+                        const imageUrl =
+                          defaultImageMap[selectedImageKey] ||
+                          "/sports/default.png";
+
+                        return (
+                          <div
+                            key={fieldKey}
+                            className="bg-white border border-green-200 p-4 rounded-lg shadow-sm"
+                          >
+                            <h4 className="text-lg font-semibold text-green-800 mb-2">
+                              {fieldKey
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            </h4>
+
+                            {imageUrl && (
+                              <img
+                                src={imageUrl}
+                                alt={fieldData.level}
+                                className="w-24 h-auto mb-2"
+                              />
+                            )}
+
+                            <p className="text-sm">
+                              <strong>Level:</strong> {fieldData.level}
+                            </p>
+                            <p className="text-sm">
+                              <strong>Description:</strong>{" "}
+                              {fieldData.description}
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
         ))}
       </div>
 

@@ -130,39 +130,76 @@ const defaultReportData: ComprehensiveReportData = {
   patientDietAnalysisResults: [
     {
       fieldId: "carbohydrate_sensitivity",
-      score: 5,
-      level: "NORMAL",
-      recommendation: "Maintain balanced carbohydrate intake.",
+      score: 1,
+      level: "LOW",
+      recommendation: "Ensure adequate carbohydrate intake.",
+      recommendations: {
+        LOW: "Ensure adequate carbohydrate intake.",
+        NORMAL: "Maintain balanced carbohydrate intake.",
+        HIGH: "Reduce carbohydrate intake, focus on complex carbs.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "fat_sensitivity",
-      score: 7,
-      level: "HIGH",
-      recommendation: "Reduce saturated and trans fats; focus on healthy fats.",
+      score: 2,
+      level: "LOW",
+      recommendation: "Ensure adequate healthy fat intake.",
+      recommendations: {
+        LOW: "Ensure adequate healthy fat intake.",
+        NORMAL: "Maintain balanced fat intake.",
+        HIGH: "Reduce saturated and trans fats; focus on healthy fats.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "protein_requirement",
       score: 3,
       level: "LOW",
-      recommendation: "Ensure adequate protein intake for muscle maintenance.",
+      recommendation:
+        "Consider increasing protein intake for muscle maintenance.",
+      recommendations: {
+        LOW: "Consider increasing protein intake for muscle maintenance.",
+        NORMAL: "Ensure adequate protein intake.",
+        HIGH: "Increased protein intake recommended.",
+      },
+      selectedLevel: "LOW",
     },
     {
       fieldId: "meal_frequency",
-      score: 6,
-      level: "FREQUENT",
-      recommendation: "Consider smaller, more frequent meals.",
+      score: 4,
+      level: "NORMAL",
+      recommendation: "Maintain regular meal frequency.",
+      recommendations: {
+        LOW: "Consider fewer, larger meals.",
+        NORMAL: "Maintain regular meal frequency.",
+        HIGH: "Consider smaller, more frequent meals.",
+      },
+      selectedLevel: "NORMAL",
     },
     {
       fieldId: "alcohol_sensitivity",
-      score: 9,
-      level: "HIGH",
-      recommendation: "Limit alcohol consumption due to genetic sensitivity.",
+      score: 5,
+      level: "NORMAL",
+      recommendation: "Moderate alcohol intake is fine.",
+      recommendations: {
+        LOW: "Normal alcohol metabolism.",
+        NORMAL: "Moderate alcohol intake is fine.",
+        HIGH: "Limit alcohol consumption due to genetic sensitivity.",
+      },
+      selectedLevel: "NORMAL",
     },
     {
       fieldId: "caffeine_sensitivity",
-      score: 2,
-      level: "LOW",
+      score: 6,
+      level: "NORMAL",
       recommendation: "Normal caffeine metabolism; moderate intake is fine.",
+      recommendations: {
+        LOW: "Fast caffeine metabolism; higher intake may be tolerated.",
+        NORMAL: "Normal caffeine metabolism; moderate intake is fine.",
+        HIGH: "Limit caffeine intake due to slow metabolism.",
+      },
+      selectedLevel: "NORMAL",
     },
   ],
   nutritionData: {
@@ -284,83 +321,170 @@ const defaultReportData: ComprehensiveReportData = {
     },
   },
   sportsAndFitness: {
-    exerciseType: {
-      endurancePotential: {
-        level: "High Endurance Potential",
-        description:
-          "Excellent genetic predisposition for endurance activities",
+    exerciseType: [
+      {
+        title: "EXERCISE TYPE",
+        fields: {
+          endurancePotential: {
+            label: "ENDURANCE POTENTIAL",
+            level: "1753505450705-low",
+            description:
+              "Excellent genetic predisposition for endurance activities",
+          },
+          powerPotential: {
+            label: "POWER POTENTIAL",
+            level: "1753505450705-low",
+            description: "Moderate power output",
+          },
+          strengthProfile: {
+            label: "STRENGTH PROFILE",
+            level: "1753505450705-low",
+            description: "Good potential for strength training",
+          },
+          exerciseTime: {
+            label: "EXERCISE TIME",
+            level: "1753505450705-low",
+            description: "MORNING Vs. EVENING",
+          },
+        },
       },
-      powerPotential: {
-        level: "Average Power Potential",
-        description: "Moderate power output capacity",
+    ],
+    performance: [
+      {
+        title: "ENDURANCE EXERCISE",
+        fields: {
+          enduranceCapacity: {
+            label: "ENDURANCE CAPACITY",
+            level: "1753505464721-high",
+            description: "Superior aerobic capacity",
+          },
+          fatigueResistance: {
+            label: "FATIGUE RESISTANCE",
+            level: "1753505494207-average",
+            description: "Average endurance capacity",
+          },
+          bloodFlow: {
+            label: "BLOOD FLOW",
+            level: "1753505513164-normal",
+            description: "Affects endurance sports",
+          },
+          oxygenEfficiency: {
+            label: "OXYGEN / VO2 MAX",
+            level: "1753505544944-enhanced",
+            description: "Need practice to excel",
+          },
+          waterLoss: {
+            label: "WATER LOSS",
+            level: "1753505570463-free",
+            description: "Focus on hydration",
+          },
+          lactateClearing: {
+            label: "lactateClearing",
+            level: "1753505570463-free",
+            description: "jj",
+          },
+          recoveryEfficiency: {
+            label: "recoveryEfficiency",
+            level: "1753505494207-average",
+            description: "jj",
+          },
+          bodyComposition: {
+            label: "bodyComposition",
+            level: "1753505464721-high",
+            description: "mm",
+          },
+          injuryRisk: {
+            label: "injuryRisk",
+            level: "1753505494207-average",
+            description: "m",
+          },
+          achillesTendonInjury: {
+            label: "achillesTendonInjury",
+            level: "1753505513164-normal",
+            description: "m",
+          },
+          ligamentInjury: {
+            label: "ligamentInjury",
+            level: "1753505494207-average",
+            description: "j",
+          },
+          rupture: {
+            label: "rupture",
+            level: "1753505570463-free",
+            description: "ll",
+          },
+          muscleCramps: {
+            label: "muscleCramps",
+            level: "1753505513164-normal",
+            description: "n",
+          },
+        },
       },
-      strengthProfile: {
-        level: "High Strength Profile",
-        description: "Good potential for strength training",
+      {
+        title: "RECOVERY",
+        fields: {
+          lactateClearing: {
+            label: "LACTATE CLEARANCE",
+            level: "1753505570463-free",
+            description: "Beneficial for endurance",
+          },
+          recoveryEfficiency: {
+            label: "RECOVERY EFFICIENCY",
+            level: "1753505494207-average",
+            description: "jj",
+          },
+        },
       },
-      exerciseTime: {
-        level: "Evening time is more beneficial than morning",
-        description: "MORNING Vs. EVENING",
+      {
+        title: "INJURY MANAGEMENT",
+        fields: {
+          bodyComposition: {
+            label: "BODY COMPOSITION",
+            level: "1753505464721-high",
+            description: "mm",
+          },
+          injuryRisk: {
+            label: "INJURY RISK",
+            level: "1753505494207-average",
+            description: "m",
+          },
+          achillesTendonInjury: {
+            label: "ACHILLES TENDON INJURY",
+            level: "1753505513164-normal",
+            description: "m",
+          },
+          ligamentInjury: {
+            label: "ANTERIOR CRUCIATE LIGAMENT (ACL)",
+            level: "1753505494207-average",
+            description: "j",
+          },
+          rupture: {
+            label: "RUPTURE",
+            level: "1753505570463-free",
+            description: "ll",
+          },
+          muscleCramps: {
+            label: "MUSCLE CRAMPS",
+            level: "1753505513164-normal",
+            description: "n",
+          },
+        },
       },
-    },
-    performance: {
-      enduranceCapacity: {
-        level: "High Endurance Potential",
-        description: "Superior aerobic capacity",
-      },
-      fatigueResistance: {
-        level: "Normal fatigue resistance. Average endurance capacity",
-        description: "Average endurance capacity",
-      },
-      bloodFlow: {
-        level: "Reduced vascular efficiency, affects endurance sports.",
-        description: "Affects endurance sports",
-      },
-      oxygenEfficiency: {
-        level: "Normal VO2 Max. Need practice to excel in endurance sports",
-        description: "Need practice to excel",
-      },
-      waterLoss: {
-        level:
-          "Increased water and electrolyte loss tendency. Focus on Hydration and electrolyte management during sports/events",
-        description: "Focus on hydration",
-      },
-      lactateClearing: {
-        level: "High lactate clearance. Beneficial for Endurance sports.",
-        description: "Beneficial for endurance",
-      },
-      recoveryEfficiency: {
-        level:
-          "High recovery efficiency. Enhanced sports potential & reduced injury risk",
-        description: "Enhanced sports potential",
-      },
-      bodyComposition: {
-        level: "Low fat accumulation. Increased muscle tendency.",
-        description: "Increased muscle tendency",
-      },
-      injuryRisk: {
-        level:
-          "High injury tendency. Thorough injury management steps to be taken.",
-        description: "Thorough injury management needed",
-      },
-      achillesTendonInjury: {
-        level: "Low injury tendency. Ensure adequate warmup before exercises",
-        description: "Ensure adequate warmup",
-      },
-      ligamentInjury: {
-        level:
-          "Low ACL injury tendency. Ensure adequate warmup before exercises",
-        description: "Ensure adequate warmup",
-      },
-      rupture: {
-        level: "Low rupture tendency. Ensure adequate warmup before exercises",
-        description: "Ensure adequate warmup",
-      },
-      muscleCramps: {
-        level:
-          "Low risk of muscle cramps. Ensure adequate warmup before exercises",
-        description: "Ensure adequate warmup",
-      },
+    ],
+    customImages: {
+      momo: "/table/1753467176414-Github.png",
+      dumble: "/sports/1753468294633-student-alt.png",
+      mimi: "/sports/1753497651258-image.png",
+      mmmmmmmmmm: "/sports/1753497681115-phone.png",
+      micro: "/sports/1753502005130-Github.png",
+      lolo: "/sports/1753502079783-phone.png",
+      free: "/sports/1753502631564-free.png",
+      low: "/sports/1753505450705-low.png",
+      high: "/sports/1753505464721-high.png",
+      average: "/sports/1753505494207-average.png",
+      normal: "/sports/1753505513164-normal.png",
+      enhanced: "/sports/1753505544944-enhanced.png",
+      demo: "/sports/1753505570463-free.png",
     },
   },
   lifestyleConditions: {

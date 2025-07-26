@@ -32,6 +32,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
 
 interface SportsFitnessAdminProps {
   sportsAndFitness: SportsAndFitness;
@@ -43,8 +44,6 @@ interface SportsFitnessAdminProps {
   onSave: () => void;
   onReset: () => void;
 }
-
-const defaultImageOptions = ["high", "low", "average", "normal", "enhanced"];
 
 const levelImageMap: Record<string, string> = {
   high: "/sports/high.png",
@@ -72,7 +71,7 @@ export default function SportsFitnessAdmin({
     section?: keyof SportsAndFitness;
   }>({ type: null, target: "" });
 
-  const imageOptions = [...defaultImageOptions, ...Object.keys(customImages)];
+  const imageOptions = Object.keys(customImages);
 
   const addNewCategory = () => {
     const key = newCategoryName.trim().replace(/\s+/g, "");
@@ -104,6 +103,62 @@ export default function SportsFitnessAdmin({
 
     setNewFieldName("");
     updateSportsAndFitness(activeSection, fieldKey, {});
+  };
+
+  const handleImageUpload = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const label = (formData.get("imageLabel") as string)?.trim().toLowerCase();
+    const file = formData.get("imageFile") as File;
+
+    if (!file || !label) {
+      alert("Both label and image file are required.");
+      return;
+    }
+
+    const uploadData = new FormData();
+    uploadData.append("file", file);
+    uploadData.append("folder", "sports"); // tell backend to save in /sports
+
+    try {
+      const response = await fetch("/api/sports-images", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const text = await response.text();
+      let result;
+
+      try {
+        result = JSON.parse(text);
+      } catch {
+        console.error("Invalid JSON from server:", text);
+        alert("Image upload failed: Server returned invalid response.");
+        return;
+      }
+
+      if (result.success) {
+        setCustomImages((prev) => ({
+          ...prev,
+          [label]: result.url,
+        }));
+
+        updateSportsAndFitness("customImages" as any, label, {
+          label,
+          url: result.url,
+        });
+
+        form.reset(); // ✅ Safe now
+      } else {
+        alert("Upload failed: " + result.error);
+      }
+    } catch (err) {
+      console.error("Upload error", err);
+      alert("An error occurred while uploading.");
+    }
   };
 
   const deleteField = (field: string) => {
@@ -155,6 +210,27 @@ export default function SportsFitnessAdmin({
     setDeleteConfirm({ type: null, target: "" });
   };
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await fetch("/api/sports-images");
+        const data = await res.json(); // ✅ MISSING
+
+        if (data.success) {
+          const imageMap: Record<string, string> = {};
+          data.images.forEach((img: { label: string; url: string }) => {
+            imageMap[img.label.toLowerCase()] = img.url;
+          });
+          setCustomImages(imageMap);
+        }
+      } catch (err) {
+        console.error("Failed to load images", err);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   const addCustomImage = (label: string, url: string) => {
     setCustomImages((prev) => ({ ...prev, [label]: url }));
   };
@@ -167,7 +243,7 @@ export default function SportsFitnessAdmin({
   ) => {
     const selectedImageKey = data.level?.toLowerCase();
     const imageUrl =
-      levelImageMap[selectedImageKey] || customImages[selectedImageKey];
+      customImages?.[selectedImageKey] || `/sports/${selectedImageKey}.png`;
 
     return (
       <Card
@@ -204,11 +280,14 @@ export default function SportsFitnessAdmin({
                 <SelectValue placeholder="Select level" />
               </SelectTrigger>
               <SelectContent>
-                {imageOptions.map((option) => (
-                  <SelectItem key={option} value={option}>
-                    {option.toUpperCase()}
-                  </SelectItem>
-                ))}
+                {imageOptions.map((option) => {
+                  const cleanLabel = option.replace(/^\d+-/, ""); // remove timestamp prefix
+                  return (
+                    <SelectItem key={`image-${option}`} value={option}>
+                      {cleanLabel.toUpperCase()}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             {imageUrl && (
@@ -354,9 +433,9 @@ export default function SportsFitnessAdmin({
             </div>
 
             {/* Custom Image Management */}
-            <div className="border rounded-lg p-4 bg-gray-50">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="text-sm font-medium text-gray-700">
+            <div className=" rounded-lg justify-start">
+              <div className="flex items-center mb-3">
+                <h4 className="text-sm font-medium mr-3 text-gray-700">
                   Custom Images
                 </h4>
                 <Button
@@ -365,61 +444,46 @@ export default function SportsFitnessAdmin({
                   onClick={() => setShowImageForm(!showImageForm)}
                   className="h-8"
                 >
-                  <Settings className="h-4 w-4 mr-1" />
-                  {showImageForm ? "Hide" : "Manage"}
+                  <Plus className="h-4 w-4 mr-1" />
+                  {showImageForm ? "Hide" : "Add Image"}
                 </Button>
               </div>
 
               {showImageForm && (
-                <div className="flex flex-col sm:flex-row gap-2">
+                <form
+                  onSubmit={handleImageUpload}
+                  encType="multipart/form-data"
+                  className="flex flex-col sm:flex-row gap-2 items-center"
+                >
                   <Input
-                    placeholder="Image Name"
+                    type="text"
+                    name="imageLabel"
+                    placeholder="Image Name (e.g. dumbbell)"
                     className="w-full sm:w-40 h-9 text-sm"
-                    onBlur={(e) => {
-                      const label = e.target.value.trim().toLowerCase();
-                      if (label) addCustomImage(label, "");
-                    }}
+                    required
                   />
                   <Input
-                    placeholder="/sports/image_name.png"
+                    type="file"
+                    name="imageFile"
+                    accept="image/*"
                     className="w-full sm:flex-1 h-9 text-sm"
-                    onBlur={(e) => {
-                      const url = e.target.value.trim();
-                      const label = Object.keys(customImages).find(
-                        (k) => !customImages[k]
-                      );
-                      if (label && url) addCustomImage(label, url);
-                    }}
+                    required
                   />
                   <Button
-                    onClick={onSave}
+                    type="submit"
                     size="sm"
                     className="h-9 w-full sm:w-auto"
                   >
                     <Save className="h-4 w-4 mr-2" />
-                    Save
+                    Upload
                   </Button>
-                </div>
+                </form>
               )}
             </div>
           </div>
 
           {/* Content Area */}
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b-2 border-green-200 pb-2">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-                {getSectionTitle(activeSection)}
-              </h3>
-              <span className="text-sm text-gray-500">
-                {Array.isArray(sportsAndFitness[activeSection]) &&
-                  sportsAndFitness[activeSection].reduce(
-                    (total, group) => total + Object.keys(group.fields).length,
-                    0
-                  )}{" "}
-                fields
-              </span>
-            </div>
-
             {Array.isArray(sportsAndFitness[activeSection]) &&
               sportsAndFitness[activeSection].map((group, groupIndex) => (
                 <div key={groupIndex} className="space-y-4">
