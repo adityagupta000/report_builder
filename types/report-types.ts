@@ -65,6 +65,8 @@ export interface DynamicDietFieldDefinition {
   highRecommendation: string;
   normalRecommendation: string;
   lowRecommendation: string;
+  quote?: string;
+  description?: string;
 }
 
 export interface PatientDietAnalysisResult {
@@ -306,5 +308,5 @@ export interface ComprehensiveReportData {
   preventiveHealth: PreventiveHealth;
   familyGeneticImpact: FamilyGeneticImpact[];
   summaries: ReportSummaries;
-  dietFieldCategories: string[]; 
+  dietFieldCategories: string[];
 }

@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { v4 as uuidv4 } from "uuid";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
@@ -56,6 +59,12 @@ export default function DynamicDietFieldAdmin({
   const [fieldScores, setFieldScores] = useState<Record<string, number>>({});
   const [results, setResults] = useState<PatientDietAnalysisResult[]>([]);
   const [showResultsModal, setShowResultsModal] = useState(false);
+  const [quote, setQuote] = useState(
+    dynamicDietFieldDefinitions?.[0]?.quote || ""
+  );
+  const [description, setDescription] = useState(
+    dynamicDietFieldDefinitions?.[0]?.description || ""
+  );
 
   const [localFields, setLocalFields] = useState<DynamicDietFieldDefinition[]>(
     dynamicDietFieldDefinitions
@@ -74,6 +83,8 @@ export default function DynamicDietFieldAdmin({
     highRecommendation: "",
     normalRecommendation: "",
     lowRecommendation: "",
+    quote: "",
+    description: "",
   });
   const { toast } = useToast();
 
@@ -101,6 +112,18 @@ export default function DynamicDietFieldAdmin({
   useEffect(() => {
     setResults(patientDietAnalysisResults || []);
   }, [patientDietAnalysisResults]);
+
+  useEffect(() => {
+    if (localFields.length > 0) {
+      const updatedFields = [...localFields];
+      updatedFields[0] = {
+        ...updatedFields[0],
+        quote,
+        description,
+      };
+      onUpdateFields(updatedFields);
+    }
+  }, [quote, description]);
 
   const addNewField = () => {
     if (!newFieldData.label.trim()) {
@@ -143,6 +166,8 @@ export default function DynamicDietFieldAdmin({
       highRecommendation: "",
       normalRecommendation: "",
       lowRecommendation: "",
+      quote: "",
+      description: "",
     });
     toast({
       title: "Field Added",
@@ -162,6 +187,8 @@ export default function DynamicDietFieldAdmin({
       highRecommendation: "",
       normalRecommendation: "",
       lowRecommendation: "",
+      quote: "",
+      description: "",
     });
   };
 
@@ -293,7 +320,7 @@ export default function DynamicDietFieldAdmin({
       <Card className="shadow-lg border-0 bg-white">
         <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-t-lg">
           <CardTitle className="text-xl sm:text-2xl">
-            📊 Dynamic Diet Field Management
+            Dynamic Diet Field Management
           </CardTitle>
           <CardDescription className="text-amber-100 text-sm sm:text-base">
             Define and manage the types of diet analysis fields for your
@@ -390,6 +417,23 @@ export default function DynamicDietFieldAdmin({
                 Add Category
               </Button>
             </div>
+          </div>
+
+          <div className="mb-6">
+            <Label>Quote</Label>
+            <Input
+              value={quote}
+              onChange={(e) => setQuote(e.target.value)}
+              placeholder="Enter inspirational quote..."
+              className="mb-4"
+            />
+
+            <Label>Description</Label>
+            <Textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Brief description or note for this section..."
+            />
           </div>
 
           {/* Fields List */}

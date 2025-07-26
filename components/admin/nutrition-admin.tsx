@@ -426,7 +426,7 @@ export default function NutritionAdmin({
   return (
     <Card className="shadow-lg border-0 bg-white">
       <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-t-lg">
-        <CardTitle className="text-2xl">💊 Nutrition Analysis</CardTitle>
+        <CardTitle className="text-2xl">Nutrition Analysis</CardTitle>
         <CardDescription className="text-green-100">
           Configure vitamins, minerals, fatty acids, and complex nutrients with
           full CRUD operations

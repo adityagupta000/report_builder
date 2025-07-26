@@ -445,12 +445,31 @@ export default function ComprehensiveReportViewer({
       </div>
 
       {/* Dynamic Diet Analysis */}
-      <SectionTitle title="Diet Analysis" icon="🍎" />
+      <SectionTitle title="Diet Analysis" icon="" />
       {Object.keys(groupedDietFields).length === 0 && (
         <p className="text-center text-gray-500 italic mb-8">
           No diet analysis results available.
         </p>
       )}
+
+      {/* 📌 Quote and Description block */}
+      {reportData?.dynamicDietFieldDefinitions?.[0]?.quote && (
+        <div className="mb-4 text-center">
+          <p className="text-xl font-semibold text-gray-800">
+            “{reportData.dynamicDietFieldDefinitions[0].quote}”
+          </p>
+        </div>
+      )}
+
+      {reportData?.dynamicDietFieldDefinitions?.[0]?.description && (
+        <div className="mb-6">
+          <p className="text-gray-700 text-sm text-justify">
+            {reportData.dynamicDietFieldDefinitions[0].description}
+          </p>
+        </div>
+      )}
+
+      {/* 🔽 Existing category loop */}
       {Object.entries(groupedDietFields).map(([category, fields]) => (
         <React.Fragment key={category}>
           <SubSectionTitle title={category} icon="" />
@@ -618,16 +637,16 @@ export default function ComprehensiveReportViewer({
         </h2>
       </div>
 
-      <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" />
+      {/* <SubSectionTitle title="Exercise Type Suitability" icon="🏃‍♂️" /> */}
       <div className="space-y-8 mb-8">
         {Object.entries(sportsAndFitness)
           .filter(([sectionKey]) => sectionKey !== "customImages")
           .map(([sectionKey, groups]) => (
-            <div key={sectionKey} className="mb-10">
+            <div key={sectionKey} className="mb-10 ">
               {Array.isArray(groups) &&
                 groups.map((group, groupIndex) => (
                   <div key={groupIndex} className="overflow-x-auto">
-                    <table className="w-full text-sm border-separate [border-spacing:0.5rem]">
+                    <table className="w-full text-sm border-collapse border-2 border-black">
                       <tbody>
                         {Object.entries(group.fields).map(
                           ([fieldKey, fieldData], index, allFields) => {
@@ -646,24 +665,24 @@ export default function ComprehensiveReportViewer({
                             return (
                               <tr
                                 key={fieldKey}
-                                className="border-b border-gray-200 align-top"
+                                className="border-b border-black align-top"
                               >
                                 {index === 0 && (
                                   <td
                                     rowSpan={Object.keys(group.fields).length}
-                                    className="text-left font-semibold text-gray-700 pr-4 w-1/5 uppercase align-top"
+                                    className="text-left font-semibold text-red-700 pr-4 w-1/5 uppercase align-top border border-black p-2"
                                   >
                                     {sectionKey.replace(/([A-Z])/g, " $1")}
                                   </td>
                                 )}
 
                                 {/* Trait Label */}
-                                <td className="text-left font-medium text-gray-800 w-1/4">
+                                <td className="text-left font-medium text-gray-800 w-1/4 border border-black p-2">
                                   {fieldData.label}
                                 </td>
 
                                 {/* Icon/Image */}
-                                <td className="text-center w-1/6">
+                                <td className="text-center w-1/6 border border-black p-2">
                                   <img
                                     src={imageUrl}
                                     alt={selectedImageKey}
@@ -672,7 +691,7 @@ export default function ComprehensiveReportViewer({
                                 </td>
 
                                 {/* Description */}
-                                <td className="text-left text-gray-600 text-sm w-1/2">
+                                <td className="text-left text-gray-600 text-sm w-1/2 border border-black p-2">
                                   {fieldData.description}
                                 </td>
                               </tr>
